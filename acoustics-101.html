@@ -49,7 +49,6 @@
 </head>
 <body class="antialiased selection:bg-black selection:text-[#f5f4f0]">
 
-    <!-- NAVIGATION -->
     <nav class="bg-[#f5f4f0] border-b border-black fixed w-full z-50 top-0 pt-[env(safe-area-inset-top)]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
@@ -74,6 +73,10 @@
                         <span class="ja-content">ジャーナル</span>
                         <span class="en-content">Journal</span>
                     </a>
+                    <a href="acoustics-101.html" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 text-[#C5A059]">
+                        <span class="ja-content">ラボ</span>
+                        <span class="en-content">The Lab</span>
+                    </a>
                     <a href="index.html#vision" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4">
                         <span class="ja-content">ヴィジョン</span>
                         <span class="en-content">Vision</span>
@@ -89,16 +92,18 @@
                         <span class="ja-content">Switch to ENGLISH</span>
                         <span class="en-content">Switch to JAPANESE</span>
                     </button>
+
                     <div class="xl:hidden flex items-center ml-2">
-                        <button id="mobile-menu-btn" class="text-black focus:outline-none p-2">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                        <button id="mobile-menu-btn" class="text-black focus:outline-none p-2" aria-label="Toggle Menu">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- MOBILE MENU -->
+
         <div id="mobile-menu" class="hidden xl:hidden bg-[#f5f4f0] border-t border-black absolute w-full left-0 shadow-xl">
             <div class="px-4 pt-2 pb-6 space-y-1 text-center">
                 <a href="membership.html" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10 text-[#C5A059]">
@@ -108,6 +113,22 @@
                 <a href="index.html#about" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10">
                     <span class="ja-content">私たちについて</span>
                     <span class="en-content">About Us</span>
+                </a>
+                <a href="index.html#services" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10">
+                    <span class="ja-content">サービス</span>
+                    <span class="en-content">Services</span>
+                </a>
+                <a href="index.html#journal" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10">
+                    <span class="ja-content">ジャーナル</span>
+                    <span class="en-content">Journal</span>
+                </a>
+                <a href="acoustics-101.html" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10 text-[#C5A059]">
+                    <span class="ja-content">ラボ</span>
+                    <span class="en-content">The Lab</span>
+                </a>
+                <a href="index.html#vision" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10">
+                    <span class="ja-content">ヴィジョン</span>
+                    <span class="en-content">Vision</span>
                 </a>
                 <a href="index.html#contact" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4">
                     <span class="ja-content">お問い合わせ</span>
@@ -324,7 +345,7 @@
             return names[idx] + oct; 
         }
 
-        // Scope Drawer (TNKSND Gold Style)
+        // Scope Drawer (TNKSND Style)
         function scope(canvas, analyser, color) {
             const c = canvas.getContext('2d'); 
             const dpr = window.devicePixelRatio || 1;
