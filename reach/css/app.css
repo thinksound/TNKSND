@@ -73,6 +73,17 @@ body.debug #video { opacity: 1; }
 }
 .centered h1 { font-size: 6vmin; }
 .centered p { font-size: 2.6vmin; color: #aab; max-width: 70ch; line-height: 1.5; }
+.tips-title { font-size: 2.8vmin; font-weight: 700; color: var(--text); margin-top: 2vmin; }
+.tips {
+  text-align: left;
+  font-size: 2.4vmin;
+  color: #aab;
+  line-height: 1.7;
+  max-width: 62ch;
+  margin: 0;
+  padding-left: 4vmin;
+}
+.tips li { margin: 0.5vmin 0; }
 
 .big-button {
   font-size: 5vmin;
