@@ -14,6 +14,9 @@ const Calibration = {
   // separation. Biased towards the bar rather than the midpoint because vertical noise is
   // large and landing on cancel by accident costs a selection.
   barBias: 0.75,
+  // When true, the bar is reached by looking UP instead of down (for users who
+  // cannot move their head/gaze downward far enough).
+  barInvert: false,
   points: null,
   barSplit: null,
   noiseX: 0,
@@ -102,7 +105,10 @@ const Calibration = {
     this.barSeparation = separation;
     this.barRequired = Math.max(0.08, 3 * this.noiseY);
     if (separation < this.barRequired) return;
-    this.barSplit = meanY - separation * this.barBias;
+    // Inverted: the bar is reached by looking up, so the boundary sits above the tile row.
+    this.barSplit = this.barInvert
+      ? meanY + separation * this.barBias
+      : meanY - separation * this.barBias;
   },
 
   // Classified one axis at a time, never as a 2D nearest centroid. In 2D the bar's centroid
@@ -110,7 +116,9 @@ const Calibration = {
   // tile row -- so it steals the decision region of whichever middle tile it sits nearest.
   classify(gx, gy) {
     if (!this.isCalibrated) return this.gridClassify(gx, gy);
-    if (this.barSplit != null && gy < this.barSplit) return this.tileCount;
+    if (this.barSplit != null && (this.barInvert ? gy > this.barSplit : gy < this.barSplit)) {
+      return this.tileCount;
+    }
 
     let best = 0;
     let bestD = Infinity;
@@ -173,7 +181,10 @@ const Calibration = {
   // The last zone is the full-width bar along the bottom, so the vertical decision is a
   // single coarse "am I looking down" test rather than an even split into bands.
   gridClassify(gx, gy) {
-    const yNorm = 1 - (Math.max(-1, Math.min(1, gy)) + 1) / 2; // 0 = top
+    let yNorm = 1 - (Math.max(-1, Math.min(1, gy)) + 1) / 2; // 0 = top
+    // Inverted bar: it lives at the top, so mirror the vertical axis and reuse the
+    // same "bottom quarter is the bar" logic.
+    if (this.barInvert) yNorm = 1 - yNorm;
     const xNorm = (Math.max(-1, Math.min(1, gx)) + 1) / 2;     // 0 = left
     if (yNorm >= this.cancelSplit) return this.zoneCount - 1;
     const row = Math.min(this.rows - 1, Math.floor(yNorm / (this.cancelSplit / this.rows)));

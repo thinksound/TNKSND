@@ -14,6 +14,7 @@ const App = {
     this.normalizeSettings();
     I18n.lang = this.settings.uiLang === 'en' ? 'en' : 'ja';
     Calibration.barBias = this.settings.barBias;
+    Calibration.barInvert = this.settings.barInvert;
     Actions.lang = this.settings.speechLang;
     this.engine = new SelectionEngine(this.settings);
     this.engine.onCancel = () => Actions.stopSpeech();
@@ -337,6 +338,7 @@ const App = {
     if (spec.restart) this.restartInput();
     if (spec.rederive) {
       Calibration.barBias = this.settings.barBias;
+      Calibration.barInvert = this.settings.barInvert;
       Calibration._derive();
     }
   },

@@ -81,6 +81,8 @@ const DEFAULT_SETTINGS = {
   // Where the tiles/bar boundary sits, as a fraction of the calibrated vertical separation.
   // Lower means the bar is easier to reach but easier to hit by accident.
   barBias: 0.75,
+  // Flip the bar's reach direction: look UP instead of down to select the bar.
+  barInvert: false,
 
   // feedback
   audioFeedback: true,
@@ -124,6 +126,7 @@ const SETTINGS_SPEC = [
   { key: 'smoothing', label: 'なめらかさ', type: 'range', min: 0.05, max: 1, step: 0.05 },
   { key: 'recenterRate', label: '姿勢のずれの補正', type: 'range', min: 0, max: 0.01, step: 0.0005 },
   { key: 'barBias', label: '下のバーの境目（小さいほど届きやすい）', type: 'range', min: 0.25, max: 0.95, step: 0.05, rederive: true },
+  { key: 'barInvert', label: 'バーの向きを反転（上を見て選択）', type: 'checkbox', rederive: true },
   { key: 'invertX', label: '左右を反転', type: 'checkbox' },
   { key: 'invertY', label: '上下を反転', type: 'checkbox' },
 
