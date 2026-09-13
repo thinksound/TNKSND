@@ -344,10 +344,15 @@ const App = {
   // ---- calibration ----
 
   async runCalibration() {
-    if (!this.webcam) {
+    Actions.unlock();
+    if (this.settings.input !== 'webcam') {
       window.alert(I18n.t('needCameraForCal'));
       return;
     }
+    // The webcam only starts when the Start button is tapped; calibration from
+    // Settings must bring it up itself instead of demanding a restart.
+    if (!this.webcam) await this.startWebcam();
+    if (!this.webcam) return; // startWebcam already reported the camera error
     const banner = document.getElementById('cal-banner');
     const zones = Array.from(document.querySelectorAll('#board .zone'));
     const clearTargets = () => zones.forEach((z) => {
