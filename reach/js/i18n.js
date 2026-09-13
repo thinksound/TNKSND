@@ -16,6 +16,13 @@ const I18n = {
         + 'マウスとタッチはいつでも使えます。'
         + 'カメラを使うには http://localhost で開いてください。'
         + 'Esc キーでいつでもこの画面にもどれます。',
+      startTipsTitle: 'カメラで精度を上げるコツ',
+      startTips: [
+        '顔を正面から明るく照らす（逆光にしない）',
+        'カメラは顔の正面・目の高さに固定する',
+        '顔が画面に大きく映る距離にする（50cm〜1m）',
+        '姿勢やカメラを動かしたらキャリブレーションをやり直す',
+      ],
       yes: 'はい',
       no: 'いいえ',
       stop: 'とめる',
@@ -52,6 +59,13 @@ const I18n = {
         + 'Mouse and touch work anytime. '
         + 'To use the camera, open this page from http://localhost. '
         + 'Press Esc to return to this screen anytime.',
+      startTipsTitle: 'Tips for better camera accuracy',
+      startTips: [
+        'Light your face from the front (avoid backlight).',
+        'Place the camera straight in front of your face, at eye level, and keep it steady.',
+        'Keep your face large in the frame (about 50 cm – 1 m away).',
+        'Recalibrate after you move yourself or the camera.',
+      ],
       yes: 'Yes',
       no: 'No',
       stop: 'Stop',
