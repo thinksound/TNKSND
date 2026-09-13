@@ -21,28 +21,104 @@
   .pill.active{ background:#6d28d9; color:#fff; box-shadow:0 4px 14px -4px rgba(109,40,217,.6); }
   body.lang-en [lang=ja]{display:none!important}
   body.lang-ja [lang=en]{display:none!important}
+  body{ padding-top:80px; }
+  span.ja-content { display: inline; }
+  span.en-content { display: none; }
+  .show-en .ja-content { display: none; }
+  .show-en .en-content { display: block; }
+  .show-en span.ja-content { display: none; }
+  .show-en span.en-content { display: inline; }
 </style>
 </head>
 <body class="bg-slate-50 lang-en">
-<div style="display:flex;justify-content:flex-end;gap:6px;padding:8px 12px;font-family:system-ui,sans-serif;">
-  <button id="enBtn" onclick="setLang('en')" style="cursor:pointer;border:1px solid #8888;border-radius:6px;padding:4px 10px;font-size:12px;background:transparent;color:inherit;">EN</button>
-  <button id="jaBtn" onclick="setLang('ja')" style="cursor:pointer;border:1px solid #8888;border-radius:6px;padding:4px 10px;font-size:12px;background:transparent;color:inherit;">日本語</button>
-</div>
+<nav class="bg-[#f5f4f0] border-b border-black fixed w-full z-50 top-0 pt-[env(safe-area-inset-top)]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="font-black text-3xl tracking-tighter uppercase text-black">TNKSND</a>
+                </div>
 
-<!-- ===== NAV ===== -->
-<nav class="sticky top-0 z-50 backdrop-blur bg-white/80 border-b border-slate-200">
-  <div class="max-w-6xl mx-auto px-5 h-14 flex items-center justify-between">
-    <a href="#top" class="font-display font-extrabold text-lg">🔊 Acoustics<span class="text-violet-600">101</span></a>
-    <div class="hidden md:flex gap-6 text-sm text-slate-600 font-medium">
-      <a href="#tone" class="hover:text-violet-600"><span lang="en">Pitch &amp; Loudness</span><span lang="ja">音の高さと大きさ</span></a>
-      <a href="#harmonics" class="hover:text-violet-600"><span lang="en">Build a Sound</span><span lang="ja">音をつくる</span></a>
-      <a href="#beats" class="hover:text-violet-600"><span lang="en">Beats</span><span lang="ja">うなり</span></a>
-      <a href="#spectrum" class="hover:text-violet-600"><span lang="en">See Your Voice</span><span lang="ja">声を見る</span></a>
-      <a href="#waves" class="hover:text-violet-600"><span lang="en">Waves</span><span lang="ja">波</span></a>
-      <a href="#careers" class="hover:text-violet-600"><span lang="en">Why It Matters</span><span lang="ja">なぜ大切か</span></a>
-    </div>
-  </div>
-</nav>
+                <div class="hidden xl:flex space-x-5">
+                    <a href="index.html#about" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap text-black">
+                        <span class="ja-content">私たちについて</span>
+                        <span class="en-content">About Us</span>
+                    </a>
+                    <a href="index.html#services" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap text-black">
+                        <span class="ja-content">サービス</span>
+                        <span class="en-content">Services</span>
+                    </a>
+                    <a href="index.html#caretech" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap text-black">
+                        <span class="ja-content">ケアテック</span>
+                        <span class="en-content">Care Tech</span>
+                    </a>
+                    <a href="index.html#recording" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap text-black">
+                        <span class="ja-content">レコーディング</span>
+                        <span class="en-content">Recording</span>
+                    </a>
+                    <a href="#top" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap text-[#C5A059]">
+                        <span class="ja-content">ラボ</span>
+                        <span class="en-content">The Lab</span>
+                    </a>
+                    <a href="index.html#vision" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap text-black">
+                        <span class="ja-content">ヴィジョン</span>
+                        <span class="en-content">Vision</span>
+                    </a>
+                    <a href="index.html#contact" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap text-black">
+                        <span class="ja-content">お問い合わせ</span>
+                        <span class="en-content">Contact</span>
+                    </a>
+                </div>
+
+                <div class="flex items-center">
+                    <button id="lang-toggle" class="text-[10px] md:text-xs font-bold uppercase tracking-widest border border-black px-3 py-1.5 hover:bg-black hover:text-[#f5f4f0] transition-colors ml-4 mr-2 md:mr-0 text-black">
+                        <span class="ja-content">Switch to ENGLISH</span>
+                        <span class="en-content">Switch to JAPANESE</span>
+                    </button>
+
+                    <div class="xl:hidden flex items-center ml-2">
+                        <button id="mobile-menu-btn" class="text-black focus:outline-none p-2" aria-label="Toggle Menu">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden xl:hidden bg-[#f5f4f0] border-t border-black absolute w-full left-0 shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-1 text-center">
+                <a href="index.html#about" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10 text-black">
+                    <span class="ja-content">私たちについて</span>
+                    <span class="en-content">About Us</span>
+                </a>
+                <a href="index.html#services" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10 text-black">
+                    <span class="ja-content">サービス</span>
+                    <span class="en-content">Services</span>
+                </a>
+                <a href="index.html#caretech" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10 text-black">
+                    <span class="ja-content">ケアテック</span>
+                    <span class="en-content">Care Tech</span>
+                </a>
+                <a href="index.html#recording" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10 text-black">
+                    <span class="ja-content">レコーディング</span>
+                    <span class="en-content">Recording</span>
+                </a>
+                <a href="#top" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10 text-[#C5A059]">
+                    <span class="ja-content">ラボ</span>
+                    <span class="en-content">The Lab</span>
+                </a>
+                <a href="index.html#vision" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10 text-black">
+                    <span class="ja-content">ヴィジョン</span>
+                    <span class="en-content">Vision</span>
+                </a>
+                <a href="index.html#contact" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 text-black">
+                    <span class="ja-content">お問い合わせ</span>
+                    <span class="en-content">Contact</span>
+                </a>
+            </div>
+        </div>
+    </nav>
 
 <!-- ===== HERO ===== -->
 <header id="top" class="relative overflow-hidden bg-slate-900 text-white">
@@ -390,19 +466,37 @@ waveRead();
 </script>
 <script>
 (function(){
+  // Mobile menu (same as index.html)
+  var menuBtn = document.getElementById('mobile-menu-btn');
+  var menu = document.getElementById('mobile-menu');
+  if (menuBtn && menu) {
+    menuBtn.addEventListener('click', function(){ menu.classList.toggle('hidden'); });
+    menu.querySelectorAll('.mobile-link').forEach(function(link){
+      link.addEventListener('click', function(){ menu.classList.add('hidden'); });
+    });
+  }
+
+  // Unified language toggle: drives both the page content ([lang] attrs)
+  // and the TNKSND menu bar (ja-content/en-content spans)
   function setLang(l){
     document.body.classList.toggle('lang-en', l==='en');
     document.body.classList.toggle('lang-ja', l==='ja');
-    document.documentElement.lang=l;
-    var en=document.getElementById('enBtn'), ja=document.getElementById('jaBtn');
-    if(en){ en.style.background=l==='en'?'#4f46e5':'transparent'; en.style.color=l==='en'?'#fff':'inherit'; }
-    if(ja){ ja.style.background=l==='ja'?'#4f46e5':'transparent'; ja.style.color=l==='ja'?'#fff':'inherit'; }
+    document.documentElement.classList.toggle('show-en', l==='en');
+    document.documentElement.lang = l;
     try{ localStorage.setItem('docs-lang', l); }catch(e){}
   }
-  window.setLang=setLang;
-  var saved='en';
-  try{ saved=localStorage.getItem('docs-lang') || ((navigator.language||'').toLowerCase().indexOf('ja')===0?'ja':'en'); }catch(e){}
+  window.setLang = setLang;
+  var saved = 'en';
+  try{ saved = localStorage.getItem('docs-lang') || ((navigator.language||'').toLowerCase().indexOf('ja')===0?'ja':'en'); }catch(e){}
   setLang(saved);
+
+  var langToggleBtn = document.getElementById('lang-toggle');
+  if (langToggleBtn) {
+    langToggleBtn.addEventListener('click', function(){
+      var toEn = !document.documentElement.classList.contains('show-en');
+      setLang(toEn ? 'en' : 'ja');
+    });
+  }
 })();
 </script>
 </body>
