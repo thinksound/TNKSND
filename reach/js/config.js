@@ -34,6 +34,10 @@ const DEFAULT_SETTINGS = {
   input: 'webcam',        // 'pointer' | 'webcam'
   trigger: 'dwell',       // 'click' | 'dwell'
 
+  // FaceTime call targets (email address or phone number). Empty = not set.
+  call1Target: '',
+  call2Target: '',
+
   // selection
   zoneHysteresisMs: 250,
   dwellMs: 4000,
@@ -46,6 +50,9 @@ const DEFAULT_SETTINGS = {
   blinkDelta: 0.4,
   // Hard ceiling on how long a suspected blink may hold the highlight still.
   maxFreezeMs: 1200,
+  // Both eyes closed this long returns to the start screen (a deliberate "stop").
+  // Must stay well above maxFreezeMs so an ordinary blink can never trigger it.
+  closedEyesReturnMs: 3000,
 
   // pointing signal
   signal: 'head',          // 'head' | 'gaze' | 'both'
@@ -92,8 +99,11 @@ const SETTINGS_SPEC = [
               ['dwell', '見つめて決定']] },
   { key: 'tileCount', label: '横に並べるボタンの数', type: 'select', rebuild: true, number: true,
     options: [[3, '3'], [4, '4'], [5, '5']] },
+  { key: 'call1Target', label: '電話 1 の相手', type: 'text' },
+  { key: 'call2Target', label: '電話 2 の相手', type: 'text' },
 
   { key: 'maxFreezeMs', label: '選択が止まる上限 (ms)', type: 'range', min: 400, max: 3000, step: 100 },
+  { key: 'closedEyesReturnMs', label: '両目を閉じたらスタートにもどる (ms)', type: 'range', min: 2000, max: 10000, step: 500 },
   { key: 'dwellMs', label: '見つめる時間 (ms)', type: 'range', min: 400, max: 4000, step: 100 },
   { key: 'refractoryMs', label: '連続入力を防ぐ時間 (ms)', type: 'range', min: 300, max: 3000, step: 100 },
   { key: 'zoneHysteresisMs', label: '切りかえの安定時間 (ms)', type: 'range', min: 0, max: 1000, step: 50 },

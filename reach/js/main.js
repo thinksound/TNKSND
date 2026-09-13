@@ -79,14 +79,14 @@ const App = {
     document.getElementById('btn-lang').textContent = I18n.lang === 'en' ? '日本語' : 'EN';
     document.querySelector('#screen-start h1').textContent = I18n.t('appName');
     document.getElementById('start-note').textContent = I18n.t('startNote');
-    document.getElementById('start-tips-title').textContent = I18n.t('startTipsTitle');
-    const tips = document.getElementById('start-tips');
-    tips.textContent = '';
-    for (const tip of I18n.t('startTips')) {
-      const li = document.createElement('li');
-      li.textContent = tip;
-      tips.appendChild(li);
-    }
+  document.getElementById('start-tips-title').textContent = I18n.t('startTipsTitle');
+  const tips = document.getElementById('start-tips');
+  tips.textContent = '';
+  for (const tip of I18n.t('startTips')) {
+    const li = document.createElement('li');
+    li.textContent = tip;
+    tips.appendChild(li);
+  }
     document.getElementById('btn-start').textContent = I18n.t('start');
 
     const yes = document.querySelector('.confirm-yes');
@@ -112,6 +112,15 @@ const App = {
     if (this.webcam) { this.webcam.stop(); this.webcam = null; }
     try {
       const webcam = new WebcamInput(this.engine, this.settings);
+      // Both eyes closed for a while: a deliberate "stop", back to the start screen.
+      // Not from the settings screen (a caregiver may be operating it) and never
+      // while already on the start screen.
+      webcam.onLongClose = () => {
+        if (this.screen === 'board' || this.screen === 'confirm' || this.screen === 'message') {
+          this.pendingTile = null;
+          this.showScreen('start');
+        }
+      };
       await webcam.start();
       this.webcam = webcam;
       if (this.settings.trigger === 'click') {
@@ -227,9 +236,12 @@ const App = {
       case 'url':
         Actions.openUrl(tile.url);
         break;
-      case 'call':
-        Actions.call(tile.url);
+      case 'call': {
+        const url = this.callUrl(tile);
+        if (url) Actions.call(url);
+        else window.alert(I18n.t('noCallTarget', this.tileLabel(tile)));
         break;
+      }
       case 'alert':
         this.showAlert(tile);
         break;
@@ -237,6 +249,15 @@ const App = {
         Actions.stopSpeech();
         break;
     }
+  },
+
+  // FaceTime target comes from Settings; the tile's url is only a placeholder.
+  // Returns null when 電話 1 / 2 has no contact set yet.
+  callUrl(tile) {
+    const key = tile.id === 'call1' ? 'call1Target' : tile.id === 'call2' ? 'call2Target' : null;
+    const target = key ? (this.settings[key] || '').trim() : '';
+    if (target) return 'facetime://' + target;
+    return key ? null : tile.url;
   },
 
   showAlert(tile) {
@@ -287,6 +308,10 @@ const App = {
       } else if (spec.type === 'checkbox') {
         input = document.createElement('input');
         input.type = 'checkbox';
+      } else if (spec.type === 'text') {
+        input = document.createElement('input');
+        input.type = 'text';
+        input.autocomplete = 'off';
       } else {
         input = document.createElement('input');
         input.type = 'range';
@@ -312,8 +337,8 @@ const App = {
         input.checked = !!current;
         value.textContent = current ? 'on' : 'off';
       } else {
-        input.value = String(current);
-        value.textContent = spec.type === 'select' ? '' : String(current);
+        input.value = spec.type === 'text' && current == null ? '' : String(current);
+        value.textContent = (spec.type === 'select' || spec.type === 'text') ? '' : String(current);
       }
     }
   },
@@ -322,6 +347,7 @@ const App = {
     let value;
     if (spec.type === 'checkbox') value = input.checked;
     else if (spec.type === 'select') value = spec.number ? Number(input.value) : input.value;
+    else if (spec.type === 'text') value = input.value.trim();
     else value = Number(input.value);
 
     this.settings[spec.key] = value;

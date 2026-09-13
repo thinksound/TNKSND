@@ -1,5 +1,5 @@
-// Maps the raw gaze signal (gx, gy in roughly -1..1, +x = right, +y = up) to a
-// zone index. Classification uses one axis only — the axis the buttons are laid
+// Maps the raw gaze signal (gx, gy in roughly -1..1, +x = the person's left,
+// +y = down) to a zone index. Classification uses one axis only — the axis the buttons are laid
 // out along — because the other axis is too noisy to separate zones. In landscape
 // the buttons sit side by side and the horizontal axis is used; in portrait
 // (e.g. an iPhone held upright) the buttons stack vertically (see the CSS media
@@ -104,14 +104,19 @@ const Calibration = {
   // calibrated span down the middle instead.
   confirmClassify(gx, gy) {
     const vertical = this.isPortrait();
+    // +x = the person's left: facing right gives a negative gx.
+    // +y = down: looking up gives a negative gy.
     if (!this.isCalibrated || this.zoneCount < 2) {
-      return vertical ? (gy < 0 ? 1 : 0) : (gx < 0 ? 0 : 1);
+      return vertical ? (gy < 0 ? 0 : 1) : (gx < 0 ? 1 : 0);
     }
     const vals = this.points.map((p) => (vertical ? p.gy : p.gx));
     const mid = (Math.min.apply(null, vals) + Math.max.apply(null, vals)) / 2;
-    // Portrait: はい is on top (zone 0), いいえ below (zone 1).
+    // Read the signal direction from the calibration order instead of assuming
+    // it: points[0] is the leftmost/topmost tile, points[last] the
+    // rightmost/bottommost, so this stays correct however the signal is signed.
+    const dir = vals[vals.length - 1] >= vals[0] ? 1 : -1;
     const v = vertical ? gy : gx;
-    return vertical ? (v < mid ? 1 : 0) : (v < mid ? 0 : 1);
+    return (v - mid) * dir < 0 ? 0 : 1;
   },
 
   // Flags zones that calibration left hard or impossible to hit, which is what a single
@@ -152,12 +157,14 @@ const Calibration = {
   // Uncalibrated fallback: split the layout axis evenly.
   gridClassify(gx, gy) {
     if (this.isPortrait()) {
-      // Zone 0 is at the top; +y = up.
-      const yNorm = (Math.max(-1, Math.min(1, gy)) + 1) / 2; // 0 = bottom, 1 = top
-      return Math.min(this.cols - 1, Math.floor((1 - yNorm) * this.cols));
+      // Zone 0 is at the top; +y = down, so looking up gives a negative gy.
+      const yNorm = (Math.max(-1, Math.min(1, gy)) + 1) / 2; // 0 = top, 1 = bottom
+      return Math.min(this.cols - 1, Math.floor(yNorm * this.cols));
     }
-    const xNorm = (Math.max(-1, Math.min(1, gx)) + 1) / 2; // 0 = left
-    return Math.min(this.cols - 1, Math.floor(xNorm * this.cols));
+    // +x = the person's left (MediaPipe convention): facing right gives a
+    // negative gx, so flip the normalized position to keep zone 0 leftmost.
+    const xNorm = (Math.max(-1, Math.min(1, gx)) + 1) / 2; // 0 = person's right, 1 = person's left
+    return Math.min(this.cols - 1, Math.floor((1 - xNorm) * this.cols));
   },
 
   // ui: { prompt(zoneIndex), progress(0..1), done(ok), failed(msg) }

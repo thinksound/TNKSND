@@ -13,6 +13,7 @@ class WebcamInput {
     this.name = 'webcam';
     this.paused = false;
     this.onFrame = null;
+    this.onLongClose = null; // called when both eyes stay closed past closedEyesReturnMs
 
     this.state = {
       ok: false,
@@ -120,7 +121,8 @@ class WebcamInput {
 
     // Eye direction from the ARKit-style look blendshapes. "In" is toward the nose.
     const eyeX = ((b.eyeLookOutLeft - b.eyeLookInLeft) + (b.eyeLookInRight - b.eyeLookOutRight)) / 2;
-    const eyeY = ((b.eyeLookUpLeft + b.eyeLookUpRight) - (b.eyeLookDownLeft + b.eyeLookDownRight)) / 2;
+    // +y = down (matching head pitch): looking up gives a negative eyeY.
+    const eyeY = ((b.eyeLookDownLeft + b.eyeLookDownRight) - (b.eyeLookUpLeft + b.eyeLookUpRight)) / 2;
 
     const matrix = result.facialTransformationMatrixes && result.facialTransformationMatrixes[0];
     const head = headPose(matrix && matrix.data);
@@ -202,6 +204,16 @@ class WebcamInput {
     this.state.bothClosed = bothClosed;
     this.state.frozen = frozen;
     this.state.holdMs = holdMs;
+
+    // Both eyes closed for a sustained period is a deliberate "stop": return to the
+    // start screen. Ignored while paused (e.g. calibration) and when no face is
+    // visible (_closedSince is cleared in both cases). _closedSince is reset so it
+    // cannot re-fire immediately while the eyes are still shut.
+    const returnMs = s.closedEyesReturnMs || 3000;
+    if (!this.paused && bothClosed && holdMs >= returnMs && this.onLongClose) {
+      this._closedSince = 0;
+      this.onLongClose();
+    }
 
     // The confirm screen has exactly 2 zones (はい/いいえ); the board's
     // classify would map beyond index 1, which is out of range for a 2-zone
