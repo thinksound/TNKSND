@@ -1,0 +1,272 @@
+:root {
+  --bg: #000;
+  --tile: #101418;
+  --tile-focus: #1b2530;
+  --edge: #3a4650;
+  --edge-focus: #ffd400;
+  --text: #fff;
+  --accent: #ffd400;
+  --gap: 1.2vmin;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", "YuGothic",
+    Meiryo, "Helvetica Neue", Arial, sans-serif;
+  -webkit-text-size-adjust: 100%;
+  touch-action: manipulation;
+}
+
+#video {
+  position: fixed;
+  right: 1vmin;
+  bottom: 1vmin;
+  width: 20vmin;
+  transform: scaleX(-1);
+  border: 2px solid var(--edge);
+  border-radius: 4px;
+  z-index: 50;
+  /* Kept in the layout rather than display:none, so the browser keeps decoding frames. */
+  opacity: 0;
+  pointer-events: none;
+}
+body.debug #video { opacity: 1; }
+
+#chrome {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 60;
+  display: flex;
+  gap: 6px;
+  padding: 6px;
+  opacity: 0.35;
+}
+#chrome:hover { opacity: 1; }
+#chrome button {
+  font-size: 12px;
+  padding: 4px 8px;
+  background: #222;
+  color: #ccc;
+  border: 1px solid #444;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.screen { display: none; height: 100%; width: 100%; }
+.screen.active { display: block; }
+
+.centered {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3vmin;
+  text-align: center;
+  padding: 4vmin;
+}
+.centered h1 { font-size: 6vmin; }
+.centered p { font-size: 2.6vmin; color: #aab; max-width: 70ch; line-height: 1.5; }
+
+.big-button {
+  font-size: 5vmin;
+  font-weight: 700;
+  padding: 3vmin 10vmin;
+  color: #000;
+  background: var(--accent);
+  border: none;
+  border-radius: 2vmin;
+  cursor: pointer;
+}
+
+/* ---- board grid ---- */
+
+.board {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  gap: var(--gap);
+  padding: var(--gap);
+  grid-template-columns: repeat(var(--cols, 5), 1fr);
+  grid-template-rows: repeat(var(--rows, 1), 1fr) var(--bar, 0.33fr);
+}
+.board-2 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; }
+.board-1 { grid-template-columns: 1fr; grid-template-rows: 1fr; }
+
+.zone {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5vmin;
+  background: var(--tile);
+  border: 0.6vmin solid var(--edge);
+  border-radius: 2vmin;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  text-align: center;
+  padding: 1vmin;
+}
+/* Tiles are narrow columns, so type is capped against viewport width as well as height. */
+.zone .icon { font-size: min(11vmin, 7vw); line-height: 1; }
+.zone .label { font-size: min(4.6vmin, 2.5vw); font-weight: 800; letter-spacing: 0.03em; line-height: 1.1; }
+
+.zone.bar {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  gap: 2.5vmin;
+}
+.zone.bar .icon { font-size: 6vmin; }
+.zone.bar .label { font-size: 4.5vmin; }
+
+/* Bottom bar acting as cancel/stop. */
+.zone.bar.cancel {
+  background: #14100c;
+  border-color: #5a4a2a;
+}
+
+/* Bottom bar carrying an action — by default "I need help", so it reads as urgent. */
+.zone.bar.bar-action {
+  background: #2a0f0f;
+  border-color: #8c2b2b;
+  --progress-color: #ff4d4d;
+}
+.zone.bar.bar-action .label { color: #ffdede; }
+
+/* Cancel-style zones fill in a different colour, so a cancel gesture never looks like a
+   selection even though it is the same progress mechanism. */
+.zone.bar.cancel, .zone.confirm-no, #screen-message .zone { --progress-color: #ff8c1a; }
+
+.zone.focused {
+  background: var(--tile-focus);
+  border-color: var(--edge-focus);
+  box-shadow: 0 0 0 0.4vmin rgba(255, 212, 0, 0.35) inset;
+}
+
+/* selection progress indicator */
+.zone::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1.6vmin;
+  width: 100%;
+  background: var(--progress-color, var(--accent));
+  transform: scaleX(var(--progress, 0));
+  transform-origin: left center;
+  transition: transform 60ms linear;
+}
+
+.zone.cal-target {
+  border-color: #00e0ff;
+  background: #052a33;
+  animation: pulse 900ms ease-in-out infinite alternate;
+}
+@keyframes pulse { from { opacity: 0.55; } to { opacity: 1; } }
+
+#cal-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 55;
+  padding: 1.5vmin;
+  text-align: center;
+  font-size: 3vmin;
+  font-weight: 700;
+  background: rgba(0, 224, 255, 0.15);
+  border-bottom: 2px solid #00e0ff;
+}
+
+/* ---- confirm / message ---- */
+
+.confirm-wrap, .message-wrap {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+#confirm-text {
+  padding: 3vmin;
+  text-align: center;
+  font-size: 4vmin;
+  font-weight: 700;
+  color: var(--accent);
+}
+#message-text {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4vmin;
+  text-align: center;
+  font-size: 8vmin;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.confirm-wrap .board, .message-wrap .board { flex: 0 0 34%; }
+.message-wrap .board { flex: 0 0 22%; }
+
+/* ---- settings ---- */
+
+.settings-wrap {
+  height: 100%;
+  overflow-y: auto;
+  padding: 3vmin;
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: 15px;
+}
+.settings-wrap h2 { margin-bottom: 2vmin; }
+.field {
+  display: grid;
+  grid-template-columns: 1fr 220px 60px;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px solid #222;
+}
+.field label { color: #cfd6dd; }
+.field input[type="range"] { width: 100%; }
+.field select, .field input { font-size: 14px; }
+.field .value { color: var(--accent); text-align: right; font-variant-numeric: tabular-nums; }
+.settings-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 3vmin 0; }
+.settings-actions button {
+  font-size: 15px;
+  padding: 10px 16px;
+  background: #1d2630;
+  color: #fff;
+  border: 1px solid #3a4650;
+  border-radius: 6px;
+  cursor: pointer;
+}
+#btn-close-settings { background: var(--accent); color: #000; border-color: var(--accent); }
+.hint { color: #8b95a0; line-height: 1.6; }
+.hint code, .hint kbd { background: #1a1f24; padding: 1px 5px; border-radius: 3px; }
+
+/* ---- debug ---- */
+
+#debug {
+  position: fixed;
+  left: 1vmin;
+  bottom: 1vmin;
+  z-index: 60;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.82);
+  border: 1px solid #3a4650;
+  border-radius: 6px;
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.55;
+  white-space: pre;
+  color: #9fe8b0;
+  pointer-events: none;
+}
