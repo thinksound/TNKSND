@@ -222,6 +222,13 @@ body.debug #video { opacity: 1; }
   font-weight: 800;
   line-height: 1.2;
 }
+#notify-status {
+  text-align: center;
+  font-size: 2.4vmin;
+  opacity: 0.65;
+  min-height: 1.6em;
+  padding: 0 4vmin 2vmin;
+}
 .confirm-wrap .board, .message-wrap .board { flex: 0 0 34%; }
 .message-wrap .board { flex: 0 0 22%; }
 
