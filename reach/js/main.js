@@ -79,6 +79,14 @@ const App = {
     document.getElementById('btn-lang').textContent = I18n.lang === 'en' ? '日本語' : 'EN';
     document.querySelector('#screen-start h1').textContent = I18n.t('appName');
     document.getElementById('start-note').textContent = I18n.t('startNote');
+    document.getElementById('start-tips-title').textContent = I18n.t('startTipsTitle');
+    const tips = document.getElementById('start-tips');
+    tips.textContent = '';
+    for (const tip of I18n.t('startTips')) {
+      const li = document.createElement('li');
+      li.textContent = tip;
+      tips.appendChild(li);
+    }
     document.getElementById('btn-start').textContent = I18n.t('start');
 
     const yes = document.querySelector('.confirm-yes');
