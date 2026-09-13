@@ -94,10 +94,23 @@ body.debug #video { opacity: 1; }
   gap: var(--gap);
   padding: var(--gap);
   grid-template-columns: repeat(var(--cols, 5), 1fr);
-  grid-template-rows: repeat(var(--rows, 1), 1fr) var(--bar, 0.67fr);
+  grid-template-rows: repeat(var(--rows, 1), 1fr);
 }
 .board-2 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; }
 .board-1 { grid-template-columns: 1fr; grid-template-rows: 1fr; }
+
+/* Portrait (e.g. iPhone held upright): stack the buttons vertically instead of
+   side by side. The confirm screen's two buttons stack the same way. */
+@media (orientation: portrait) {
+  .board {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(var(--cols, 3), 1fr);
+  }
+  .board-2 {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+}
 
 .zone {
   position: relative;
@@ -120,31 +133,17 @@ body.debug #video { opacity: 1; }
 .zone .icon { font-size: min(11vmin, 7vw); line-height: 1; }
 .zone .label { font-size: min(4.6vmin, 2.5vw); font-weight: 800; letter-spacing: 0.03em; line-height: 1.1; }
 
-.zone.bar {
-  grid-column: 1 / -1;
-  flex-direction: row;
-  gap: 2.5vmin;
-}
-.zone.bar .icon { font-size: 6vmin; }
-.zone.bar .label { font-size: 4.5vmin; }
-
-/* Bottom bar acting as cancel/stop. */
-.zone.bar.cancel {
-  background: #14100c;
-  border-color: #5a4a2a;
-}
-
-/* Bottom bar carrying an action — by default "I need help", so it reads as urgent. */
-.zone.bar.bar-action {
+/* Alert-type tile (e.g. "help"): keeps the urgent red treatment the old bottom bar had. */
+.zone.alert-tile {
   background: #2a0f0f;
   border-color: #8c2b2b;
   --progress-color: #ff4d4d;
 }
-.zone.bar.bar-action .label { color: #ffdede; }
+.zone.alert-tile .label { color: #ffdede; }
 
 /* Cancel-style zones fill in a different colour, so a cancel gesture never looks like a
    selection even though it is the same progress mechanism. */
-.zone.bar.cancel, .zone.confirm-no, #screen-message .zone { --progress-color: #ff8c1a; }
+.zone.confirm-no, #screen-message .zone { --progress-color: #ff8c1a; }
 
 .zone.focused {
   background: var(--tile-focus);
