@@ -91,11 +91,6 @@ const I18n = {
     input:            { ja: '入力', en: 'Input' },
     trigger:          { ja: '決定のしかた', en: 'How to select' },
     tileCount:        { ja: '横に並べるボタンの数', en: 'Number of buttons' },
-    blinkDelta:       { ja: 'まばたきの深さ', en: 'Blink depth' },
-    blinkHoldMs:      { ja: 'まばたきの長さ (ms)', en: 'Blink hold (ms)' },
-    winkHoldMs:       { ja: 'ウインクの長さ (ms)', en: 'Wink hold (ms)' },
-    winkAsymmetry:    { ja: '左右の目の差', en: 'Left-right eye difference' },
-    swapWinkEyes:     { ja: '左右の目を入れかえる', en: 'Swap wink eyes' },
     maxFreezeMs:      { ja: '選択が止まる上限 (ms)', en: 'Max highlight freeze (ms)' },
     dwellMs:          { ja: '見つめる時間 (ms)', en: 'Dwell time (ms)' },
     refractoryMs:     { ja: '連続入力を防ぐ時間 (ms)', en: 'Input cooldown (ms)' },
@@ -130,8 +125,6 @@ const I18n = {
     },
     trigger: {
       click: { ja: 'クリック／タップ', en: 'Click / tap' },
-      wink:  { ja: 'ウインク（左目＝決定、右目＝取消）', en: 'Wink (left = select, right = cancel)' },
-      blink: { ja: '両目のまばたき', en: 'Blink both eyes' },
       dwell: { ja: '見つめて決定', en: 'Dwell to select' },
     },
     speechLang: {

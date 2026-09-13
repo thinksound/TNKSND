@@ -39,9 +39,9 @@ const App = {
   },
 
   normalizeSettings() {
-    if (this.settings.input === 'pointer'
-      && (this.settings.trigger === 'blink' || this.settings.trigger === 'wink')) {
-      this.settings.trigger = 'click';
+    // Wink/blink triggers were removed; migrate any saved value to a working one.
+    if (this.settings.trigger === 'blink' || this.settings.trigger === 'wink') {
+      this.settings.trigger = this.settings.input === 'webcam' ? 'dwell' : 'click';
     }
   },
 
@@ -108,7 +108,7 @@ const App = {
       await webcam.start();
       this.webcam = webcam;
       if (this.settings.trigger === 'click') {
-        this.settings.trigger = 'wink';
+        this.settings.trigger = 'dwell';
         Settings.save(this.settings);
         this.syncSettings();
       }

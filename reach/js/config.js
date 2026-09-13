@@ -42,7 +42,7 @@ const DEFAULT_SETTINGS = {
   tileCount: 5,
   uiLang: 'ja', // 'ja' | 'en' — display language (switching it also switches speech language)
   input: 'pointer',        // 'pointer' | 'webcam'
-  trigger: 'click',        // 'click' | 'blink' | 'wink' | 'dwell'
+  trigger: 'click',        // 'click' | 'dwell'
 
   // selection
   zoneHysteresisMs: 250,
@@ -110,17 +110,10 @@ const SETTINGS_SPEC = [
     options: [['pointer', 'マウス・タッチ・OSの視線入力'], ['webcam', 'カメラ']] },
   { key: 'trigger', label: '決定のしかた', type: 'select',
     options: [['click', 'クリック／タップ'],
-              ['wink', 'ウインク（左目＝決定、右目＝取消）'],
-              ['blink', '両目のまばたき'],
               ['dwell', '見つめて決定']] },
   { key: 'tileCount', label: '横に並べるボタンの数', type: 'select', rebuild: true, number: true,
     options: [[3, '3'], [4, '4'], [5, '5']] },
 
-  { key: 'blinkDelta', label: 'まばたきの深さ', type: 'range', min: 0.1, max: 0.9, step: 0.05 },
-  { key: 'blinkHoldMs', label: 'まばたきの長さ (ms)', type: 'range', min: 150, max: 1200, step: 50 },
-  { key: 'winkHoldMs', label: 'ウインクの長さ (ms)', type: 'range', min: 120, max: 800, step: 20 },
-  { key: 'winkAsymmetry', label: '左右の目の差', type: 'range', min: 0.05, max: 0.6, step: 0.05 },
-  { key: 'swapWinkEyes', label: '左右の目を入れかえる', type: 'checkbox' },
   { key: 'maxFreezeMs', label: '選択が止まる上限 (ms)', type: 'range', min: 400, max: 3000, step: 100 },
   { key: 'dwellMs', label: '見つめる時間 (ms)', type: 'range', min: 400, max: 4000, step: 100 },
   { key: 'refractoryMs', label: '連続入力を防ぐ時間 (ms)', type: 'range', min: 300, max: 3000, step: 100 },
