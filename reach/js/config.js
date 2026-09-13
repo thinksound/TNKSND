@@ -39,10 +39,10 @@ const BAR = {
 };
 
 const DEFAULT_SETTINGS = {
-  tileCount: 5,
+  tileCount: 3,
   uiLang: 'ja', // 'ja' | 'en' — display language (switching it also switches speech language)
-  input: 'pointer',        // 'pointer' | 'webcam'
-  trigger: 'click',        // 'click' | 'dwell'
+  input: 'webcam',        // 'pointer' | 'webcam'
+  trigger: 'dwell',       // 'click' | 'dwell'
 
   // selection
   zoneHysteresisMs: 250,
@@ -84,7 +84,7 @@ const DEFAULT_SETTINGS = {
 
   // feedback
   audioFeedback: true,
-  speakOnFocus: false,
+  speakOnFocus: true,
   speechRate: 0.95,
   speechLang: 'ja-JP',
 
