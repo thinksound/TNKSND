@@ -46,7 +46,7 @@ const DEFAULT_SETTINGS = {
 
   // selection
   zoneHysteresisMs: 250,
-  dwellMs: 1400,
+  dwellMs: 4000,
   refractoryMs: 1000,
 
   // long-blink trigger. blinkDelta is measured above the resting eyelid level, not absolute,
