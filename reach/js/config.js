@@ -20,8 +20,11 @@ const TILES = [
   { id: 'call2', icon: '👩', label: '電話 2', labelEn: 'Call 2', type: 'call',
     url: 'facetime://person2@example.com', confirm: true, confirmText: '電話 2 にかけますか？', confirmTextEn: 'Call 2?' },
   // 「たすけて」は右側のボタン。初期設定の3ボタンでは [電話 1, 電話 2, たすけて] になります。
+  // notify: true で、設定に送信先URLが入っているときだけLINEに一斉通知します。
   { id: 'help', icon: '🔔', label: 'たすけて', labelEn: 'Help', type: 'alert',
-    text: '助けてください。来てください。', textEn: 'Please help me. Come here.' },
+    text: '助けてください。来てください。', textEn: 'Please help me. Come here.',
+    confirm: true, confirmText: 'たすけてを呼びますか？', confirmTextEn: 'Call for help?',
+    notify: true },
   { id: 'call3', icon: '🧑', label: '電話 3', labelEn: 'Call 3', type: 'call',
     url: 'facetime://person3@example.com', confirm: true, confirmText: '電話 3 にかけますか？', confirmTextEn: 'Call 3?' },
   { id: 'news1', icon: '📰', label: 'ニュース 1', labelEn: 'News 1', type: 'url', url: 'https://news.google.co.jp' },
@@ -37,6 +40,11 @@ const DEFAULT_SETTINGS = {
   // FaceTime call targets (email address or phone number). Empty = not set.
   call1Target: '',
   call2Target: '',
+
+  // Help (たすけて) LINE notify. Both empty = disabled; the button then works
+  // exactly as before (on-screen message + repeated speech only).
+  notifyUrl: '',
+  notifyKey: '',
 
   // selection
   zoneHysteresisMs: 250,
@@ -101,6 +109,8 @@ const SETTINGS_SPEC = [
     options: [[3, '3'], [4, '4'], [5, '5']] },
   { key: 'call1Target', label: '電話 1 の相手', type: 'text' },
   { key: 'call2Target', label: '電話 2 の相手', type: 'text' },
+  { key: 'notifyUrl', label: '助けて通知の送信先URL', type: 'text' },
+  { key: 'notifyKey', label: '助けて通知のキー', type: 'text' },
 
   { key: 'maxFreezeMs', label: '選択が止まる上限 (ms)', type: 'range', min: 400, max: 3000, step: 100 },
   { key: 'closedEyesReturnMs', label: '両目を閉じたらスタートにもどる (ms)', type: 'range', min: 2000, max: 10000, step: 500 },

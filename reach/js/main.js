@@ -244,6 +244,7 @@ const App = {
       }
       case 'alert':
         this.showAlert(tile);
+        if (tile.notify) this.sendHelpNotify();
         break;
       case 'cancel':
         Actions.stopSpeech();
@@ -263,12 +264,35 @@ const App = {
   showAlert(tile) {
     const text = this.tileText(tile);
     document.getElementById('message-text').textContent = text;
+    const statusEl = document.getElementById('notify-status');
+    if (statusEl) statusEl.textContent = '';
     this.showScreen('message');
     Actions.speak(text, this.settings.speechRate);
     this.alertTimer = setInterval(
       () => Actions.speak(text, this.settings.speechRate),
       this.settings.alertRepeatMs
     );
+  },
+
+  // Fire-and-forget: the on-device alert (screen + repeated speech) always runs;
+  // the LINE notify is best-effort and never blocks or replaces it.
+  async sendHelpNotify() {
+    const url = (this.settings.notifyUrl || '').trim();
+    const statusEl = document.getElementById('notify-status');
+    const setStatus = (key) => { if (statusEl) statusEl.textContent = I18n.t(key); };
+    if (!url) return; // not configured: keep the classic local-only behavior
+    setStatus('notifySending');
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key: (this.settings.notifyKey || '').trim() }),
+      });
+      const data = await res.json().catch(() => ({}));
+      setStatus(data && data.ok ? 'notifySent' : 'notifyFailed');
+    } catch (e) {
+      setStatus('notifyFailed');
+    }
   },
 
   stopAlert() {
