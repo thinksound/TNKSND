@@ -94,7 +94,7 @@ body.debug #video { opacity: 1; }
   gap: var(--gap);
   padding: var(--gap);
   grid-template-columns: repeat(var(--cols, 5), 1fr);
-  grid-template-rows: repeat(var(--rows, 1), 1fr) var(--bar, 0.33fr);
+  grid-template-rows: repeat(var(--rows, 1), 1fr) var(--bar, 0.67fr);
 }
 .board-2 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; }
 .board-1 { grid-template-columns: 1fr; grid-template-rows: 1fr; }
