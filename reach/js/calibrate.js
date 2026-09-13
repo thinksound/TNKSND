@@ -1,35 +1,26 @@
-// Maps the raw gaze signal (gx, gy in roughly -1..1, +x = right, +y = up) to a zone index.
-// Without calibration it falls back to a fixed grid split; with calibration it uses the
-// nearest per-zone centroid captured from the user.
+// Maps the raw gaze signal (gx, gy in roughly -1..1, +x = right, +y = up) to a
+// zone index. Classification uses one axis only — the axis the buttons are laid
+// out along — because the other axis is too noisy to separate zones. In landscape
+// the buttons sit side by side and the horizontal axis is used; in portrait
+// (e.g. an iPhone held upright) the buttons stack vertically (see the CSS media
+// query) and the vertical axis is used instead. Without calibration it falls back
+// to an even split; with calibration it uses the nearest per-zone centroid.
 
 const Calibration = {
   KEY: 'reach.calibration',
   cols: 5,
   rows: 1,
-  zoneCount: 6,
-  // Fraction of screen height above the bottom bar. Deliberately generous: vertical gaze
-  // is much noisier than horizontal, so looking down must be unambiguous to hit the bar.
-  cancelSplit: 0.75,
-  // How far down from the tile row to put the bar boundary, as a fraction of the measured
-  // separation. Biased towards the bar rather than the midpoint because vertical noise is
-  // large and landing on cancel by accident costs a selection.
-  barBias: 0.75,
-  // When true, the bar is reached by looking UP instead of down (for users who
-  // cannot move their head/gaze downward far enough).
-  barInvert: false,
+  zoneCount: 5,
   points: null,
-  barSplit: null,
   noiseX: 0,
   noiseY: 0,
-  // Diagnostics for why the bar is or is not reachable.
-  barSeparation: 0,
-  barRequired: 0,
   // Centre of the calibrated range, used as the resting point for drift compensation.
   originX: 0,
   originY: 0,
 
-  get tileCount() {
-    return this.zoneCount - 1;
+  // True when the buttons are stacked vertically (portrait screen).
+  isPortrait() {
+    return window.matchMedia('(orientation: portrait)').matches;
   },
 
   setGrid(cols, rows, zoneCount) {
@@ -66,7 +57,6 @@ const Calibration = {
 
   clear() {
     this.points = null;
-    this.barSplit = null;
     try { localStorage.removeItem(this.KEY); } catch (e) { /* private mode */ }
   },
 
@@ -74,56 +64,32 @@ const Calibration = {
     return !!(this.points && this.points.length === this.zoneCount && this.points.every(Boolean));
   },
 
-  // The vertical threshold between the tile row and the bottom bar, derived from calibration.
-  // Null means the vertical signal could not separate them reliably, in which case the bar is
-  // reached by cancel wink or click instead.
+  // Derives per-axis noise estimates and the neutral origin from calibration.
   _derive() {
-    this.barSplit = null;
     this.noiseX = 0;
     this.noiseY = 0;
     this.originX = 0;
     this.originY = 0;
-    this.barSeparation = 0;
-    this.barRequired = 0;
     if (!this.isCalibrated) return;
 
-    const tiles = this.points.slice(0, this.tileCount);
-    const bar = this.points[this.tileCount];
-    this.noiseX = median(tiles.map((p) => p.sx || 0));
-    this.noiseY = median(tiles.map((p) => p.sy || 0));
-    this.originX = median(tiles.map((p) => p.gx));
-    this.originY = median(tiles.map((p) => p.gy));
-
-    const ys = tiles.map((p) => p.gy);
-    const meanY = ys.reduce((a, b) => a + b, 0) / ys.length;
-    const separation = meanY - bar.gy;
-
-    // Looking down must move the signal further than the signal's own vertical noise,
-    // otherwise no threshold exists that noise will not cross, and every tile would
-    // intermittently drop onto the bar. When that is the case the vertical axis is ignored
-    // entirely and the bar is reached by cancel wink or click instead.
-    this.barSeparation = separation;
-    this.barRequired = Math.max(0.08, 3 * this.noiseY);
-    if (separation < this.barRequired) return;
-    // Inverted: the bar is reached by looking up, so the boundary sits above the tile row.
-    this.barSplit = this.barInvert
-      ? meanY + separation * this.barBias
-      : meanY - separation * this.barBias;
+    const points = this.points;
+    this.noiseX = median(points.map((p) => p.sx || 0));
+    this.noiseY = median(points.map((p) => p.sy || 0));
+    this.originX = median(points.map((p) => p.gx));
+    this.originY = median(points.map((p) => p.gy));
   },
 
-  // Classified one axis at a time, never as a 2D nearest centroid. In 2D the bar's centroid
-  // is horizontally centred and, because the vertical signal is weak, only slightly below the
-  // tile row -- so it steals the decision region of whichever middle tile it sits nearest.
+  // Single-axis classification along the button layout: nearest calibrated
+  // centroid on that axis. The off axis is deliberately ignored.
   classify(gx, gy) {
     if (!this.isCalibrated) return this.gridClassify(gx, gy);
-    if (this.barSplit != null && (this.barInvert ? gy > this.barSplit : gy < this.barSplit)) {
-      return this.tileCount;
-    }
-
+    const vertical = this.isPortrait();
+    const v = vertical ? gy : gx;
     let best = 0;
     let bestD = Infinity;
-    for (let i = 0; i < this.tileCount; i++) {
-      const d = Math.abs(this.points[i].gx - gx);
+    for (let i = 0; i < this.zoneCount; i++) {
+      const c = vertical ? this.points[i].gy : this.points[i].gx;
+      const d = Math.abs(c - v);
       if (d < bestD) {
         bestD = d;
         best = i;
@@ -132,15 +98,20 @@ const Calibration = {
     return best;
   },
 
-  // Confirm screen: two side-by-side zones (はい on the left, いいえ on the
-  // right). The board's classify() maps the right half to tile indices 2-4,
-  // which are out of range for a 2-zone screen and left いいえ unfocusable,
-  // so split the calibrated horizontal span down the middle instead.
-  confirmClassify(gx) {
-    if (!this.isCalibrated || this.tileCount < 2) return gx < 0 ? 0 : 1;
-    const xs = this.points.slice(0, this.tileCount).map((p) => p.gx);
-    const mid = (Math.min.apply(null, xs) + Math.max.apply(null, xs)) / 2;
-    return gx < mid ? 0 : 1;
+  // Confirm screen: two zones (はい then いいえ), side by side in landscape and
+  // stacked in portrait. The board's classify() maps beyond index 1, which is out
+  // of range for a 2-zone screen and left いいえ unfocusable, so split the
+  // calibrated span down the middle instead.
+  confirmClassify(gx, gy) {
+    const vertical = this.isPortrait();
+    if (!this.isCalibrated || this.zoneCount < 2) {
+      return vertical ? (gy < 0 ? 1 : 0) : (gx < 0 ? 0 : 1);
+    }
+    const vals = this.points.map((p) => (vertical ? p.gy : p.gx));
+    const mid = (Math.min.apply(null, vals) + Math.max.apply(null, vals)) / 2;
+    // Portrait: はい is on top (zone 0), いいえ below (zone 1).
+    const v = vertical ? gy : gx;
+    return vertical ? (v < mid ? 1 : 0) : (v < mid ? 0 : 1);
   },
 
   // Flags zones that calibration left hard or impossible to hit, which is what a single
@@ -148,11 +119,12 @@ const Calibration = {
   quality(labels) {
     if (!this.isCalibrated) return [I18n.t('notCalibrated')];
     const name = (i) => (labels && labels[i]) || I18n.t('buttonFallback', i + 1);
-    const xs = this.points.slice(0, this.tileCount).map((p) => p.gx);
+    const vertical = this.isPortrait();
+    const vals = this.points.map((p) => (vertical ? p.gy : p.gx));
     const issues = [];
 
     const gaps = [];
-    for (let i = 1; i < xs.length; i++) gaps.push(xs[i] - xs[i - 1]);
+    for (let i = 1; i < vals.length; i++) gaps.push(vals[i] - vals[i - 1]);
     if (!gaps.length) return issues;
 
     const rising = gaps.filter((g) => g > 0).length;
@@ -163,7 +135,7 @@ const Calibration = {
 
     const widths = gaps.map(Math.abs);
     const meanWidth = widths.reduce((a, b) => a + b, 0) / widths.length;
-    for (let i = 0; i < xs.length; i++) {
+    for (let i = 0; i < vals.length; i++) {
       const narrowest = Math.min(
         i > 0 ? widths[i - 1] : Infinity,
         i < widths.length ? widths[i] : Infinity
@@ -174,22 +146,18 @@ const Calibration = {
       if (margin < needed) issues.push(I18n.t('rangeNarrow', name(i)));
     }
 
-    if (this.barSplit == null) issues.push(I18n.t('barUnreachable'));
     return issues;
   },
 
-  // The last zone is the full-width bar along the bottom, so the vertical decision is a
-  // single coarse "am I looking down" test rather than an even split into bands.
+  // Uncalibrated fallback: split the layout axis evenly.
   gridClassify(gx, gy) {
-    let yNorm = 1 - (Math.max(-1, Math.min(1, gy)) + 1) / 2; // 0 = top
-    // Inverted bar: it lives at the top, so mirror the vertical axis and reuse the
-    // same "bottom quarter is the bar" logic.
-    if (this.barInvert) yNorm = 1 - yNorm;
-    const xNorm = (Math.max(-1, Math.min(1, gx)) + 1) / 2;     // 0 = left
-    if (yNorm >= this.cancelSplit) return this.zoneCount - 1;
-    const row = Math.min(this.rows - 1, Math.floor(yNorm / (this.cancelSplit / this.rows)));
-    const col = Math.min(this.cols - 1, Math.floor(xNorm * this.cols));
-    return Math.min(this.zoneCount - 2, row * this.cols + col);
+    if (this.isPortrait()) {
+      // Zone 0 is at the top; +y = up.
+      const yNorm = (Math.max(-1, Math.min(1, gy)) + 1) / 2; // 0 = bottom, 1 = top
+      return Math.min(this.cols - 1, Math.floor((1 - yNorm) * this.cols));
+    }
+    const xNorm = (Math.max(-1, Math.min(1, gx)) + 1) / 2; // 0 = left
+    return Math.min(this.cols - 1, Math.floor(xNorm * this.cols));
   },
 
   // ui: { prompt(zoneIndex), progress(0..1), done(ok), failed(msg) }

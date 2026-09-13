@@ -1,7 +1,6 @@
 // このファイルだけを編集すれば設定できます。
 //
-// ボタンは横一列に並びます。頭の動きも視線も、上下より左右のほうがずっと正確なためです。
-// BAR は一番下の横長のバーです。
+// ボタンは横一列に並びます（縦画面では自動で縦一列になります）。
 //
 // type の種類:
 //   speak  — text を読み上げる
@@ -20,23 +19,14 @@ const TILES = [
     url: 'facetime://person1@example.com', confirm: true, confirmText: '電話 1 にかけますか？', confirmTextEn: 'Call 1?' },
   { id: 'call2', icon: '👩', label: '電話 2', labelEn: 'Call 2', type: 'call',
     url: 'facetime://person2@example.com', confirm: true, confirmText: '電話 2 にかけますか？', confirmTextEn: 'Call 2?' },
+  // 「たすけて」は右側のボタン。初期設定の3ボタンでは [電話 1, 電話 2, たすけて] になります。
+  { id: 'help', icon: '🔔', label: 'たすけて', labelEn: 'Help', type: 'alert',
+    text: '助けてください。来てください。', textEn: 'Please help me. Come here.' },
   { id: 'call3', icon: '🧑', label: '電話 3', labelEn: 'Call 3', type: 'call',
     url: 'facetime://person3@example.com', confirm: true, confirmText: '電話 3 にかけますか？', confirmTextEn: 'Call 3?' },
   { id: 'news1', icon: '📰', label: 'ニュース 1', labelEn: 'News 1', type: 'url', url: 'https://news.google.co.jp' },
   { id: 'news2', icon: '📺', label: 'ニュース 2', labelEn: 'News 2', type: 'url', url: 'https://www3.nhk.or.jp/news/' },
 ];
-
-// 一番下の横長のバー。下を向くか、クリックで選べます。
-// 取り消しはここではなく、右目のウインクが直接おこないます。
-const BAR = {
-  id: 'help',
-  icon: '🔔',
-  label: 'たすけて',
-  labelEn: 'Help',
-  type: 'alert',
-  text: '助けてください。来てください。',
-  textEn: 'Please help me. Come here.',
-};
 
 const DEFAULT_SETTINGS = {
   tileCount: 3,
@@ -78,11 +68,6 @@ const DEFAULT_SETTINGS = {
   // absorbed into the neutral.
   recenterRate: 0.001,
   neutralRadius: 0.25,
-  // Where the tiles/bar boundary sits, as a fraction of the calibrated vertical separation.
-  // Lower means the bar is easier to reach but easier to hit by accident.
-  barBias: 0.75,
-  // Flip the bar's reach direction: look UP instead of down to select the bar.
-  barInvert: false,
 
   // feedback
   audioFeedback: true,
@@ -125,8 +110,6 @@ const SETTINGS_SPEC = [
   { key: 'headGain', label: '頭の動きの感度', type: 'range', min: 0.5, max: 6, step: 0.1 },
   { key: 'smoothing', label: 'なめらかさ', type: 'range', min: 0.05, max: 1, step: 0.05 },
   { key: 'recenterRate', label: '姿勢のずれの補正', type: 'range', min: 0, max: 0.01, step: 0.0005 },
-  { key: 'barBias', label: '下のバーの境目（小さいほど届きやすい）', type: 'range', min: 0.25, max: 0.95, step: 0.05, rederive: true },
-  { key: 'barInvert', label: 'バーの向きを反転（上を見て選択）', type: 'checkbox', rederive: true },
   { key: 'invertX', label: '左右を反転（見た向きと逆に動くとき）', type: 'checkbox' },
   { key: 'invertY', label: '上下を反転（見た向きと逆に動くとき）', type: 'checkbox' },
 

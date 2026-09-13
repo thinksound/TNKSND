@@ -43,7 +43,6 @@ const I18n = {
       buttonFallback: (i) => 'ボタン ' + (i + 1),
       orderReversed: (a, b) => `${a} と ${b} の順番が逆です`,
       rangeNarrow: (a) => `${a} の範囲が狭いです`,
-      barUnreachable: '下のバーには頭の動きで届きません',
     },
     en: {
       appName: 'Reach',
@@ -80,7 +79,6 @@ const I18n = {
       buttonFallback: (i) => 'Button ' + (i + 1),
       orderReversed: (a, b) => `${a} and ${b} are in reverse order`,
       rangeNarrow: (a) => `${a} has a narrow range`,
-      barUnreachable: 'The bottom bar cannot be reached by head motion',
     },
   },
 
@@ -99,8 +97,6 @@ const I18n = {
     headGain:         { ja: '頭の動きの感度', en: 'Head motion sensitivity' },
     smoothing:        { ja: 'なめらかさ', en: 'Smoothing' },
     recenterRate:     { ja: '姿勢のずれの補正', en: 'Drift compensation' },
-    barBias:          { ja: '下のバーの境目（小さいほど届きやすい）', en: 'Bottom bar boundary (lower = easier to reach)' },
-    barInvert:        { ja: 'バーの向きを反転（上を見て選択）', en: 'Flip bar direction (look up to select)' },
     invertX:          { ja: '左右を反転（見た向きと逆に動くとき）', en: 'Flip left-right (if it moves opposite to you)' },
     invertY:          { ja: '上下を反転（見た向きと逆に動くとき）', en: 'Flip up-down (if it moves opposite to you)' },
     audioFeedback:    { ja: '音で知らせる', en: 'Audio feedback' },

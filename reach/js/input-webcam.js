@@ -229,11 +229,11 @@ class WebcamInput {
     this.state.holdMs = holdMs;
 
     // The confirm screen has exactly 2 zones (はい/いいえ); the board's
-    // 5-way classify would map its right half to out-of-range indices, so it
-    // gets its own left/right split.
+    // classify would map beyond index 1, which is out of range for a 2-zone
+    // screen, so it gets its own split along the layout axis.
     if (!frozen) {
       this.state.zone = this.engine.zones.length === 2
-        ? Calibration.confirmClassify(gxAdj)
+        ? Calibration.confirmClassify(gxAdj, gyAdj)
         : Calibration.classify(gxAdj, gyAdj);
     }
 

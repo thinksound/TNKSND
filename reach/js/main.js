@@ -13,8 +13,6 @@ const App = {
     this.settings = Settings.load();
     this.normalizeSettings();
     I18n.lang = this.settings.uiLang === 'en' ? 'en' : 'ja';
-    Calibration.barBias = this.settings.barBias;
-    Calibration.barInvert = this.settings.barInvert;
     Actions.lang = this.settings.speechLang;
     this.engine = new SelectionEngine(this.settings);
     this.engine.onCancel = () => Actions.stopSpeech();
@@ -141,19 +139,15 @@ const App = {
     board.textContent = '';
 
     this.rowTiles = TILES.slice(0, count);
-    this.tiles = this.rowTiles.concat([BAR]); // index-aligned with the board's zones
+    this.tiles = this.rowTiles; // every zone is a tile; the bottom bar is gone
 
     this.rowTiles.forEach((tile, i) => {
       const label = this.tileLabel(tile);
+      const cls = 'zone tile' + (tile.type === 'alert' ? ' alert-tile' : '');
       board.appendChild(
-        this.makeZone('zone tile', tile.icon, label, label, { tileIndex: String(i) })
+        this.makeZone(cls, tile.icon, label, label, { tileIndex: String(i) })
       );
     });
-    const barLabel = this.tileLabel(BAR);
-    board.appendChild(this.makeZone(
-      'zone bar ' + (BAR.type === 'cancel' ? 'cancel' : 'bar-action'),
-      BAR.icon, barLabel, barLabel, { tileIndex: String(count) }
-    ));
 
     Calibration.setGrid(cols, rows, this.tiles.length);
     Calibration.load();
@@ -336,11 +330,6 @@ const App = {
 
     if (spec.rebuild) this.buildBoard();
     if (spec.restart) this.restartInput();
-    if (spec.rederive) {
-      Calibration.barBias = this.settings.barBias;
-      Calibration.barInvert = this.settings.barInvert;
-      Calibration._derive();
-    }
   },
 
   // ---- calibration ----
@@ -454,12 +443,6 @@ const App = {
         + (Calibration.isCalibrated
           ? '   noise x ' + Calibration.noiseX.toFixed(2) + ' y ' + Calibration.noiseY.toFixed(2)
           : ''),
-      'bar       ' + (!Calibration.isCalibrated ? '-'
-        : Calibration.barSplit == null
-          ? 'NOT reachable: down moved ' + Calibration.barSeparation.toFixed(2)
-            + ', needs ' + Calibration.barRequired.toFixed(2)
-          : 'crosses at y ' + Calibration.barSplit.toFixed(2)
-            + '   (down moved ' + Calibration.barSeparation.toFixed(2) + ')'),
       'focus     ' + (this.engine.focus == null ? '-' : this.engine.focus)
         + '   votes ' + this.engine.samples.length
         + '   activations ' + this.engine.triggerCount,
