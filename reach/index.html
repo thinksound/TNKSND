@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="data:,">
+  <title>ヘッドトラッキング介護支援アプリ</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=M+PLUS+2:wght@400;600;700;800&display=swap');
+    :root {
+      --ink:#f7fbff; --muted:#aebbc5; --panel:#111c22; --panel-2:#17262e;
+      --line:#334751; --cyan:#37d5cc; --yellow:#ffe066; --danger:#ef594f;
+      --danger-dark:#6c1e1c; --safe:#73d69d; --progress:0;
+    }
+    * { box-sizing:border-box; }
+    html, body { width:100%; height:100%; margin:0; overflow:hidden; background:#071014; color:var(--ink); }
+    body { font-family:"M PLUS 2","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif; -webkit-text-size-adjust:100%; }
+    button, select, input { font:inherit; }
+    button { -webkit-tap-highlight-color:transparent; }
+    [hidden] { display:none !important; }
+    .screen { display:none; width:100%; height:100%; }
+    .screen.active { display:flex; }
+
+    /* Entry screen */
+    #welcome { overflow-y:auto; align-items:center; justify-content:center; padding:max(22px,env(safe-area-inset-top)) 20px max(22px,env(safe-area-inset-bottom)); }
+    .welcome-inner { width:min(920px,100%); display:grid; grid-template-columns:minmax(0,1.05fr) minmax(300px,.8fr); gap:clamp(28px,5vw,72px); align-items:center; }
+    .intro h1 { margin:0 0 14px; max-width:12ch; font-size:clamp(34px,5.3vw,72px); line-height:1.08; letter-spacing:-.045em; }
+    .intro p { margin:0; max-width:32em; color:#ced8de; font-size:clamp(16px,2vw,21px); line-height:1.75; }
+    .how { margin-top:24px; display:flex; flex-wrap:wrap; gap:10px; }
+    .how span { display:inline-flex; align-items:center; gap:8px; padding:9px 12px; border:1px solid #29424d; background:#0c181e; font-size:14px; font-weight:700; color:#dce8ed; }
+    .dot { width:9px; height:9px; border-radius:50%; background:var(--cyan); box-shadow:0 0 0 4px rgba(55,213,204,.13); }
+    .launch { border-top:1px solid var(--line); padding-top:22px; }
+    .launch h2 { font-size:18px; margin:0 0 14px; }
+    .launch-actions { display:grid; gap:12px; }
+    .launch button { width:100%; min-height:68px; border:0; padding:14px 18px; text-align:left; cursor:pointer; display:grid; grid-template-columns:42px 1fr; gap:12px; align-items:center; }
+    .launch button strong { display:block; font-size:18px; }
+    .launch button small { display:block; margin-top:3px; font-size:13px; font-weight:600; }
+    .primary { background:var(--cyan); color:#001b1c; }
+    .primary:hover { background:#72e6df; }
+    .secondary { background:#17262e; color:white; border:1px solid #3b515c !important; }
+    .launch svg { width:30px; height:30px; stroke:currentColor; fill:none; stroke-width:2; }
+    .privacy { margin:15px 0 0; color:var(--muted); font-size:12px; line-height:1.55; }
+    .camera-help { margin-top:14px; padding:15px; border:2px solid #c5a83c; background:#241f0e; color:#fff6cf; }
+    .camera-help strong { display:block; margin-bottom:5px; color:var(--yellow); font-size:16px; }
+    .camera-help p { margin:0; color:#eee5bc; font-size:13px; line-height:1.65; }
+    .camera-help-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+    .camera-help-actions button { display:block; flex:1 1 150px; width:auto; min-height:44px; padding:9px 13px; border:1px solid #75662e; background:#352e14; color:white; text-align:center; cursor:pointer; font-weight:800; }
+    .camera-help-actions .retry { border-color:var(--yellow); background:var(--yellow); color:#211b00; }
+
+    /* Main board */
+    #board-screen { flex-direction:column; padding:max(10px,env(safe-area-inset-top)) 12px max(10px,env(safe-area-inset-bottom)); gap:10px; }
+    .utility { min-height:40px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .mode { display:flex; align-items:center; gap:9px; color:#d6e0e5; font-size:13px; font-weight:700; min-width:0; }
+    .mode-status { width:10px; height:10px; border-radius:50%; background:#839099; flex:none; }
+    .mode-status.on { background:var(--safe); box-shadow:0 0 0 4px rgba(115,214,157,.13); }
+    .mode-status.wait { background:var(--yellow); }
+    .utility-actions { display:flex; gap:8px; }
+    .utility button, .text-button { min-width:44px; min-height:40px; border:1px solid #38505b; color:#e8f0f3; background:#122128; padding:7px 12px; cursor:pointer; font-size:13px; font-weight:700; }
+    .utility button:hover, .text-button:hover { background:#1c323c; }
+    .board { flex:1; min-height:0; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); grid-template-rows:minmax(0,1fr) minmax(82px,.28fr); gap:10px; }
+    .tile { position:relative; overflow:hidden; min-width:0; border:3px solid #3b505a; background:var(--panel); color:var(--ink); padding:12px 8px; cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:clamp(8px,2vh,18px); }
+    .tile::after { content:""; position:absolute; left:0; bottom:0; width:100%; height:10px; background:var(--yellow); transform:scaleX(var(--progress,0)); transform-origin:left center; }
+    .tile:hover { background:var(--panel-2); }
+    .tile.focused { border-color:var(--yellow); background:#273039; box-shadow:inset 0 0 0 3px rgba(255,224,102,.18); }
+    .tile .icon-wrap { width:clamp(56px,8vw,104px); height:clamp(56px,8vw,104px); border-radius:50%; display:grid; place-items:center; background:#1b3038; color:var(--cyan); }
+    .tile svg { width:58%; height:58%; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .tile .label { font-size:clamp(18px,2.2vw,34px); line-height:1.25; font-weight:800; letter-spacing:.01em; text-align:center; }
+    .tile.help { grid-column:1/-1; flex-direction:row; gap:18px; background:var(--danger-dark); border-color:#b74640; }
+    .tile.help:hover, .tile.help.focused { background:#862a26; }
+    .tile.help .icon-wrap { width:56px; height:56px; background:#a93631; color:white; }
+    .tile.help .label { font-size:clamp(24px,3vw,40px); }
+    .board-note { min-height:24px; display:flex; align-items:center; justify-content:center; color:#aab8bf; font-size:12px; text-align:center; }
+
+    /* Overlay screens */
+    .overlay-screen { align-items:center; justify-content:center; padding:20px; text-align:center; }
+    #alert-screen { background:#631c19; }
+    .alert-inner { width:min(760px,100%); }
+    .alert-symbol { width:110px; height:110px; margin:0 auto 24px; color:white; }
+    .alert-symbol svg { width:100%; height:100%; stroke:currentColor; fill:none; stroke-width:1.7; }
+    .alert-inner h2 { margin:0; font-size:clamp(38px,8vw,86px); letter-spacing:-.04em; line-height:1.1; }
+    .alert-inner p { margin:15px 0 28px; font-size:clamp(16px,2.2vw,22px); }
+    .stop-button { width:min(420px,100%); min-height:96px; border:4px solid white; background:#0a1317; color:white; font-size:clamp(26px,4vw,40px); font-weight:800; cursor:pointer; }
+    #cal-screen { background:#071014; }
+    .cal-inner { width:min(680px,100%); }
+    .cal-step { color:var(--cyan); font-weight:800; font-size:16px; }
+    .cal-inner h2 { margin:10px 0; font-size:clamp(30px,6vw,58px); }
+    .cal-inner p { color:#c6d2d8; line-height:1.7; font-size:17px; }
+    .cal-progress { height:12px; margin:28px 0; background:#213039; overflow:hidden; }
+    .cal-progress > div { width:0%; height:100%; background:var(--cyan); transition:width .08s linear; }
+
+    /* Settings */
+    #settings-screen { background:#071014; overflow-y:auto; align-items:flex-start; justify-content:center; padding:max(18px,env(safe-area-inset-top)) 18px max(28px,env(safe-area-inset-bottom)); }
+    .settings { width:min(780px,100%); }
+    .settings-head { display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:16px; }
+    .settings h2 { margin:0; font-size:clamp(26px,4vw,40px); }
+    .settings-section { border-top:1px solid var(--line); padding:18px 0; }
+    .settings-section h3 { margin:0 0 12px; color:#d7e3e8; font-size:16px; }
+    .field { display:grid; grid-template-columns:minmax(140px,1fr) minmax(200px,1fr) 72px; align-items:center; gap:14px; min-height:52px; }
+    .field + .field { border-top:1px solid #1e2b31; }
+    .field label { font-size:14px; color:#d0dbe0; }
+    .field select { width:100%; min-height:40px; padding:7px 10px; border:1px solid #405761; background:#14232a; color:white; }
+    .field input[type="range"] { width:100%; accent-color:var(--cyan); }
+    .field output { color:var(--cyan); text-align:right; font-size:13px; font-variant-numeric:tabular-nums; }
+    .setting-actions { display:flex; flex-wrap:wrap; gap:10px; }
+    .setting-actions button { min-height:48px; padding:10px 16px; border:1px solid #405761; color:white; background:#14232a; cursor:pointer; font-weight:700; }
+    .setting-actions .accent { background:var(--cyan); border-color:var(--cyan); color:#001b1c; }
+    .fine-print { color:#93a4ad; font-size:12px; line-height:1.65; }
+
+    .toast { position:fixed; left:50%; bottom:calc(20px + env(safe-area-inset-bottom)); transform:translateX(-50%) translateY(20px); z-index:50; min-width:min(420px,calc(100% - 32px)); max-width:calc(100% - 32px); padding:13px 18px; background:#eef7fa; color:#102027; box-shadow:0 10px 35px rgba(0,0,0,.35); text-align:center; font-weight:800; opacity:0; pointer-events:none; transition:.18s ease; }
+    .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+    .camera-preview { position:fixed; right:12px; bottom:48px; z-index:30; width:160px; max-width:30vw; border:2px solid #526873; background:black; transform:scaleX(-1); opacity:0; pointer-events:none; }
+    body.show-camera .camera-preview { opacity:.72; }
+
+    @media (max-width:720px) {
+      #welcome { align-items:flex-start; }
+      .welcome-inner { grid-template-columns:1fr; gap:28px; }
+      .intro h1 { max-width:none; font-size:36px; }
+      .board { grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:repeat(3,minmax(0,1fr)) minmax(70px,.6fr); }
+      .tile .icon-wrap { width:52px; height:52px; }
+      .tile .label { font-size:clamp(17px,5.6vw,24px); }
+      .tile.help { grid-column:1/-1; }
+      .board-note { display:none; }
+      .field { grid-template-columns:1fr 1fr; padding:10px 0; }
+      .field output { grid-column:2; }
+      .utility .mode { font-size:12px; }
+    }
+    @media (max-height:510px) and (orientation:landscape) {
+      #board-screen { padding-top:6px; padding-bottom:6px; gap:6px; }
+      .utility { min-height:34px; }
+      .utility button { min-height:34px; }
+      .board { gap:7px; grid-template-rows:minmax(0,1fr) minmax(64px,.28fr); }
+      .tile .icon-wrap { width:54px; height:54px; }
+      .tile .label { font-size:18px; }
+      .board-note { display:none; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { transition:none !important; } }
+  </style>
+</head>
+<body>
+  <video id="camera" class="camera-preview" playsinline muted aria-hidden="true"></video>
+
+  <main id="welcome" class="screen active">
+    <div class="welcome-inner">
+      <section class="intro">
+        <h1>伝えたいことを、頭の動きで。</h1>
+        <p>大きなボタンを見つめて、日常のお願いを音声で伝えます。マウス、タッチ、端末の視線入力でも操作できます。</p>
+        <div class="how" aria-label="使い方">
+          <span><i class="dot"></i>見つめて選ぶ</span>
+          <span><i class="dot"></i>音声で伝える</span>
+          <span><i class="dot"></i>端末内で処理</span>
+        </div>
+      </section>
+      <section class="launch" aria-labelledby="launch-title">
+        <h2 id="launch-title">操作方法を選んでください</h2>
+        <div class="launch-actions">
+          <button id="start-camera" class="primary" type="button">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 25c0-6 3-10 8-10s8 4 8 10M11 9a5 5 0 1 0 10 0 5 5 0 0 0-10 0Z"/><path d="M4 18c-2 2-2 6 0 8M28 18c2 2 2 6 0 8"/></svg>
+            <span><strong>頭の動きで操作</strong><small>カメラの許可が必要です</small></span>
+          </button>
+          <button id="start-pointer" class="secondary" type="button">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="m8 5 15 12-8 2 4 7-3 2-4-7-4 5Z"/></svg>
+            <span><strong>タッチ・マウスで操作</strong><small>端末の視線入力にも対応します</small></span>
+          </button>
+        </div>
+        <div id="camera-help" class="camera-help" role="alert" hidden>
+          <strong id="camera-help-title">カメラを許可してください</strong>
+          <p id="camera-help-copy">端末またはブラウザの設定で、このアプリのカメラを許可してから、もう一度お試しください。</p>
+          <div class="camera-help-actions">
+            <button id="retry-camera" class="retry" type="button">もう一度試す</button>
+            <button id="camera-help-pointer" type="button">タッチ操作を使う</button>
+          </div>
+        </div>
+        <p class="privacy">カメラ映像は端末内で処理され、保存・送信されません。このページを閉じると設定とキャリブレーションは消去されます。</p>
+      </section>
+    </div>
+  </main>
+
+  <main id="board-screen" class="screen">
+    <div class="utility">
+      <div class="mode"><span id="mode-light" class="mode-status"></span><span id="mode-label">タッチ操作</span></div>
+      <div class="utility-actions">
+        <button id="calibrate-top" type="button" hidden>位置合わせ</button>
+        <button id="open-settings" type="button">設定</button>
+      </div>
+    </div>
+    <div id="board" class="board" aria-label="コミュニケーションボード">
+      <button class="tile" type="button" data-say="お水を飲みたいです" onclick="window.sayMessage(this)">
+        <span class="icon-wrap"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M16 8h32l-4 46H20L16 8Z"/><path d="M19 29c8 5 18-4 26 1"/></svg></span><span class="label">お水</span>
+      </button>
+      <button class="tile" type="button" data-say="トイレに行きたいです" onclick="window.sayMessage(this)">
+        <span class="icon-wrap"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M18 9h28v18c0 12-6 19-14 19s-14-7-14-19V9Z"/><path d="M14 9h36M25 54h14M32 46v8"/></svg></span><span class="label">トイレ</span>
+      </button>
+      <button class="tile" type="button" data-say="姿勢を変えてください" onclick="window.sayMessage(this)">
+        <span class="icon-wrap"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="42" cy="13" r="6"/><path d="M10 43h20l8-19 10 6-8 22H10V43ZM18 43V27M10 52h44"/></svg></span><span class="label">姿勢を変えて</span>
+      </button>
+      <button class="tile" type="button" data-say="痛いです。確認してください" onclick="window.sayMessage(this)">
+        <span class="icon-wrap"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="m34 5-14 25h12l-3 29 15-34H32l2-20Z"/></svg></span><span class="label">痛い</span>
+      </button>
+      <button class="tile" type="button" data-say="少し待ってください" onclick="window.sayMessage(this)">
+        <span class="icon-wrap"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="23"/><path d="M32 18v15l10 6"/></svg></span><span class="label">待って</span>
+      </button>
+      <button class="tile help" type="button" data-alert="助けてください。来てください。" onclick="window.raiseHelp(this)">
+        <span class="icon-wrap"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M16 45h32M20 45V31c0-8 5-14 12-14s12 6 12 14v14M27 53h10M29 10h6"/></svg></span><span class="label">介護者を呼ぶ</span>
+      </button>
+    </div>
+    <div id="board-note" class="board-note">黄色の枠が選択中です。見つめ続けると決定します。</div>
+  </main>
+
+  <main id="alert-screen" class="screen overlay-screen" aria-live="assertive">
+    <div class="alert-inner">
+      <div class="alert-symbol"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M13 47h38M18 47V30c0-10 6-17 14-17s14 7 14 17v17M26 55h12M28 6h8"/></svg></div>
+      <h2>介護者を呼んでいます</h2>
+      <p>音声を繰り返しています。</p>
+      <button id="stop-alert" class="stop-button" type="button">止める</button>
+    </div>
+  </main>
+
+  <main id="cal-screen" class="screen overlay-screen">
+    <div class="cal-inner">
+      <div id="cal-step" class="cal-step">位置合わせ</div>
+      <h2 id="cal-title">準備しています</h2>
+      <p id="cal-copy">画面と同じ位置のボタンを見るように、頭をゆっくり向けてください。</p>
+      <div class="cal-progress" aria-hidden="true"><div id="cal-progress-fill"></div></div>
+      <button id="cancel-cal" class="text-button" type="button">中止</button>
+    </div>
+  </main>
+
+  <main id="settings-screen" class="screen">
+    <div class="settings">
+      <div class="settings-head"><h2>操作設定</h2><button id="close-settings" class="text-button" type="button">ボードに戻る</button></div>
+      <section class="settings-section">
+        <h3>選択</h3>
+        <div class="field"><label for="trigger">決定方法</label><select id="trigger"><option value="dwell">見つめて決定</option><option value="wink">左目のウインク</option><option value="blink">長いまばたき</option><option value="click">タップ・クリック</option></select><output></output></div>
+        <div class="field"><label for="dwell">見つめる時間</label><input id="dwell" type="range" min="700" max="3000" step="100" value="1500"><output id="dwell-out">1.5秒</output></div>
+      </section>
+      <section class="settings-section">
+        <h3>頭の動き</h3>
+        <div class="field"><label for="sensitivity">感度</label><input id="sensitivity" type="range" min="1" max="7" step="0.2" value="3.4"><output id="sensitivity-out">3.4</output></div>
+        <div class="field"><label for="smoothing">なめらかさ</label><input id="smoothing" type="range" min="0.08" max="0.6" step="0.02" value="0.24"><output id="smoothing-out">0.24</output></div>
+        <div class="field"><label for="horizontal">左右</label><select id="horizontal"><option value="normal">そのまま</option><option value="invert">反転</option></select><output></output></div>
+        <div class="field"><label for="vertical">上下</label><select id="vertical"><option value="normal">そのまま</option><option value="invert">反転</option></select><output></output></div>
+      </section>
+      <section class="settings-section">
+        <h3>読み上げ</h3>
+        <div class="field"><label for="speech-rate">速さ</label><input id="speech-rate" type="range" min="0.6" max="1.4" step="0.05" value="0.9"><output id="speech-rate-out">0.9</output></div>
+        <div class="field"><label for="camera-preview-select">カメラ確認</label><select id="camera-preview-select"><option value="off">表示しない</option><option value="on">表示する</option></select><output></output></div>
+      </section>
+      <section class="settings-section setting-actions">
+        <button id="calibrate-settings" class="accent" type="button">頭の位置を合わせる</button>
+        <button id="switch-pointer" type="button">タッチ操作に切り替える</button>
+        <button id="switch-camera" type="button">頭の操作に切り替える</button>
+        <button id="reset-settings" type="button">初期設定に戻す</button>
+      </section>
+      <p class="fine-print">カメラ映像はブラウザ内だけで解析します。設定と位置合わせは保存されず、このページを閉じると消去されます。日常の意思伝達を支援するもので、緊急通報や医療機器の代わりにはなりません。</p>
+    </div>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script type="module">
+const MEDIAPIPE = {
+  module: 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs',
+  wasm: 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm',
+  model: 'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task'
+};
+
+const state = {
+  mode:'pointer', trigger:'click', dwellMs:1500, sensitivity:3.4, smoothing:.24,
+  invertX:false, invertY:false, speechRate:.9, zones:[], focus:null, focusAt:0,
+  lastAction:0, alertTimer:null, camera:null, calibration:null, calibrating:false,
+  calAbort:false, raf:0
+};
+
+const $ = (id) => document.getElementById(id);
+const screens = ['welcome','board-screen','alert-screen','cal-screen','settings-screen'];
+function show(id) {
+  screens.forEach(s => $(s).classList.toggle('active', s === id));
+  if (id !== 'alert-screen') stopAlert(false);
+}
+function toast(message, ms=2600) {
+  const el = $('toast'); el.textContent = message; el.classList.add('show');
+  clearTimeout(toast.timer); toast.timer = setTimeout(() => el.classList.remove('show'), ms);
+}
+function unlockAudio() {
+  try {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (AC && !state.audio) state.audio = new AC();
+    if (state.audio?.state === 'suspended') state.audio.resume();
+  } catch (_) {}
+  if ('speechSynthesis' in window) {
+    const u = new SpeechSynthesisUtterance(' '); u.volume = 0; speechSynthesis.speak(u);
+  }
+}
+function tone(freq=820, duration=.12) {
+  if (!state.audio) return;
+  try {
+    const o=state.audio.createOscillator(), g=state.audio.createGain(), now=state.audio.currentTime;
+    o.frequency.value=freq; o.type='sine'; g.gain.setValueAtTime(.07,now); g.gain.exponentialRampToValueAtTime(.0001,now+duration);
+    o.connect(g).connect(state.audio.destination); o.start(now); o.stop(now+duration+.02);
+  } catch (_) {}
+}
+function speak(text) {
+  if (!text) return;
+  if ('speechSynthesis' in window) {
+    speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang='ja-JP'; u.rate=state.speechRate; speechSynthesis.speak(u);
+  }
+}
+function stopSpeech() { if ('speechSynthesis' in window) speechSynthesis.cancel(); }
+function stopAlert(back=true) {
+  if (state.alertTimer) clearInterval(state.alertTimer);
+  state.alertTimer=null; stopSpeech();
+  if (back && $('alert-screen').classList.contains('active')) { show('board-screen'); configureZones(); }
+}
+function startAlert(text) {
+  show('alert-screen'); speak(text); if (navigator.vibrate) navigator.vibrate([250,150,250]);
+  state.alertTimer=setInterval(() => speak(text), 5500);
+  state.zones=[$('stop-alert')]; setFocus(0);
+}
+function activate(el) {
+  const now=performance.now(); if (now-state.lastAction<500) return; state.lastAction=now; tone();
+  if (el.dataset.alert) return startAlert(el.dataset.alert);
+  if (el.dataset.say) { speak(el.dataset.say); toast(el.dataset.say); }
+}
+window.sayMessage = (el) => {
+  unlockAudio();
+  const message = el.dataset.say || '';
+  speak(message);
+  toast(message);
+};
+window.raiseHelp = (el) => {
+  unlockAudio();
+  startAlert(el.dataset.alert || '助けてください。来てください。');
+};
+function setFocus(index) {
+  if (index === state.focus) return;
+  state.zones.forEach((z,i) => { z.classList.toggle('focused',i===index); z.style.setProperty('--progress',0); });
+  state.focus=index; state.focusAt=performance.now();
+  if (index != null) tone(610,.05);
+}
+function configureZones() {
+  state.zones=Array.from(document.querySelectorAll('#board .tile')); state.focus=null;
+  state.zones.forEach((z,i) => {
+    z.onpointerenter=()=>setFocus(i);
+  });
+}
+document.addEventListener('click', (event) => {
+  const tile = event.target.closest?.('#board .tile');
+  if (!tile) return;
+  const index = state.zones.indexOf(tile);
+  unlockAudio();
+  if (index >= 0) setFocus(index);
+  activate(tile);
+});
+function dwellLoop(t) {
+  if ($('board-screen').classList.contains('active') && state.trigger==='dwell' && state.focus!=null && !state.calibrating) {
+    const p=Math.min(1,(t-state.focusAt)/state.dwellMs); state.zones[state.focus]?.style.setProperty('--progress',p);
+    if (p>=1) { const el=state.zones[state.focus]; setFocus(null); activate(el); }
+  }
+  state.raf=requestAnimationFrame(dwellLoop);
+}
+requestAnimationFrame(dwellLoop);
+
+function headPose(data) {
+  if (!data || data.length<16) return {x:0,y:0};
+  const r00=data[0], r10=data[1], r20=data[2], r21=data[6], r22=data[10];
+  const sy=Math.hypot(r00,r10);
+  return {x:Math.atan2(-r20,sy), y:Math.atan2(r21,r22)};
+}
+function nearestZone(x,y) {
+  if (state.calibration?.length===state.zones.length) {
+    let best=0, dist=Infinity;
+    state.calibration.forEach((p,i)=>{ const d=(p.x-x)**2 + (p.y-y)**2*1.35; if(d<dist){dist=d;best=i;} });
+    return best;
+  }
+  const nx=Math.max(0,Math.min(1,.5+x*state.sensitivity));
+  const ny=Math.max(0,Math.min(1,.5-y*state.sensitivity));
+  let best=0, dist=Infinity;
+  state.zones.forEach((z,i)=>{ const r=z.getBoundingClientRect(); const cx=(r.left+r.width/2)/innerWidth, cy=(r.top+r.height/2)/innerHeight; const d=(cx-nx)**2+(cy-ny)**2; if(d<dist){dist=d;best=i;} });
+  return best;
+}
+class CameraTracker {
+  constructor(){ this.running=false; this.x=0; this.y=0; this.sample=null; this.closedAt=0; this.winkAt=0; this.winkFired=false; this.blinkFired=false; }
+  async start(){
+    if (!navigator.mediaDevices?.getUserMedia) throw new Error('このブラウザではカメラを利用できません。');
+    this.video=$('camera');
+    try {
+      this.stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:640},height:{ideal:480}},audio:false});
+    } catch (error) {
+      if (error?.name !== 'OverconstrainedError') throw error;
+      this.stream=await navigator.mediaDevices.getUserMedia({video:true,audio:false});
+    }
+    this.video.srcObject=this.stream; await this.video.play();
+    const vision=await import(MEDIAPIPE.module);
+    const fileset=await vision.FilesetResolver.forVisionTasks(MEDIAPIPE.wasm);
+    this.landmarker=await vision.FaceLandmarker.createFromOptions(fileset,{baseOptions:{modelAssetPath:MEDIAPIPE.model,delegate:'GPU'},runningMode:'VIDEO',numFaces:1,outputFaceBlendshapes:true,outputFacialTransformationMatrixes:true});
+    this.running=true; this.loop=this.loop.bind(this); requestAnimationFrame(this.loop);
+  }
+  stop(){ this.running=false; this.stream?.getTracks().forEach(t=>t.stop()); if(this.video)this.video.srcObject=null; try{this.landmarker?.close();}catch(_){} }
+  loop(t){
+    if(!this.running)return; requestAnimationFrame(this.loop);
+    if(!this.video || this.video.readyState<2 || this.video.currentTime===this.lastTime)return; this.lastTime=this.video.currentTime;
+    let result; try{result=this.landmarker.detectForVideo(this.video,t);}catch(_){return;}
+    const shapes=result.faceBlendshapes?.[0]; if(!shapes){$('mode-label').textContent='顔を探しています'; $('mode-light').className='mode-status wait'; return;}
+    const matrix=result.facialTransformationMatrixes?.[0]; const h=headPose(matrix?.data);
+    let x=h.x*(state.invertX?-1:1), y=h.y*(state.invertY?-1:1);
+    this.x+=(x-this.x)*state.smoothing; this.y+=(y-this.y)*state.smoothing; this.sample={x:this.x,y:this.y};
+    $('mode-label').textContent=state.calibration?'頭の動き：準備完了':'頭の動き：位置合わせ推奨'; $('mode-light').className='mode-status on';
+    if(!state.calibrating && $('board-screen').classList.contains('active')) setFocus(nearestZone(this.x,this.y));
+    const b={}; shapes.categories.forEach(c=>b[c.categoryName]=c.score);
+    const l=b.eyeBlinkLeft||0, r=b.eyeBlinkRight||0;
+    if(state.trigger==='wink'){
+      const wink=l>.55 && l-r>.25;
+      if(wink){if(!this.winkAt)this.winkAt=t; if(!this.winkFired&&t-this.winkAt>260){this.winkFired=true; if(state.focus!=null)activate(state.zones[state.focus]);}} else {this.winkAt=0;this.winkFired=false;}
+    }
+    if(state.trigger==='blink'){
+      const closed=l>.58&&r>.58;
+      if(closed){if(!this.closedAt)this.closedAt=t; if(!this.blinkFired&&t-this.closedAt>450){this.blinkFired=true;if(state.focus!=null)activate(state.zones[state.focus]);}} else {this.closedAt=0;this.blinkFired=false;}
+    }
+  }
+}
+
+function showCameraProblem(error){
+  const denied=error?.name==='NotAllowedError'||error?.name==='SecurityError';
+  const missing=error?.name==='NotFoundError'||error?.name==='DevicesNotFoundError';
+  const busy=error?.name==='NotReadableError'||error?.name==='TrackStartError';
+  $('camera-help-title').textContent=denied?'カメラを許可してください':missing?'カメラが見つかりません':busy?'カメラを使用できません':'カメラを開始できませんでした';
+  $('camera-help-copy').textContent=denied
+    ?'端末またはブラウザの設定で、このアプリのカメラを許可してから「もう一度試す」を押してください。'
+    :missing?'カメラのある端末で開くか、タッチ操作をご利用ください。'
+    :busy?'ほかのアプリがカメラを使用していないか確認してから、もう一度お試しください。'
+    :'通信状況を確認してから、もう一度お試しください。タッチ操作も利用できます。';
+  $('camera-help').hidden=false;
+}
+async function startCamera(){
+  unlockAudio(); $('camera-help').hidden=true; $('start-camera').disabled=true;
+  $('mode-label').textContent='カメラを準備しています'; $('mode-light').className='mode-status wait'; show('board-screen'); configureZones();
+  try{
+    state.camera?.stop(); state.camera=new CameraTracker(); await state.camera.start(); state.mode='camera'; state.trigger='dwell'; $('trigger').value='dwell'; $('calibrate-top').hidden=false; toast('頭をゆっくり動かして、黄色の枠を合わせます');
+  }catch(e){
+    state.camera?.stop(); state.camera=null; state.mode='pointer'; state.trigger='click'; $('trigger').value='click'; $('mode-label').textContent='タッチ操作'; $('mode-light').className='mode-status on'; $('calibrate-top').hidden=true;
+    show('welcome'); showCameraProblem(e);
+  }finally{
+    $('start-camera').disabled=false;
+  }
+}
+function startPointer(){
+  unlockAudio(); $('camera-help').hidden=true; state.camera?.stop(); state.camera=null; state.mode='pointer'; state.trigger='click'; $('trigger').value='click'; document.body.classList.remove('show-camera');
+  $('mode-label').textContent='タッチ操作'; $('mode-light').className='mode-status on'; $('calibrate-top').hidden=true; show('board-screen'); configureZones();
+}
+
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+async function calibrate(){
+  if(!state.camera){toast('先に「頭の操作に切り替える」を選んでください。');return;}
+  state.calibrating=true; state.calAbort=false; show('cal-screen'); const points=[]; const labels=Array.from(document.querySelectorAll('#board .tile .label')).map(x=>x.textContent);
+  for(let i=0;i<labels.length;i++){
+    if(state.calAbort){state.calibrating=false;show('board-screen');configureZones();return;}
+    $('cal-step').textContent=`位置合わせ ${i+1} / ${labels.length}`; $('cal-title').textContent=`「${labels[i]}」の位置を見てください`;
+    $('cal-copy').textContent='頭をその位置に向けたまま、ゆっくり数えてください。'; $('cal-progress-fill').style.width='0%';
+    const settle=1100, sampleMs=1000, begun=performance.now();
+    while(performance.now()-begun<settle){if(state.calAbort)break;$('cal-progress-fill').style.width=`${(performance.now()-begun)/settle*45}%`;await wait(40);}
+    const samples=[],sampleStart=performance.now();
+    while(performance.now()-sampleStart<sampleMs){if(state.calAbort)break;if(state.camera.sample)samples.push({...state.camera.sample});$('cal-progress-fill').style.width=`${45+(performance.now()-sampleStart)/sampleMs*55}%`;await wait(35);}
+    if(state.calAbort){state.calibrating=false;show('board-screen');configureZones();return;}
+    if(samples.length<5){state.calibrating=false;show('board-screen');configureZones();toast('顔を検出できませんでした。もう一度お試しください。',4500);return;}
+    points.push({x:median(samples.map(s=>s.x)),y:median(samples.map(s=>s.y))});
+  }
+  state.calibration=points; state.calibrating=false; show('board-screen'); configureZones(); toast('位置合わせが完了しました');
+}
+function median(a){const s=a.slice().sort((x,y)=>x-y),m=s.length>>1;return s.length%2?s[m]:(s[m-1]+s[m])/2;}
+
+$('start-camera').onclick=startCamera; $('retry-camera').onclick=startCamera;
+$('start-pointer').onclick=startPointer; $('camera-help-pointer').onclick=startPointer;
+document.querySelectorAll('#board .tile').forEach((tile) => {
+  tile.addEventListener('click', () => {
+    const index = Array.from(document.querySelectorAll('#board .tile')).indexOf(tile);
+    state.zones = Array.from(document.querySelectorAll('#board .tile'));
+    unlockAudio();
+    setFocus(index);
+    activate(tile);
+  });
+});
+$('stop-alert').onclick=()=>stopAlert(true);
+$('open-settings').onclick=()=>show('settings-screen'); $('close-settings').onclick=()=>{show('board-screen');configureZones();};
+$('calibrate-top').onclick=calibrate; $('calibrate-settings').onclick=calibrate;
+$('cancel-cal').onclick=()=>{state.calAbort=true;};
+$('switch-pointer').onclick=startPointer; $('switch-camera').onclick=startCamera;
+$('trigger').onchange=e=>{state.trigger=e.target.value; toast('決定方法を変更しました');};
+$('dwell').oninput=e=>{state.dwellMs=+e.target.value;$('dwell-out').textContent=(state.dwellMs/1000).toFixed(1)+'秒';};
+$('sensitivity').oninput=e=>{state.sensitivity=+e.target.value;$('sensitivity-out').textContent=state.sensitivity.toFixed(1);};
+$('smoothing').oninput=e=>{state.smoothing=+e.target.value;$('smoothing-out').textContent=state.smoothing.toFixed(2);};
+$('horizontal').onchange=e=>state.invertX=e.target.value==='invert'; $('vertical').onchange=e=>state.invertY=e.target.value==='invert';
+$('speech-rate').oninput=e=>{state.speechRate=+e.target.value;$('speech-rate-out').textContent=state.speechRate.toFixed(2).replace(/0$/,'');};
+$('camera-preview-select').onchange=e=>document.body.classList.toggle('show-camera',e.target.value==='on');
+$('reset-settings').onclick=()=>{
+  state.dwellMs=1500;state.sensitivity=3.4;state.smoothing=.24;state.invertX=false;state.invertY=false;state.speechRate=.9;state.calibration=null;
+  $('dwell').value=1500;$('dwell-out').textContent='1.5秒';$('sensitivity').value=3.4;$('sensitivity-out').textContent='3.4';$('smoothing').value=.24;$('smoothing-out').textContent='0.24';$('horizontal').value='normal';$('vertical').value='normal';$('speech-rate').value=.9;$('speech-rate-out').textContent='0.9';toast('初期設定に戻しました');
+};
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    if($('alert-screen').classList.contains('active'))stopAlert(true);
+    else if(!$('welcome').classList.contains('active')){show('board-screen');configureZones();}
+  }
+});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stopSpeech();});
+configureZones();
+</script>
+</body>
+</html>
