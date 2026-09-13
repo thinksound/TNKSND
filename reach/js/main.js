@@ -95,6 +95,7 @@ const App = {
 
     document.querySelector('#screen-settings h2').textContent = I18n.t('settingsTitle');
     document.getElementById('btn-calibrate').textContent = I18n.t('calibrate');
+    document.getElementById('btn-clear-cal').textContent = I18n.t('clearCal');
     document.getElementById('btn-close-settings').textContent = I18n.t('close');
     document.getElementById('btn-reset').textContent = I18n.t('resetDefaults');
     document.querySelector('#screen-settings .hint').innerHTML = I18n.t('settingsHint');
