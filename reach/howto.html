@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>リーチの使い方 | How to Use Reach — TNKSND Care Tech</title>
+    <meta name="description" content="カメラで顔の向きと視線を読み取り、手を使わずに操作できるコミュニケーションボード「リーチ」の使い方ガイド。A how-to guide for Reach, a touch-free communication board operated by head movement and gaze.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Noto+Sans+JP:wght@300;400;700;900&display=swap');
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #f5f4f0;
+            color: #000000;
+        }
+
+        /* Language Toggle Logic (same as tnksnd.com) */
+        .ja-content { display: block; }
+        .en-content { display: none; }
+        span.ja-content { display: inline; }
+        span.en-content { display: none; }
+
+        .show-en .ja-content { display: none; }
+        .show-en .en-content { display: block; }
+        .show-en span.ja-content { display: none; }
+        .show-en span.en-content { display: inline; }
+
+        .step-num {
+            font-size: 2.5rem;
+            font-weight: 900;
+            line-height: 1;
+            color: #C5A059;
+            font-variant-numeric: tabular-nums;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-black selection:text-[#f5f4f0]">
+
+    <header class="bg-[#f5f4f0] border-b border-black">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <a href="https://tnksnd.com/" class="font-black text-2xl tracking-tighter uppercase">TNKSND</a>
+                <div class="flex items-center gap-3">
+                    <button id="lang-toggle" class="text-[10px] md:text-xs font-bold uppercase tracking-widest border border-black px-3 py-1.5 hover:bg-black hover:text-[#f5f4f0] transition-colors">
+                        <span class="ja-content">Switch to ENGLISH</span>
+                        <span class="en-content">日本語に切り替え</span>
+                    </button>
+                    <a href="/reach/" class="bg-black text-[#f5f4f0] px-4 py-2 text-xs font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-black transition-colors">
+                        <span class="ja-content">リーチを開く</span>
+                        <span class="en-content">Open Reach</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+
+        <!-- Hero -->
+        <div class="pt-12 md:pt-16 pb-10">
+            <span class="inline-block text-[10px] font-bold uppercase tracking-widest bg-[#C5A059] text-white px-3 py-1 rounded-full mb-5">
+                <span class="ja-content">開発中</span>
+                <span class="en-content">In Development</span>
+            </span>
+            <h1 class="text-3xl md:text-5xl font-black tracking-tight mb-6">
+                <span class="ja-content">リーチの使い方</span>
+                <span class="en-content">How to Use Reach</span>
+            </h1>
+            <p class="text-base md:text-lg font-light leading-relaxed max-w-2xl opacity-80">
+                <span class="ja-content">カメラで顔の向きと視線を読み取り、手を使わずに操作できるコミュニケーションボード「リーチ」の使い方ガイドです。</span>
+                <span class="en-content">A guide to Reach, a touch-free communication board operated by head movement and gaze, read through the camera.</span>
+            </p>
+        </div>
+
+        <!-- Concept -->
+        <section class="mb-14">
+            <h2 class="text-xl md:text-2xl font-black uppercase tracking-tight mb-5">
+                <span class="ja-content">コンセプト</span>
+                <span class="en-content">Concept</span>
+            </h2>
+            <div class="bg-white rounded-2xl p-8 shadow-sm border border-black border-opacity-5">
+                <p class="font-light text-base leading-relaxed opacity-80 mb-4">
+                    <span class="ja-content">リーチは、ALSなど体の動きが限られる方が、わずかな頭の動きや視線だけで「電話をかけたい」「助けてほしい」を伝えられるようにするためのアプリです。触る・押す・声を出す操作は必要ありません。</span>
+                    <span class="en-content">Reach is an app for people with limited mobility — such as ALS — to express "I want to call someone" or "I need help" using only small head movements or gaze. No touching, tapping, or speaking is required.</span>
+                </p>
+                <p class="font-light text-base leading-relaxed opacity-80">
+                    <span class="ja-content">顔の映像は端末の中で処理され、外部のサーバーに送信されることはありません。</span>
+                    <span class="en-content">The camera image is processed entirely on the device and is never sent to an external server.</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- What you need -->
+        <section class="mb-14">
+            <h2 class="text-xl md:text-2xl font-black uppercase tracking-tight mb-5">
+                <span class="ja-content">用意するもの</span>
+                <span class="en-content">What You Need</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-black border-opacity-5">
+                    <p class="text-2xl mb-3">📷</p>
+                    <p class="font-bold text-sm mb-2">
+                        <span class="ja-content">カメラ付きのデバイス</span>
+                        <span class="en-content">A device with a camera</span>
+                    </p>
+                    <p class="font-light text-sm leading-relaxed opacity-80">
+                        <span class="ja-content">iPhone / iPad / パソコンなど</span>
+                        <span class="en-content">iPhone, iPad, or a computer</span>
+                    </p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-black border-opacity-5">
+                    <p class="text-2xl mb-3">🌐</p>
+                    <p class="font-bold text-sm mb-2">
+                        <span class="ja-content">Safari または Chrome</span>
+                        <span class="en-content">Safari or Chrome</span>
+                    </p>
+                    <p class="font-light text-sm leading-relaxed opacity-80">
+                        <span class="ja-content">カメラを使うため、ブラウザで開いてください</span>
+                        <span class="en-content">Please open it in a browser so the camera can be used</span>
+                    </p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-black border-opacity-5">
+                    <p class="text-2xl mb-3">💡</p>
+                    <p class="font-bold text-sm mb-2">
+                        <span class="ja-content">明るい場所</span>
+                        <span class="en-content">A well-lit place</span>
+                    </p>
+                    <p class="font-light text-sm leading-relaxed opacity-80">
+                        <span class="ja-content">顔に正面から光が当たる環境が理想です</span>
+                        <span class="en-content">Ideally with light falling on the face from the front</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Camera tips -->
+        <section class="mb-14">
+            <h2 class="text-xl md:text-2xl font-black uppercase tracking-tight mb-5">
+                <span class="ja-content">カメラのコツ</span>
+                <span class="en-content">Camera Tips</span>
+            </h2>
+            <div class="bg-[#f8f2e7] rounded-2xl p-8 border border-[#C5A059] border-opacity-40">
+                <ul class="space-y-4 text-base font-light leading-relaxed">
+                    <li class="flex gap-3">
+                        <span class="text-[#C5A059] font-black">✓</span>
+                        <span><span class="ja-content">顔に正面から光を当ててください（逆光は避ける）</span><span class="en-content">Light the face from the front (avoid backlight)</span></span>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="text-[#C5A059] font-black">✓</span>
+                        <span><span class="ja-content">カメラは目の高さで、真正面に固定してください</span><span class="en-content">Fix the camera directly in front, at eye level</span></span>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="text-[#C5A059] font-black">✓</span>
+                        <span><span class="ja-content">顔が画面に大きく映るようにしてください（目安 50cm〜1m）</span><span class="en-content">Keep the face large in the frame (about 50 cm – 1 m away)</span></span>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="text-[#C5A059] font-black">✓</span>
+                        <span><span class="ja-content">姿勢やカメラを動かしたら、もう一度キャリブレーションをしてください</span><span class="en-content">Recalibrate after changing posture or moving the camera</span></span>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="text-[#C5A059] font-black">✓</span>
+                        <span><span class="ja-content">両目を閉じたままにすると、スタート画面にもどります</span><span class="en-content">Keeping both eyes closed returns to the start screen</span></span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Steps -->
+        <section class="mb-14">
+            <h2 class="text-xl md:text-2xl font-black uppercase tracking-tight mb-5">
+                <span class="ja-content">使い方の手順</span>
+                <span class="en-content">Steps</span>
+            </h2>
+            <div class="space-y-4">
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-black border-opacity-5 flex gap-5">
+                    <div class="step-num shrink-0">1</div>
+                    <div>
+                        <p class="font-bold mb-2"><span class="ja-content">「はじめる」を選ぶ</span><span class="en-content">Choose "Start"</span></p>
+                        <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">スタート画面で「はじめる」に視線を合わせると、カメラが起動してキャリブレーションが始まります。</span><span class="en-content">On the start screen, look at "Start" — the camera turns on and calibration begins.</span></p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-black border-opacity-5 flex gap-5">
+                    <div class="step-num shrink-0">2</div>
+                    <div>
+                        <p class="font-bold mb-2"><span class="ja-content">カメラの使用を許可する</span><span class="en-content">Allow camera access</span></p>
+                        <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">ブラウザから確認が出たら「許可」を選んでください。一度許可すれば、次回からは聞かれません。</span><span class="en-content">When the browser asks, choose "Allow". You only need to do this once.</span></p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-black border-opacity-5 flex gap-5">
+                    <div class="step-num shrink-0">3</div>
+                    <div>
+                        <p class="font-bold mb-2"><span class="ja-content">キャリブレーション</span><span class="en-content">Calibration</span></p>
+                        <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">画面の指示にしたがって、各ボタンを順にじっと見つめてください。終わると自動でボタン画面に進みます。</span><span class="en-content">Follow the on-screen prompts and gaze steadily at each button in turn. The button board opens automatically when done.</span></p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-black border-opacity-5 flex gap-5">
+                    <div class="step-num shrink-0">4</div>
+                    <div>
+                        <p class="font-bold mb-2"><span class="ja-content">ボタンを見つめて選ぶ</span><span class="en-content">Select a button by gazing</span></p>
+                        <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">使いたいボタンの方向に頭を向けるか、視線を動かします。選ばれたボタンは光り、名前が読み上げられます。そのまま約4秒見つめ続けると決定します。</span><span class="en-content">Turn your head or move your gaze toward the button you want. The selected button lights up and its name is spoken aloud. Keep gazing for about 4 seconds to confirm.</span></p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-black border-opacity-5 flex gap-5">
+                    <div class="step-num shrink-0">5</div>
+                    <div>
+                        <p class="font-bold mb-2"><span class="ja-content">確認画面（電話など）</span><span class="en-content">Confirmation (for calls etc.)</span></p>
+                        <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">電話のように取り消せない操作では、「はい／いいえ」の確認画面が出ます。もう一度見つめて決定してください。</span><span class="en-content">Actions that can't be undone, like calls, show a "Yes / No" confirmation. Gaze once more to decide.</span></p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-black border-opacity-5 flex gap-5">
+                    <div class="step-num shrink-0">6</div>
+                    <div>
+                        <p class="font-bold mb-2"><span class="ja-content">「たすけて」ボタン</span><span class="en-content">The "Help" button</span></p>
+                        <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">選ぶと画面いっぱいにメッセージが表示され、止めるまで繰り返し読み上げられます。止めるときは「とめる」に視線を合わせてください。</span><span class="en-content">Choosing it shows a full-screen message and repeats it aloud until stopped. To stop, gaze at "Stop".</span></p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-black border-opacity-5 flex gap-5">
+                    <div class="step-num shrink-0">7</div>
+                    <div>
+                        <p class="font-bold mb-2"><span class="ja-content">スタート画面にもどる</span><span class="en-content">Back to the start screen</span></p>
+                        <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">両目を約3秒間閉じたままにすると、どの画面からでもスタート画面にもどります。途中で目を開ければキャンセルされます。</span><span class="en-content">Keep both eyes closed for about 3 seconds to return to the start screen from anywhere. Opening your eyes cancels it.</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings -->
+        <section class="mb-14">
+            <h2 class="text-xl md:text-2xl font-black uppercase tracking-tight mb-5">
+                <span class="ja-content">設定</span>
+                <span class="en-content">Settings</span>
+            </h2>
+            <div class="bg-white rounded-2xl p-8 shadow-sm border border-black border-opacity-5">
+                <p class="font-light text-sm leading-relaxed opacity-80 mb-5">
+                    <span class="ja-content">スタート画面の「設定」ボタンから開きます。主な項目は次のとおりです。</span>
+                    <span class="en-content">Open it with the "Settings" button on the start screen. Key items:</span>
+                </p>
+                <ul class="space-y-4 text-sm font-light leading-relaxed">
+                    <li class="flex gap-3">
+                        <span class="text-[#C5A059] font-black">•</span>
+                        <span><strong><span class="ja-content">電話 1・2 の相手</span><span class="en-content">Call 1 / Call 2 contacts</span></strong><br><span class="opacity-80"><span class="ja-content">メールアドレスまたは電話番号を登録します。電話ボタンは FaceTime で発信します。</span><span class="en-content">Register an email address or phone number. Call buttons dial via FaceTime.</span></span></span>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="text-[#C5A059] font-black">•</span>
+                        <span><strong><span class="ja-content">見つめる時間</span><span class="en-content">Dwell time</span></strong><br><span class="opacity-80"><span class="ja-content">ボタンを決定するまでの時間（初期値：約4秒）</span><span class="en-content">How long to gaze before a button is selected (default: about 4 seconds)</span></span></span>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="text-[#C5A059] font-black">•</span>
+                        <span><strong><span class="ja-content">キャリブレーション</span><span class="en-content">Calibration</span></strong><br><span class="opacity-80"><span class="ja-content">姿勢やカメラの位置が変わったら、設定画面からやり直せます</span><span class="en-content">Redo it from Settings whenever posture or camera position changes</span></span></span>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="text-[#C5A059] font-black">•</span>
+                        <span><strong><span class="ja-content">音で知らせる／読み上げ</span><span class="en-content">Sound &amp; speech feedback</span></strong><br><span class="opacity-80"><span class="ja-content">選択時の音や、ボタン名の読み上げのオン・オフ</span><span class="en-content">Toggle selection sounds and spoken button names</span></span></span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Notes -->
+        <section class="mb-14">
+            <h2 class="text-xl md:text-2xl font-black uppercase tracking-tight mb-5">
+                <span class="ja-content">お願い</span>
+                <span class="en-content">Please Note</span>
+            </h2>
+            <div class="rounded-2xl p-8 border border-black border-opacity-10">
+                <ul class="space-y-3 text-sm font-light leading-relaxed opacity-80">
+                    <li><span class="ja-content">リーチは開発中のアプリです。操作感や画面は今後変わることがあります。</span><span class="en-content">Reach is still in development. The feel and screens may change.</span></li>
+                    <li><span class="ja-content">本ページおよびアプリは研究開発の紹介であり、医療機器としての効能・効果を謳うものではありません。</span><span class="en-content">This page and the app describe research and development; they make no claims regarding medical device efficacy.</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="text-center pt-4">
+            <a href="/reach/" class="inline-block bg-black text-[#f5f4f0] px-10 py-4 text-sm font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-black transition-colors mb-5">
+                <span class="ja-content">リーチを使ってみる</span>
+                <span class="en-content">Try the Reach app</span>
+            </a>
+            <p>
+                <a href="https://tnksnd.com/#caretech" class="text-sm font-bold underline underline-offset-4 decoration-2 hover:text-[#C5A059] transition-colors">
+                    <span class="ja-content">ケアテックに戻る</span>
+                    <span class="en-content">Back to Care Tech</span>
+                </a>
+            </p>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-black border-opacity-10">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+            <p class="text-xs font-light opacity-60">© 2026 TNKSND — Tetsuro Oishi, Ph.D.</p>
+        </div>
+    </footer>
+
+    <script>
+        const htmlTag = document.documentElement;
+        const langToggleBtn = document.getElementById('lang-toggle');
+        langToggleBtn.addEventListener('click', () => {
+            htmlTag.classList.toggle('show-en');
+            if (htmlTag.classList.contains('show-en')) {
+                htmlTag.setAttribute('lang', 'en');
+            } else {
+                htmlTag.setAttribute('lang', 'ja');
+            }
+        });
+    </script>
+
+</body>
+</html>
