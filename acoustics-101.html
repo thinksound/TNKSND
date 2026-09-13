@@ -6,12 +6,12 @@
 <title>Acoustics 101 — The Science of Sound</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Noto+Sans+JP:wght@300;400;700;900&display=swap');
   :root { --ink:#0f172a; }
   html { scroll-behavior:smooth; }
-  body { font-family:'Inter',system-ui,sans-serif; color:var(--ink); }
-  h1,h2,h3,.font-display { font-family:'Poppins',sans-serif; }
+  body { font-family:'Inter','Noto Sans JP',sans-serif; color:var(--ink); }
+  h1,h2,h3,.font-display { font-family:'Inter','Noto Sans JP',sans-serif; }
   input[type=range]{ -webkit-appearance:none; appearance:none; height:6px; border-radius:9999px; background:#e2e8f0; outline:none; }
   input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none; width:20px;height:20px;border-radius:50%; background:#6d28d9; cursor:pointer; border:3px solid #fff; box-shadow:0 1px 6px rgba(109,40,217,.45); }
   input[type=range]::-moz-range-thumb{ width:20px;height:20px;border-radius:50%; background:#6d28d9; cursor:pointer; border:3px solid #fff; }
@@ -39,6 +39,10 @@
                 </div>
 
                 <div class="hidden xl:flex space-x-5">
+                    <a href="index.html#vision" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap text-black">
+                        <span class="ja-content">ヴィジョン</span>
+                        <span class="en-content">Vision</span>
+                    </a>
                     <a href="index.html#about" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap text-black">
                         <span class="ja-content">私たちについて</span>
                         <span class="en-content">About Us</span>
@@ -58,10 +62,6 @@
                     <a href="#top" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap text-[#C5A059]">
                         <span class="ja-content">ラボ</span>
                         <span class="en-content">The Lab</span>
-                    </a>
-                    <a href="index.html#vision" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap text-black">
-                        <span class="ja-content">ヴィジョン</span>
-                        <span class="en-content">Vision</span>
                     </a>
                     <a href="index.html#contact" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap text-black">
                         <span class="ja-content">お問い合わせ</span>
@@ -88,6 +88,10 @@
 
         <div id="mobile-menu" class="hidden xl:hidden bg-[#f5f4f0] border-t border-black absolute w-full left-0 shadow-xl">
             <div class="px-4 pt-2 pb-6 space-y-1 text-center">
+                <a href="index.html#vision" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10 text-black">
+                    <span class="ja-content">ヴィジョン</span>
+                    <span class="en-content">Vision</span>
+                </a>
                 <a href="index.html#about" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10 text-black">
                     <span class="ja-content">私たちについて</span>
                     <span class="en-content">About Us</span>
@@ -107,10 +111,6 @@
                 <a href="#top" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10 text-[#C5A059]">
                     <span class="ja-content">ラボ</span>
                     <span class="en-content">The Lab</span>
-                </a>
-                <a href="index.html#vision" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10 text-black">
-                    <span class="ja-content">ヴィジョン</span>
-                    <span class="en-content">Vision</span>
                 </a>
                 <a href="index.html#contact" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 text-black">
                     <span class="ja-content">お問い合わせ</span>
