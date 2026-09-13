@@ -2,7 +2,7 @@
 //
 // Input sources call: setFocus(index) / fireTrigger() / setTriggerProgress(0..1).
 // The 'dwell' trigger is generated here from zone stability, so switching between
-// blink and dwell is a settings change and nothing else.
+// click and dwell is a settings change and nothing else.
 
 class SelectionEngine {
   constructor(settings) {
@@ -28,7 +28,7 @@ class SelectionEngine {
   }
 
   // cancelIndex marks the zone that a cancel gesture activates. Every screen designates one
-  // (the bottom bar, NO on the confirm screen, STOP on the alert screen), so a cancel wink
+  // (none on the board, NO on the confirm screen, STOP on the alert screen), so a cancel
   // does the right thing everywhere without any screen-specific handling.
   setZones(elements, onActivate, cancelIndex) {
     this.clearFocus();
@@ -71,8 +71,8 @@ class SelectionEngine {
     this._activate(this.focus);
   }
 
-  // Prefers a designated cancel zone, but falls back to onCancel so a board whose bottom bar
-  // is something other than cancel still has a working cancel gesture.
+  // Prefers a designated cancel zone, but falls back to onCancel so a board without a
+  // cancel zone still has a working cancel gesture.
   fireCancel() {
     if (this.cancelIndex != null) {
       this._activate(this.cancelIndex);

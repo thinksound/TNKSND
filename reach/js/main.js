@@ -422,14 +422,6 @@ const App = {
     document.body.classList.toggle('debug', !el.hidden);
   },
 
-  winkAction(side) {
-    if (!side) return '-';
-    const effective = this.settings.swapWinkEyes
-      ? (side === 'left' ? 'right' : 'left')
-      : side;
-    return effective === 'left' ? 'SELECT' : 'CANCEL';
-  },
-
   updateDebug() {
     const el = document.getElementById('debug');
     if (el.hidden) return;
@@ -454,13 +446,11 @@ const App = {
         'drift     x ' + fmt(s.driftX) + '  y ' + fmt(s.driftY) + '   (raw x ' + fmt(s.rawX) + ')',
         'lid raw   L ' + fmt(s.blinkL) + '  R ' + fmt(s.blinkR),
         'lid base  L ' + fmt(s.baseL) + '  R ' + fmt(s.baseR),
-        'lid delta L ' + fmt(s.dL) + '  R ' + fmt(s.dR) + '   fires above ' + this.settings.blinkDelta,
-        'wink      ' + (s.winkSide ? s.winkSide.toUpperCase() + ' ' + Math.round(s.winkMs) + 'ms'
-          + ' -> ' + this.winkAction(s.winkSide) : 'none') + '   winks ' + s.winks,
+        'lid delta L ' + fmt(s.dL) + '  R ' + fmt(s.dR) + '   closed above ' + this.settings.blinkDelta,
         'eyes      ' + (s.bothClosed ? 'BOTH CLOSED ' + Math.round(s.holdMs) + 'ms'
           : s.eyesClosed ? 'one closed' : 'open')
           + (s.frozen ? '   HIGHLIGHT HELD' : ''),
-        'zone      ' + (s.zone == null ? '-' : s.zone) + '   blinks ' + s.triggers
+        'zone      ' + (s.zone == null ? '-' : s.zone) + '   activations ' + this.engine.triggerCount
       );
     }
     el.textContent = lines.join('\n');

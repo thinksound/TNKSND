@@ -1,4 +1,4 @@
-// MediaPipe gaze-zone + long-blink source.
+// MediaPipe gaze-zone source.
 //
 // All video processing happens on-device: frames never leave the machine. The only network
 // traffic is the one-time download of the WASM runtime and the face landmarker model.
@@ -30,9 +30,6 @@ class WebcamInput {
       dR: 0,
       eyesClosed: false,
       bothClosed: false,
-      winkSide: null,
-      winkMs: 0,
-      winks: 0,
       frozen: false,
       holdMs: 0,
       zone: null,
@@ -48,10 +45,6 @@ class WebcamInput {
     this._baseR = null;
     this._closedSince = 0;
     this._anyClosedSince = 0;
-    this._winkSide = null;
-    this._winkSince = 0;
-    this._winkFired = false;
-    this._firedThisClosure = false;
     this._lastVideoTime = -1;
     this._lastFrameAt = 0;
     this._loop = this._loop.bind(this);
@@ -174,31 +167,15 @@ class WebcamInput {
     const bothClosed = closedL && closedR;
     const anyClosed = closedL || closedR;
 
-    // A wink is one eye clearly more closed than the other. If both eyes cross the threshold
-    // it is an ordinary blink, so no wink is reported and nothing happens — which is what
-    // makes involuntary blinking harmless in this mode.
-    let winkSide = null;
-    if (!bothClosed) {
-      if (closedL && dL - dR > s.winkAsymmetry) winkSide = 'left';
-      else if (closedR && dR - dL > s.winkAsymmetry) winkSide = 'right';
-    }
-    if (winkSide !== this._winkSide) {
-      this._winkSide = winkSide;
-      this._winkSince = winkSide ? t : 0;
-      this._winkFired = false;
-    }
-    const winkMs = this._winkSince ? t - this._winkSince : 0;
-
     if (bothClosed) {
       if (!this._closedSince) this._closedSince = t;
     } else {
       this._closedSince = 0;
-      this._firedThisClosure = false;
     }
     const holdMs = this._closedSince ? t - this._closedSince : 0;
 
     // Gaze from a closed eye is garbage, so the highlight is held while *either* eye is shut,
-    // which stops a wink from dragging the selection onto a neighbouring tile. Never held for
+    // which stops a blink from dragging the selection onto a neighbouring tile. Never held for
     // longer than maxFreezeMs: beyond that it is a resting state or a detection failure, and
     // a permanently frozen board is the worse failure.
     if (anyClosed) {
@@ -223,8 +200,6 @@ class WebcamInput {
     this.state.dR = dR;
     this.state.eyesClosed = anyClosed;
     this.state.bothClosed = bothClosed;
-    this.state.winkSide = this._winkSide;
-    this.state.winkMs = winkMs;
     this.state.frozen = frozen;
     this.state.holdMs = holdMs;
 
@@ -239,37 +214,10 @@ class WebcamInput {
 
     if (!this.paused) {
       if (!frozen) this.engine.setFocus(this.state.zone);
-
-      if (s.trigger === 'wink') {
-        const side = s.swapWinkEyes ? flipSide(this._winkSide) : this._winkSide;
-        const progress = this._winkSince ? winkMs / s.winkHoldMs : 0;
-        this.engine.setTriggerProgress(side === 'left' ? progress : 0);
-        this.engine.setCancelProgress(side === 'right' ? progress : 0);
-
-        if (this._winkSince && !this._winkFired && winkMs >= s.winkHoldMs) {
-          this._winkFired = true;
-          this.state.winks++;
-          if (side === 'left') this.engine.fireTrigger();
-          else if (side === 'right') this.engine.fireCancel();
-        }
-      }
-
-      if (s.trigger === 'blink') {
-        this.engine.setTriggerProgress(holdMs / s.blinkHoldMs);
-        if (this._closedSince && !this._firedThisClosure && holdMs >= s.blinkHoldMs) {
-          this._firedThisClosure = true;
-          this.state.triggers++;
-          this.engine.fireTrigger();
-        }
-      }
     }
 
     if (this.onFrame) this.onFrame(this.state);
   }
-}
-
-function flipSide(side) {
-  return side === 'left' ? 'right' : side === 'right' ? 'left' : null;
 }
 
 // Column-major 4x4: element (row i, col j) is data[j * 4 + i]. Returns radians.

@@ -39,21 +39,13 @@ const DEFAULT_SETTINGS = {
   dwellMs: 4000,
   refractoryMs: 1000,
 
-  // long-blink trigger. blinkDelta is measured above the resting eyelid level, not absolute,
-  // so a droopy or narrowed resting lid cannot read as permanently closed.
+  // Closed-eye detection (used to hold the highlight still while blinking, and to
+  // reject closed-eye samples during calibration). blinkDelta is measured above
+  // the resting eyelid level, not absolute, so a droopy or narrowed resting lid
+  // cannot read as permanently closed.
   blinkDelta: 0.4,
-  blinkHoldMs: 400,
   // Hard ceiling on how long a suspected blink may hold the highlight still.
   maxFreezeMs: 1200,
-
-  // wink trigger: one eye selects, the other cancels. Winks are always deliberate, so they
-  // need a shorter hold than a blink. winkAsymmetry is how much more closed the winking eye
-  // must be than the open one, which is what separates a wink from an ordinary blink.
-  winkHoldMs: 220,
-  winkAsymmetry: 0.25,
-  // MediaPipe's "left" is the subject's own left eye, which appears on the right in a
-  // mirrored preview. Flip this if select and cancel come out swapped.
-  swapWinkEyes: false,
 
   // pointing signal
   signal: 'head',          // 'head' | 'gaze' | 'both'
