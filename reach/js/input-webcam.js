@@ -228,7 +228,14 @@ class WebcamInput {
     this.state.frozen = frozen;
     this.state.holdMs = holdMs;
 
-    if (!frozen) this.state.zone = Calibration.classify(gxAdj, gyAdj);
+    // The confirm screen has exactly 2 zones (はい/いいえ); the board's
+    // 5-way classify would map its right half to out-of-range indices, so it
+    // gets its own left/right split.
+    if (!frozen) {
+      this.state.zone = this.engine.zones.length === 2
+        ? Calibration.confirmClassify(gxAdj)
+        : Calibration.classify(gxAdj, gyAdj);
+    }
 
     if (!this.paused) {
       if (!frozen) this.engine.setFocus(this.state.zone);

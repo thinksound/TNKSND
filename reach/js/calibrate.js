@@ -124,6 +124,17 @@ const Calibration = {
     return best;
   },
 
+  // Confirm screen: two side-by-side zones (はい on the left, いいえ on the
+  // right). The board's classify() maps the right half to tile indices 2-4,
+  // which are out of range for a 2-zone screen and left いいえ unfocusable,
+  // so split the calibrated horizontal span down the middle instead.
+  confirmClassify(gx) {
+    if (!this.isCalibrated || this.tileCount < 2) return gx < 0 ? 0 : 1;
+    const xs = this.points.slice(0, this.tileCount).map((p) => p.gx);
+    const mid = (Math.min.apply(null, xs) + Math.max.apply(null, xs)) / 2;
+    return gx < mid ? 0 : 1;
+  },
+
   // Flags zones that calibration left hard or impossible to hit, which is what a single
   // unresponsive button looks like from the outside.
   quality(labels) {
