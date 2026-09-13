@@ -329,6 +329,8 @@ const App = {
     }
     Actions.lang = this.settings.speechLang;
     Settings.save(this.settings);
+    // Let the user hear immediately that audio feedback works.
+    if (spec.key === 'audioFeedback' && value) Actions.activateBeep();
     this.syncSettings();
 
     if (spec.rebuild) this.buildBoard();

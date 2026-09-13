@@ -31,8 +31,8 @@ const Actions = {
     osc.stop(t + ms / 1000 + 0.02);
   },
 
-  focusBeep() { this.tone(620, 55, 0.04); },
-  activateBeep() { this.tone(940, 130, 0.09); },
+  focusBeep() { this.tone(620, 80, 0.15); },
+  activateBeep() { this.tone(940, 150, 0.25); },
 
   speak(text, rate) {
     if (!('speechSynthesis' in window) || !text) return;
