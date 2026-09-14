@@ -499,5 +499,20 @@ waveRead();
   }
 })();
 </script>
+<!-- Cloudflare Web Analytics (self visits excluded via ?notrack=1) -->
+<script>
+(function(){
+  try {
+    if (/\bnotrack=1\b/.test(window.location.search)) localStorage.setItem('tnksnd-notrack','1');
+    if (localStorage.getItem('tnksnd-notrack') === '1') return;
+  } catch (e) {}
+  var s = document.createElement('script');
+  s.type = 'module';
+  s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+  s.setAttribute('data-cf-beacon', '{"token": "b22f33f4161a478484a6eca33fcb8688"}');
+  document.head.appendChild(s);
+})();
+</script>
+<!-- End Cloudflare Web Analytics -->
 </body>
 </html>
