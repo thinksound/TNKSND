@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ボード — ベッドサイド電子ペーパー | Board — TNKSND Care Tech</title>
+    <meta name="description" content="中古のKindle Paperwhiteをベッドサイドの電子ペーパー端末に。見当識時計・ケア予定表・家族メッセージを届ける「ボード」の紹介。A used Kindle Paperwhite repurposed as a bedside e-paper terminal for care settings.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Noto+Sans+JP:wght@300;400;700;900&display=swap');
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #f5f4f0; color: #000000; }
+        .ja-content { display: block; }
+        .en-content { display: none; }
+        span.ja-content { display: inline; }
+        span.en-content { display: none; }
+        .show-en .ja-content { display: none; }
+        .show-en .en-content { display: block; }
+        .show-en span.ja-content { display: none; }
+        .show-en span.en-content { display: inline; }
+    </style>
+</head>
+<body class="antialiased selection:bg-black selection:text-[#f5f4f0]">
+    <header class="bg-[#f5f4f0] border-b border-black">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <a href="https://tnksnd.com/" class="font-black text-2xl tracking-tighter uppercase">TNKSND</a>
+                <div class="flex items-center gap-3">
+                    <button id="lang-toggle" class="text-[10px] md:text-xs font-bold uppercase tracking-widest border border-black px-3 py-1.5 hover:bg-black hover:text-[#f5f4f0] transition-colors">
+                        <span class="ja-content">Switch to ENGLISH</span>
+                        <span class="en-content">日本語に切り替え</span>
+                    </button>
+                    <a href="/board/howto.html" class="bg-black text-[#f5f4f0] px-4 py-2 text-xs font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-black transition-colors">
+                        <span class="ja-content">使い方ガイド</span>
+                        <span class="en-content">How-to Guide</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+        <div class="pt-12 md:pt-16 pb-10">
+            <span class="inline-block text-[10px] font-bold uppercase tracking-widest bg-[#C5A059] text-white px-3 py-1 rounded-full mb-5">
+                <span class="ja-content">試作機稼働中</span>
+                <span class="en-content">Working prototype</span>
+            </span>
+            <h1 class="text-3xl md:text-5xl font-black tracking-tight mb-6">
+                <span class="ja-content">ボード — ベッドサイド電子ペーパー</span>        <section class="mb-14">
+            <h2 class="text-xl md:text-2xl font-black uppercase tracking-tight mb-5">
+                <span class="ja-content">3つの画面</span>
+                <span class="en-content">Three Screens</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <figure class="bg-white rounded-2xl overflow-hidden shadow-sm border border-black border-opacity-5">
+                    <img src="/images/care-board-clock.png" alt="Board orientation clock screen" class="w-full" loading="lazy">
+                    <figcaption class="px-6 py-5">
+                        <p class="font-bold text-sm mb-2"><span class="ja-content">見当識時計</span><span class="en-content">Orientation Clock</span></p>
+                        <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">「今日は9月15日火曜日・午前」を大きく表示。認知症の方の混乱をやわらげます。</span><span class="en-content">Date, weekday, and time of day in huge type &mdash; easing disorientation for people with dementia.</span></p>
+                    </figcaption>
+                </figure>
+                <figure class="bg-white rounded-2xl overflow-hidden shadow-sm border border-black border-opacity-5">
+                    <img src="/images/care-board-schedule.png" alt="Board care schedule screen" class="w-full" loading="lazy">
+                    <figcaption class="px-6 py-5">
+                        <p class="font-bold text-sm mb-2"><span class="ja-content">ケア予定表</span><span class="en-content">Care Schedule</span></p>
+                        <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">服薬・痰吸引・体位変換など、今日の予定を時系列で。「つぎ」を強調し、家族と介護者で共有できます。</span><span class="en-content">Today&rsquo;s medication, suction, and repositioning in a timeline, with the next task highlighted &mdash; shared by family and caregivers.</span></p>
+                    </figcaption>
+                </figure>
+                <figure class="bg-white rounded-2xl overflow-hidden shadow-sm border border-black border-opacity-5">
+                    <img src="/images/care-board-message.png" alt="Board family message screen" class="w-full" loading="lazy">
+                    <figcaption class="px-6 py-5">
+                        <p class="font-bold text-sm mb-2"><span class="ja-content">家族メッセージ</span><span class="en-content">Family Messages</span></p>
+                        <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">家族からの一言がベッドサイドに届きます。日常の何気ない言葉が、そのまま力になります。</span><span class="en-content">Short messages from family arrive at the bedside &mdash; everyday words that bring strength.</span></p>
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+        <section class="mb-14">
+            <h2 class="text-xl md:text-2xl font-black uppercase tracking-tight mb-5">
+                <span class="ja-content">なぜ電子ペーパーなのか</span>
+                <span class="en-content">Why E-Paper</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-black border-opacity-5">
+                    <p class="font-bold text-sm mb-2"><span class="ja-content">介護に寄り添う内容</span><span class="en-content">Care-First Content</span></p>
+                    <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">「見るだけ」で情報が届きます。操作は一切いりません。</span><span class="en-content">Information arrives just by looking &mdash; no operation needed.</span></p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-black border-opacity-5">
+                    <p class="font-bold text-sm mb-2"><span class="ja-content">目に優しい</span><span class="en-content">Easy on the Eyes</span></p>
+                    <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">紙のように光を反射し、まぶしさやブルーライトがありません。夜間もやさしく読めます。</span><span class="en-content">Reflects light like paper &mdash; no glare, no blue light. Gentle even at night.</span></p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-black border-opacity-5">
+                    <p class="font-bold text-sm mb-2"><span class="ja-content">電池が長持ち</span><span class="en-content">Long Battery Life</span></p>
+                    <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">省電力スリープとの組み合わせで、30分ごとの自動更新を続けながら、充電は数週間に一度で済む設計です。</span><span class="en-content">With low-power sleep, it refreshes every 30 minutes yet needs charging only once every few weeks.</span></p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-black border-opacity-5">        <section class="text-center pt-4">
+            <a href="/board/howto.html" class="inline-block bg-black text-[#f5f4f0] px-10 py-4 text-sm font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-black transition-colors mb-5">
+                <span class="ja-content">使い方ガイド</span>
+                <span class="en-content">How-to Guide</span>
+            </a>
+            <p><a href="https://tnksnd.com/#caretech" class="text-sm font-bold underline underline-offset-4 decoration-2 hover:text-[#C5A059] transition-colors"><span class="ja-content">ケアテックに戻る</span><span class="en-content">Back to Care Tech</span></a></p>
+        </section>
+    </main>
+    <footer class="border-t border-black border-opacity-10">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+            <p class="text-xs font-light opacity-60">© 2026 TNKSND — Tetsuro Oishi, Ph.D.</p>
+        </div>
+    </footer>
+    <script>
+        const htmlTag = document.documentElement;
+        const langToggleBtn = document.getElementById('lang-toggle');
+        langToggleBtn.addEventListener('click', () => {
+            htmlTag.classList.toggle('show-en');
+            if (htmlTag.classList.contains('show-en')) { htmlTag.setAttribute('lang', 'en'); }
+            else { htmlTag.setAttribute('lang', 'ja'); }
+        });
+    </script>
+</body>
+</html>
+
+                    <p class="font-bold text-sm mb-2"><span class="ja-content">導入コストが安い</span><span class="en-content">Affordable</span></p>
+                    <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">中古のKindle（1万円台）を活用。10万円近いタブレットの10分の1以下のコストで導入できます。</span><span class="en-content">Built on a used Kindle (around &yen;10,000) &mdash; a tenth or less of a &yen;100,000 tablet.</span></p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-black border-opacity-5 md:col-span-2">
+                    <p class="font-bold text-sm mb-2"><span class="ja-content">常に表示</span><span class="en-content">Always Displayed</span></p>
+                    <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">電子ペーパーは電力なしで表示を保持します。触らなくても、電源を気にしなくても、そこに情報があります。</span><span class="en-content">E-ink holds its image with zero power. The information is simply there &mdash; no touch, no power worries.</span></p>
+                </div>
+            </div>
+        </section>
+        <section class="mb-14">
+            <h2 class="text-xl md:text-2xl font-black uppercase tracking-tight mb-5">
+                <span class="ja-content">お願い</span>
+                <span class="en-content">Please Note</span>
+            </h2>
+            <div class="rounded-2xl p-8 border border-black border-opacity-10">
+                <ul class="space-y-3 text-sm font-light leading-relaxed opacity-80">
+                    <li><span class="ja-content">ボードは試作機です。画面や仕様は今後変わることがあります。</span><span class="en-content">Board is a working prototype. Screens and specifications may change.</span></li>
+                    <li><span class="ja-content">本ページは研究開発の紹介であり、医療機器としての効能・効果を謳うものではありません。</span><span class="en-content">This page describes research and development; it makes no claims regarding medical device efficacy.</span></li>
+                </ul>
+            </div>
+        </section>
+
+                <span class="en-content">Board — Bedside E-Paper Display</span>
+            </h1>
+            <p class="text-base md:text-lg font-light leading-relaxed max-w-2xl opacity-80">
+                <span class="ja-content">介護の現場では、10万円近いタブレットは高価すぎます。「ボード」は中古のKindle Paperwhiteをベッドサイド端末に仕立て直した、介護に寄り添う電子ペーパーボードです。見当識時計・ケア予定表・家族メッセージの3つの画面を、30分ごとに自動で更新してお届けします。</span>
+                <span class="en-content">In care settings, a tablet costing nearly &yen;100,000 is simply out of reach. Board repurposes a used Kindle Paperwhite as a bedside e-paper terminal, automatically refreshing three care-focused screens &mdash; an orientation clock, a care schedule, and family messages &mdash; every 30 minutes.</span>
+            </p>
+        </div>
+        <section class="mb-14">
+            <h2 class="text-xl md:text-2xl font-black uppercase tracking-tight mb-5">
+                <span class="ja-content">コンセプト</span>
+                <span class="en-content">Concept</span>
+            </h2>
+            <div class="bg-white rounded-2xl p-8 shadow-sm border border-black border-opacity-5">
+                <p class="font-light text-base leading-relaxed opacity-80 mb-4">
+                    <span class="ja-content">ボードは「見るだけ」で情報が届くことを目指しています。操作は一切いりません。日付・予定・家族の言葉が、ベッドから読める大きさで、まぶしくない電子ペーパーに表示されます。電源を気にする必要もありません。</span>
+                    <span class="en-content">Board is designed so information arrives just by looking &mdash; no operation needed. Dates, schedules, and words from family appear large enough to read from bed, on glare-free e-paper. No need to think about power, either.</span>
+                </p>
+                <p class="font-light text-base leading-relaxed opacity-80">
+                    <span class="ja-content">タブレットとは真逆の方向性です。機能をあえて制限することで、介護の現場での使いやすさを劇的に改善します。</span>
+                    <span class="en-content">It goes in the opposite direction from tablets: by deliberately limiting features, it dramatically improves usability in care settings.</span>
+                </p>
+            </div>
+        </section>
