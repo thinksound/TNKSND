@@ -8,19 +8,35 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Noto+Sans+JP:wght@300;400;700;900&display=swap');
-        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #f5f4f0; color: #000000; }
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #f5f4f0;
+            color: #000000;
+        }
+
+        /* Language Toggle Logic (same as tnksnd.com) */
         .ja-content { display: block; }
         .en-content { display: none; }
         span.ja-content { display: inline; }
         span.en-content { display: none; }
+
         .show-en .ja-content { display: none; }
         .show-en .en-content { display: block; }
         .show-en span.ja-content { display: none; }
         .show-en span.en-content { display: inline; }
-        .step-num { font-size: 2.5rem; font-weight: 900; line-height: 1; color: #C5A059; font-variant-numeric: tabular-nums; }
+
+        .step-num {
+            font-size: 2.5rem;
+            font-weight: 900;
+            line-height: 1;
+            color: #C5A059;
+            font-variant-numeric: tabular-nums;
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-black selection:text-[#f5f4f0]">
+
     <header class="bg-[#f5f4f0] border-b border-black">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
@@ -38,7 +54,10 @@
             </div>
         </div>
     </header>
+
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+
+        <!-- Hero -->
         <div class="pt-12 md:pt-16 pb-10">
             <span class="inline-block text-[10px] font-bold uppercase tracking-widest bg-[#C5A059] text-white px-3 py-1 rounded-full mb-5">
                 <span class="ja-content">試作機稼働中</span>
@@ -53,6 +72,8 @@
                 <span class="en-content">Board is a bedside e-paper display you simply place and leave. No operation needed. Set it where it can be seen from the bed, and the orientation clock, care schedule, and family messages refresh automatically every 30 minutes.</span>
             </p>
         </div>
+
+        <!-- Concept -->
         <section class="mb-14">
             <h2 class="text-xl md:text-2xl font-black uppercase tracking-tight mb-5">
                 <span class="ja-content">コンセプト</span>
@@ -64,7 +85,53 @@
                     <span class="en-content">Board is designed so information arrives just by looking. No touching, no tapping, no worrying about charging. E-paper holds its image with zero power, so the information is always there.</span>
                 </p>
             </div>
-        </section>        <section class="mb-14">
+        </section>
+
+        <!-- What you need -->
+        <section class="mb-14">
+            <h2 class="text-xl md:text-2xl font-black uppercase tracking-tight mb-5">
+                <span class="ja-content">用意するもの</span>
+                <span class="en-content">What You Need</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-black border-opacity-5">
+                    <p class="text-2xl mb-3">📖</p>
+                    <p class="font-bold text-sm mb-2">
+                        <span class="ja-content">Kindle Paperwhite</span>
+                        <span class="en-content">Kindle Paperwhite</span>
+                    </p>
+                    <p class="font-light text-sm leading-relaxed opacity-80">
+                        <span class="ja-content">中古でOK（1万円台）。画面に割れがなければ大丈夫です</span>
+                        <span class="en-content">Used is fine (around &yen;10,000), as long as the screen is not cracked</span>
+                    </p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-black border-opacity-5">
+                    <p class="text-2xl mb-3">🌐</p>
+                    <p class="font-bold text-sm mb-2">
+                        <span class="ja-content">Wi-Fi</span>
+                        <span class="en-content">Wi-Fi</span>
+                    </p>
+                    <p class="font-light text-sm leading-relaxed opacity-80">
+                        <span class="ja-content">30分ごとの自動更新に必要です</span>
+                        <span class="en-content">Needed for the automatic refresh every 30 minutes</span>
+                    </p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-black border-opacity-5">
+                    <p class="text-2xl mb-3">🛏️</p>
+                    <p class="font-bold text-sm mb-2">
+                        <span class="ja-content">ベッドサイドの置き場所</span>
+                        <span class="en-content">A bedside spot</span>
+                    </p>
+                    <p class="font-light text-sm leading-relaxed opacity-80">
+                        <span class="ja-content">ベッドから無理なく読める距離と角度に置きます</span>
+                        <span class="en-content">Place it at a distance and angle easy to read from bed</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Steps -->
+        <section class="mb-14">
             <h2 class="text-xl md:text-2xl font-black uppercase tracking-tight mb-5">
                 <span class="ja-content">使い方の手順</span>
                 <span class="en-content">Steps</span>
@@ -98,45 +165,10 @@
                         <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">30分ごとに最新の画面に更新されます。操作は不要です。充電は数週間に一度でかまいません。</span><span class="en-content">Screens refresh every 30 minutes on their own. No operation needed, and charging once every few weeks is enough.</span></p>
                     </div>
                 </div>
-            </div>        <section class="mb-14">
-            <h2 class="text-xl md:text-2xl font-black uppercase tracking-tight mb-5">
-                <span class="ja-content">お願い</span>
-                <span class="en-content">Please Note</span>
-            </h2>
-            <div class="rounded-2xl p-8 border border-black border-opacity-10">
-                <ul class="space-y-3 text-sm font-light leading-relaxed opacity-80">
-                    <li><span class="ja-content">ボードは試作機です。画面や仕様は今後変わることがあります。</span><span class="en-content">Board is a working prototype. Screens and specifications may change.</span></li>
-                    <li><span class="ja-content">表示が古いと感じたら、画面右下の更新時刻をご確認ください。</span><span class="en-content">If the display seems outdated, check the refresh timestamp at the bottom right.</span></li>
-                    <li><span class="ja-content">本ページは研究開発の紹介であり、医療機器としての効能・効果を謳うものではありません。</span><span class="en-content">This page describes research and development; it makes no claims regarding medical device efficacy.</span></li>
-                </ul>
             </div>
         </section>
-        <section class="text-center pt-4">
-            <a href="/board/" class="inline-block bg-black text-[#f5f4f0] px-10 py-4 text-sm font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-black transition-colors mb-5">
-                <span class="ja-content">ボードについて</span>
-                <span class="en-content">About Board</span>
-            </a>
-            <p><a href="https://tnksnd.com/#caretech" class="text-sm font-bold underline underline-offset-4 decoration-2 hover:text-[#C5A059] transition-colors"><span class="ja-content">ケアテックに戻る</span><span class="en-content">Back to Care Tech</span></a></p>
-        </section>
-    </main>
-    <footer class="border-t border-black border-opacity-10">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
-            <p class="text-xs font-light opacity-60">© 2026 TNKSND — Tetsuro Oishi, Ph.D.</p>
-        </div>
-    </footer>
-    <script>
-        const htmlTag = document.documentElement;
-        const langToggleBtn = document.getElementById('lang-toggle');
-        langToggleBtn.addEventListener('click', () => {
-            htmlTag.classList.toggle('show-en');
-            if (htmlTag.classList.contains('show-en')) { htmlTag.setAttribute('lang', 'en'); }
-            else { htmlTag.setAttribute('lang', 'ja'); }
-        });
-    </script>
-</body>
-</html>
 
-        </section>
+        <!-- Reading the screens -->
         <section class="mb-14">
             <h2 class="text-xl md:text-2xl font-black uppercase tracking-tight mb-5">
                 <span class="ja-content">画面の見方</span>
@@ -155,29 +187,62 @@
                     <p class="font-bold mb-2"><span class="ja-content">家族メッセージ</span><span class="en-content">Family Messages</span></p>
                     <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">家族からの一言が表示されます。「お父さん、今日もいい天気だよ」のような日常の言葉が、そのまま届きます。</span><span class="en-content">Short messages from family appear here &mdash; everyday words, delivered as they are.</span></p>
                 </div>
+                <div class="bg-[#f8f2e7] rounded-2xl p-6 md:p-8 border border-[#C5A059] border-opacity-40">
+                    <p class="font-bold mb-2"><span class="ja-content">応援メッセージ</span><span class="en-content">Encouragement</span></p>
+                    <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">「何もできなくても、迷惑なんかじゃない。いるだけでいいんだ。あなたは愛されている。」存在そのものの価値を伝える言葉が表示されます。つらいとき、そっと寄り添います。</span><span class="en-content">&ldquo;Even if you can&rsquo;t do anything, you&rsquo;re not a burden. Just being here is enough. You are loved.&rdquo; Words affirming the value of simply being here &mdash; quiet company in hard moments.</span></p>
+                </div>
             </div>
         </section>
 
+        <!-- Notes -->
         <section class="mb-14">
             <h2 class="text-xl md:text-2xl font-black uppercase tracking-tight mb-5">
-                <span class="ja-content">用意するもの</span>
-                <span class="en-content">What You Need</span>
+                <span class="ja-content">お願い</span>
+                <span class="en-content">Please Note</span>
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-black border-opacity-5">
-                    <p class="text-2xl mb-3">📖</p>
-                    <p class="font-bold text-sm mb-2"><span class="ja-content">Kindle Paperwhite</span><span class="en-content">Kindle Paperwhite</span></p>
-                    <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">中古でOK（1万円台）。画面に割れがなければ大丈夫です</span><span class="en-content">Used is fine (around &yen;10,000), as long as the screen is not cracked</span></p>
-                </div>
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-black border-opacity-5">
-                    <p class="text-2xl mb-3">🌐</p>
-                    <p class="font-bold text-sm mb-2"><span class="ja-content">Wi-Fi</span><span class="en-content">Wi-Fi</span></p>
-                    <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">30分ごとの自動更新に必要です</span><span class="en-content">Needed for the automatic refresh every 30 minutes</span></p>
-                </div>
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-black border-opacity-5">
-                    <p class="text-2xl mb-3">🛏️</p>
-                    <p class="font-bold text-sm mb-2"><span class="ja-content">ベッドサイドの置き場所</span><span class="en-content">A bedside spot</span></p>
-                    <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">ベッドから無理なく読める距離と角度に置きます</span><span class="en-content">Place it at a distance and angle easy to read from bed</span></p>
-                </div>
+            <div class="rounded-2xl p-8 border border-black border-opacity-10">
+                <ul class="space-y-3 text-sm font-light leading-relaxed opacity-80">
+                    <li><span class="ja-content">ボードは試作機です。画面や仕様は今後変わることがあります。</span><span class="en-content">Board is a working prototype. Screens and specifications may change.</span></li>
+                    <li><span class="ja-content">表示が古いと感じたら、画面右下の更新時刻をご確認ください。</span><span class="en-content">If the display seems outdated, check the refresh timestamp at the bottom right.</span></li>
+                    <li><span class="ja-content">本ページは研究開発の紹介であり、医療機器としての効能・効果を謳うものではありません。</span><span class="en-content">This page describes research and development; it makes no claims regarding medical device efficacy.</span></li>
+                </ul>
             </div>
         </section>
+
+        <!-- CTA -->
+        <section class="text-center pt-4">
+            <a href="/board/" class="inline-block bg-black text-[#f5f4f0] px-10 py-4 text-sm font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-black transition-colors mb-5">
+                <span class="ja-content">ボードについて</span>
+                <span class="en-content">About Board</span>
+            </a>
+            <p>
+                <a href="https://tnksnd.com/#caretech" class="text-sm font-bold underline underline-offset-4 decoration-2 hover:text-[#C5A059] transition-colors">
+                    <span class="ja-content">ケアテックに戻る</span>
+                    <span class="en-content">Back to Care Tech</span>
+                </a>
+            </p>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-black border-opacity-10">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+            <p class="text-xs font-light opacity-60">© 2026 TNKSND — Tetsuro Oishi, Ph.D.</p>
+        </div>
+    </footer>
+
+    <script>
+        const htmlTag = document.documentElement;
+        const langToggleBtn = document.getElementById('lang-toggle');
+        langToggleBtn.addEventListener('click', () => {
+            htmlTag.classList.toggle('show-en');
+            if (htmlTag.classList.contains('show-en')) {
+                htmlTag.setAttribute('lang', 'en');
+            } else {
+                htmlTag.setAttribute('lang', 'ja');
+            }
+        });
+    </script>
+
+</body>
+</html>
