@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ボードの使い方 | How to Use Board — TNKSND Care Tech</title>
+    <meta name="description" content="ベッドサイド電子ペーパー「ボード」の使い方ガイド。置くだけで、見当識時計・ケア予定表・家族メッセージが30分ごとに自動更新されます。A how-to guide for Board, a bedside e-paper display for care settings.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Noto+Sans+JP:wght@300;400;700;900&display=swap');
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #f5f4f0; color: #000000; }
+        .ja-content { display: block; }
+        .en-content { display: none; }
+        span.ja-content { display: inline; }
+        span.en-content { display: none; }
+        .show-en .ja-content { display: none; }
+        .show-en .en-content { display: block; }
+        .show-en span.ja-content { display: none; }
+        .show-en span.en-content { display: inline; }
+        .step-num { font-size: 2.5rem; font-weight: 900; line-height: 1; color: #C5A059; font-variant-numeric: tabular-nums; }
+    </style>
+</head>
+<body class="antialiased selection:bg-black selection:text-[#f5f4f0]">
+    <header class="bg-[#f5f4f0] border-b border-black">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <a href="https://tnksnd.com/" class="font-black text-2xl tracking-tighter uppercase">TNKSND</a>
+                <div class="flex items-center gap-3">
+                    <button id="lang-toggle" class="text-[10px] md:text-xs font-bold uppercase tracking-widest border border-black px-3 py-1.5 hover:bg-black hover:text-[#f5f4f0] transition-colors">
+                        <span class="ja-content">Switch to ENGLISH</span>
+                        <span class="en-content">日本語に切り替え</span>
+                    </button>
+                    <a href="/board/" class="bg-black text-[#f5f4f0] px-4 py-2 text-xs font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-black transition-colors">
+                        <span class="ja-content">ボードについて</span>
+                        <span class="en-content">About Board</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+        <div class="pt-12 md:pt-16 pb-10">
+            <span class="inline-block text-[10px] font-bold uppercase tracking-widest bg-[#C5A059] text-white px-3 py-1 rounded-full mb-5">
+                <span class="ja-content">試作機稼働中</span>
+                <span class="en-content">Working prototype</span>
+            </span>
+            <h1 class="text-3xl md:text-5xl font-black tracking-tight mb-6">
+                <span class="ja-content">ボードの使い方</span>
+                <span class="en-content">How to Use Board</span>
+            </h1>
+            <p class="text-base md:text-lg font-light leading-relaxed max-w-2xl opacity-80">
+                <span class="ja-content">ボードは置くだけで使えるベッドサイド電子ペーパーです。操作はいりません。ベッドから見える位置に置けば、見当識時計・ケア予定表・家族メッセージが30分ごとに自動で更新されます。</span>
+                <span class="en-content">Board is a bedside e-paper display you simply place and leave. No operation needed. Set it where it can be seen from the bed, and the orientation clock, care schedule, and family messages refresh automatically every 30 minutes.</span>
+            </p>
+        </div>
+        <section class="mb-14">
+            <h2 class="text-xl md:text-2xl font-black uppercase tracking-tight mb-5">
+                <span class="ja-content">コンセプト</span>
+                <span class="en-content">Concept</span>
+            </h2>
+            <div class="bg-white rounded-2xl p-8 shadow-sm border border-black border-opacity-5">
+                <p class="font-light text-base leading-relaxed opacity-80">
+                    <span class="ja-content">ボードは「見るだけ」で情報が届くことを目指しています。触る・押す・充電を気にする必要はありません。電子ペーパーは電力なしで表示を保持するので、情報はつねにそこにあります。</span>
+                    <span class="en-content">Board is designed so information arrives just by looking. No touching, no tapping, no worrying about charging. E-paper holds its image with zero power, so the information is always there.</span>
+                </p>
+            </div>
+        </section>        <section class="mb-14">
+            <h2 class="text-xl md:text-2xl font-black uppercase tracking-tight mb-5">
+                <span class="ja-content">使い方の手順</span>
+                <span class="en-content">Steps</span>
+            </h2>
+            <div class="space-y-4">
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-black border-opacity-5 flex gap-5">
+                    <div class="step-num shrink-0">1</div>
+                    <div>
+                        <p class="font-bold mb-2"><span class="ja-content">Kindleを用意する</span><span class="en-content">Prepare the Kindle</span></p>
+                        <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">中古のKindle Paperwhiteでかまいません。試作機のパイロット導入では、こちらでボード用に設定してお渡しします。</span><span class="en-content">A used Kindle Paperwhite works. For pilot installations of the prototype, we set it up for Board use before handing it over.</span></p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-black border-opacity-5 flex gap-5">
+                    <div class="step-num shrink-0">2</div>
+                    <div>
+                        <p class="font-bold mb-2"><span class="ja-content">Wi-Fiにつなぐ</span><span class="en-content">Connect to Wi-Fi</span></p>
+                        <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">設置する場所のWi-Fiに接続します。一度つなげば、あとは自動で最新の画面を取りに行きます。</span><span class="en-content">Connect to the Wi-Fi where it will be placed. Once connected, it fetches the latest screens automatically.</span></p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-black border-opacity-5 flex gap-5">
+                    <div class="step-num shrink-0">3</div>
+                    <div>
+                        <p class="font-bold mb-2"><span class="ja-content">ベッドサイドに置く</span><span class="en-content">Place it at the bedside</span></p>
+                        <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">ベッドから無理なく読める距離と角度に置きます。まぶしくないので、枕元に置いても大丈夫です。</span><span class="en-content">Set it at a distance and angle easy to read from bed. It is glare-free, so it can sit right by the pillow.</span></p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-black border-opacity-5 flex gap-5">
+                    <div class="step-num shrink-0">4</div>
+                    <div>
+                        <p class="font-bold mb-2"><span class="ja-content">あとは自動</span><span class="en-content">Then it runs itself</span></p>
+                        <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">30分ごとに最新の画面に更新されます。操作は不要です。充電は数週間に一度でかまいません。</span><span class="en-content">Screens refresh every 30 minutes on their own. No operation needed, and charging once every few weeks is enough.</span></p>
+                    </div>
+                </div>
+            </div>        <section class="mb-14">
+            <h2 class="text-xl md:text-2xl font-black uppercase tracking-tight mb-5">
+                <span class="ja-content">お願い</span>
+                <span class="en-content">Please Note</span>
+            </h2>
+            <div class="rounded-2xl p-8 border border-black border-opacity-10">
+                <ul class="space-y-3 text-sm font-light leading-relaxed opacity-80">
+                    <li><span class="ja-content">ボードは試作機です。画面や仕様は今後変わることがあります。</span><span class="en-content">Board is a working prototype. Screens and specifications may change.</span></li>
+                    <li><span class="ja-content">表示が古いと感じたら、画面右下の更新時刻をご確認ください。</span><span class="en-content">If the display seems outdated, check the refresh timestamp at the bottom right.</span></li>
+                    <li><span class="ja-content">本ページは研究開発の紹介であり、医療機器としての効能・効果を謳うものではありません。</span><span class="en-content">This page describes research and development; it makes no claims regarding medical device efficacy.</span></li>
+                </ul>
+            </div>
+        </section>
+        <section class="text-center pt-4">
+            <a href="/board/" class="inline-block bg-black text-[#f5f4f0] px-10 py-4 text-sm font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-black transition-colors mb-5">
+                <span class="ja-content">ボードについて</span>
+                <span class="en-content">About Board</span>
+            </a>
+            <p><a href="https://tnksnd.com/#caretech" class="text-sm font-bold underline underline-offset-4 decoration-2 hover:text-[#C5A059] transition-colors"><span class="ja-content">ケアテックに戻る</span><span class="en-content">Back to Care Tech</span></a></p>
+        </section>
+    </main>
+    <footer class="border-t border-black border-opacity-10">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+            <p class="text-xs font-light opacity-60">© 2026 TNKSND — Tetsuro Oishi, Ph.D.</p>
+        </div>
+    </footer>
+    <script>
+        const htmlTag = document.documentElement;
+        const langToggleBtn = document.getElementById('lang-toggle');
+        langToggleBtn.addEventListener('click', () => {
+            htmlTag.classList.toggle('show-en');
+            if (htmlTag.classList.contains('show-en')) { htmlTag.setAttribute('lang', 'en'); }
+            else { htmlTag.setAttribute('lang', 'ja'); }
+        });
+    </script>
+</body>
+</html>
+
+        </section>
+        <section class="mb-14">
+            <h2 class="text-xl md:text-2xl font-black uppercase tracking-tight mb-5">
+                <span class="ja-content">画面の見方</span>
+                <span class="en-content">Reading the Screens</span>
+            </h2>
+            <div class="space-y-4">
+                <div class="bg-[#f8f2e7] rounded-2xl p-6 md:p-8 border border-[#C5A059] border-opacity-40">
+                    <p class="font-bold mb-2"><span class="ja-content">見当識時計</span><span class="en-content">Orientation Clock</span></p>
+                    <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">「今日は9月15日火曜日・午前」を大きく表示します。今がいつなのかが、ひと目でわかります。</span><span class="en-content">Shows the date, weekday, and time of day in huge type &mdash; so "what day is it now" is clear at a glance.</span></p>
+                </div>
+                <div class="bg-[#f8f2e7] rounded-2xl p-6 md:p-8 border border-[#C5A059] border-opacity-40">
+                    <p class="font-bold mb-2"><span class="ja-content">ケア予定表</span><span class="en-content">Care Schedule</span></p>
+                    <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">服薬・痰吸引・体位変換など、今日の予定を時系列で表示します。黒く反転した「つぎ」が、次の予定です。済んだ項目はグレーになります。</span><span class="en-content">Today&rsquo;s medication, suction, and repositioning in a timeline. The inverted "next" row is the upcoming task; finished items turn gray.</span></p>
+                </div>
+                <div class="bg-[#f8f2e7] rounded-2xl p-6 md:p-8 border border-[#C5A059] border-opacity-40">
+                    <p class="font-bold mb-2"><span class="ja-content">家族メッセージ</span><span class="en-content">Family Messages</span></p>
+                    <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">家族からの一言が表示されます。「お父さん、今日もいい天気だよ」のような日常の言葉が、そのまま届きます。</span><span class="en-content">Short messages from family appear here &mdash; everyday words, delivered as they are.</span></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-14">
+            <h2 class="text-xl md:text-2xl font-black uppercase tracking-tight mb-5">
+                <span class="ja-content">用意するもの</span>
+                <span class="en-content">What You Need</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-black border-opacity-5">
+                    <p class="text-2xl mb-3">📖</p>
+                    <p class="font-bold text-sm mb-2"><span class="ja-content">Kindle Paperwhite</span><span class="en-content">Kindle Paperwhite</span></p>
+                    <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">中古でOK（1万円台）。画面に割れがなければ大丈夫です</span><span class="en-content">Used is fine (around &yen;10,000), as long as the screen is not cracked</span></p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-black border-opacity-5">
+                    <p class="text-2xl mb-3">🌐</p>
+                    <p class="font-bold text-sm mb-2"><span class="ja-content">Wi-Fi</span><span class="en-content">Wi-Fi</span></p>
+                    <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">30分ごとの自動更新に必要です</span><span class="en-content">Needed for the automatic refresh every 30 minutes</span></p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-black border-opacity-5">
+                    <p class="text-2xl mb-3">🛏️</p>
+                    <p class="font-bold text-sm mb-2"><span class="ja-content">ベッドサイドの置き場所</span><span class="en-content">A bedside spot</span></p>
+                    <p class="font-light text-sm leading-relaxed opacity-80"><span class="ja-content">ベッドから無理なく読める距離と角度に置きます</span><span class="en-content">Place it at a distance and angle easy to read from bed</span></p>
+                </div>
+            </div>
+        </section>
