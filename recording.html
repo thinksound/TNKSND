@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>レコーディング・スタジオ | TNKSND</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Noto+Sans+JP:wght@300;400;700;900&display=swap');
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #161616;
+            color: #f5f4f0;
+        }
+
+        /* Language Toggle Logic */
+        .ja-content { display: block; }
+        .en-content { display: none; }
+        span.ja-content { display: inline; }
+        span.en-content { display: none; }
+
+        .show-en .ja-content { display: none; }
+        .show-en .en-content { display: block; }
+        .show-en span.ja-content { display: none; }
+        .show-en span.en-content { display: inline; }
+
+        details summary::-webkit-details-marker { display: none; }
+        details summary { list-style: none; }
+        details[open] .chev { transform: rotate(45deg); }
+        .chev { transition: transform .2s ease; }
+    </style>
+</head>
+<body class="antialiased selection:bg-[#C5A059] selection:text-black">
+
+    <nav class="bg-[#161616] text-[#f5f4f0] border-b border-white border-opacity-10 fixed w-full z-50 top-0 pt-[env(safe-area-inset-top)]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="font-black text-3xl tracking-tighter uppercase">TNKSND</a>
+                </div>
+
+                <div class="hidden xl:flex space-x-5">
+                    <a href="index.html#vision" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">ヴィジョン</span>
+                        <span class="en-content">Vision</span>
+                    </a>
+                    <a href="index.html#about" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">私たちについて</span>
+                        <span class="en-content">About Us</span>
+                    </a>
+                    <a href="index.html#services" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">サービス</span>
+                        <span class="en-content">Services</span>
+                    </a>
+                    <a href="index.html#caretech" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">ケアテック</span>
+                        <span class="en-content">Care Tech</span>
+                    </a>
+                    <a href="index.html#recording" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">レコーディング</span>
+                        <span class="en-content">Recording</span>
+                    </a>
+                    <a href="index.html#outreach" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">アウトリーチ</span>
+                        <span class="en-content">Outreach</span>
+                    </a>
+                    <!-- 追加: The Lab -->
+                    <a href="acoustics-101.html" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap text-[#C5A059]">
+                        <span class="ja-content">ラボ</span>
+                        <span class="en-content">The Lab</span>
+                    </a>
+                    <a href="index.html#contact" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">お問い合わせ</span>
+                        <span class="en-content">Contact</span>
+                    </a>
+                </div>
+
+                <div class="flex items-center">
+                    <button id="lang-toggle" class="text-[10px] md:text-xs font-bold uppercase tracking-widest border border-white px-3 py-1.5 hover:bg-white hover:text-black transition-colors ml-4 mr-2 md:mr-0">
+                        <span class="ja-content">Switch to ENGLISH</span>
+                        <span class="en-content">Switch to JAPANESE</span>
+                    </button>
+
+                    <div class="xl:hidden flex items-center ml-2">
+                        <button id="mobile-menu-btn" class="text-[#f5f4f0] focus:outline-none p-2" aria-label="Toggle Menu">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden xl:hidden bg-[#161616] border-t border-white border-opacity-10 absolute w-full left-0 shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-1 text-center">
+                <a href="index.html#vision" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-white border-opacity-10">
+                    <span class="ja-content">ヴィジョン</span>
+                    <span class="en-content">Vision</span>
+                </a>
+                <a href="index.html#about" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-white border-opacity-10">
+                    <span class="ja-content">私たちについて</span>
+                    <span class="en-content">About Us</span>
+                </a>
+                <a href="index.html#services" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-white border-opacity-10">
+                    <span class="ja-content">サービス</span>
+                    <span class="en-content">Services</span>
+                </a>
+                <a href="index.html#caretech" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-white border-opacity-10">
+                    <span class="ja-content">ケアテック</span>
+                    <span class="en-content">Care Tech</span>
+                </a>
+                <a href="index.html#recording" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-white border-opacity-10">
+                    <span class="ja-content">レコーディング</span>
+                    <span class="en-content">Recording</span>
+                </a>
+                <a href="index.html#outreach" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-white border-opacity-10">
+                    <span class="ja-content">アウトリーチ</span>
+                    <span class="en-content">Outreach</span>
+                </a>
+                <!-- 追加: The Lab -->
+                <a href="acoustics-101.html" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-white border-opacity-10 text-[#C5A059]">
+                    <span class="ja-content">ラボ</span>
+                    <span class="en-content">The Lab</span>
+                </a>
+                <a href="index.html#contact" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4">
+                    <span class="ja-content">お問い合わせ</span>
+                    <span class="en-content">Contact</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <!-- HERO -->
+    <section class="bg-[#161616] text-[#f5f4f0] pt-40 pb-20 md:pb-28 border-b border-white border-opacity-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-xs font-bold uppercase tracking-[0.25em] text-[#C5A059] mb-6">
+                <span class="ja-content">TNKSND レコーディング支援</span>
+                <span class="en-content">TNKSND RECORDING SUPPORT</span>
+            </p>
+            <h1 class="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter leading-tight md:leading-none mb-8">
+                <span class="ja-content">レコーディング・スタジオ</span>
+                <span class="en-content">Recording Studio</span>
+            </h1>
+            <p class="text-base md:text-xl font-light leading-relaxed max-w-3xl opacity-80">
+                <span class="ja-content">音楽家を目指す学生のための、プロフェッショナル品質のボーカル・ピアノ録音。</span>
+                <span class="en-content">Professional-grade vocal and piano recording for aspiring musicians.</span>
+            </p>
+            <a href="index.html#recording" class="inline-block mt-10 text-sm font-bold uppercase tracking-widest underline underline-offset-4 decoration-2 hover:text-[#C5A059] transition-colors">
+                <span class="ja-content">&larr; レコーディングに戻る</span>
+                <span class="en-content">&larr; Back to Recording</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- CONTENT -->
+    <section class="bg-[#161616] text-[#f5f4f0] py-20 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="font-light text-base md:text-lg leading-relaxed max-w-3xl mb-12 opacity-90">
+                <span class="ja-content">オーディションや入試のための録音は、演奏そのものと同じくらい重要です。30年にわたる音響エンジニアリングの経験を活かし、あなたの音楽の魅力を最大限に引き出す録音を提供します。ご希望に応じて、録音を当サイト上で公開することも可能です。</span>
+                <span class="en-content">A recording made for auditions and entrance exams matters as much as the performance itself. Drawing on 30 years of audio engineering experience, we capture your music at its most beautiful &mdash; and can publish the recording on this site if you wish.</span>
+            </p>
+
+            <div class="mb-14 max-w-4xl">
+                <p class="text-xs font-bold uppercase tracking-[0.25em] text-[#C5A059] mb-6 text-center md:text-left">
+                    <span class="ja-content">スタジオの楽器</span>
+                    <span class="en-content">In the Studio</span>
+                </p>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+                    <figure class="rounded-2xl overflow-hidden border border-white border-opacity-10 group">
+                        <div class="overflow-hidden">
+                            <img src="images/studio-piano.jpg" alt="Yamaha C2X grand piano" class="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
+                        </div>
+                        <figcaption class="px-5 py-3 flex items-baseline justify-between border-t border-white border-opacity-10">
+                            <span class="text-sm font-bold uppercase tracking-widest">
+                                <span class="ja-content">グランドピアノ</span>
+                                <span class="en-content">Grand Piano</span>
+                            </span>
+                            <span class="text-xs uppercase tracking-widest text-[#C5A059]">Yamaha C2X</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="rounded-2xl overflow-hidden border border-white border-opacity-10 group">
+                        <div class="overflow-hidden">
+                            <img src="images/studio-guitar.jpg" alt="Yamaha A5R acoustic guitar" class="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
+                        </div>
+                        <figcaption class="px-5 py-3 flex items-baseline justify-between border-t border-white border-opacity-10">
+                            <span class="text-sm font-bold uppercase tracking-widest">
+                                <span class="ja-content">アコースティックギター</span>
+                                <span class="en-content">Acoustic Guitar</span>
+                            </span>
+                            <span class="text-xs uppercase tracking-widest text-[#C5A059]">Yamaha A5R</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="rounded-2xl overflow-hidden border border-white border-opacity-10 group col-span-2 md:col-span-1">
+                        <div class="overflow-hidden">
+                            <img src="images/studio-setup.jpg" alt="Recording session setup" class="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
+                        </div>
+                        <figcaption class="px-5 py-3 flex items-baseline justify-between border-t border-white border-opacity-10">
+                            <span class="text-sm font-bold uppercase tracking-widest">
+                                <span class="ja-content">レコーディングの様子</span>
+                                <span class="en-content">Recording Setup</span>
+                            </span>
+                            <span class="text-xs uppercase tracking-widest text-[#C5A059]">Studio</span>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="mt-8">
+                    <p class="text-xs font-bold uppercase tracking-[0.25em] text-[#C5A059] mb-4 text-center md:text-left">
+                        <span class="ja-content">スタジオ機材</span>
+                        <span class="en-content">Studio Equipment</span>
+                    </p>
+                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
+                        <li class="flex items-center gap-3 border-b border-white border-opacity-10 py-3">
+                            <span class="inline-block w-1.5 h-1.5 bg-[#C5A059] rotate-45 flex-shrink-0"></span>
+                            <span class="text-sm md:text-base font-medium"><span class="ja-content">AKG C414 XLS マイクロフォン</span><span class="en-content">AKG C414 XLS Microphone</span></span>
+                        </li>
+                        <li class="flex items-center gap-3 border-b border-white border-opacity-10 py-3">
+                            <span class="inline-block w-1.5 h-1.5 bg-[#C5A059] rotate-45 flex-shrink-0"></span>
+                            <span class="text-sm md:text-base font-medium"><span class="ja-content">Nikon D7500 デジタルカメラ</span><span class="en-content">Nikon D7500 Digital Camera</span></span>
+                        </li>
+                        <li class="flex items-center gap-3 border-b border-white border-opacity-10 py-3">
+                            <span class="inline-block w-1.5 h-1.5 bg-[#C5A059] rotate-45 flex-shrink-0"></span>
+                            <span class="text-sm md:text-base font-medium"><span class="ja-content">Sony RX10 IV デジタルカメラ</span><span class="en-content">Sony RX10 IV Digital Camera</span></span>
+                        </li>
+                        <li class="flex items-center gap-3 border-b border-white border-opacity-10 py-3">
+                            <span class="inline-block w-1.5 h-1.5 bg-[#C5A059] rotate-45 flex-shrink-0"></span>
+                            <span class="text-sm md:text-base font-medium opacity-70"><span class="ja-content">その他</span><span class="en-content">And more</span></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-14 max-w-5xl">
+                <div class="rounded-2xl p-8 md:p-10 bg-white bg-opacity-5 border border-white border-opacity-10 flex flex-col">
+                    <span class="inline-block w-max text-[10px] font-bold uppercase tracking-widest bg-[#C5A059] text-black px-3 py-1 rounded-full mb-5">
+                        <span class="ja-content">受付中</span>
+                        <span class="en-content">Now Booking</span>
+                    </span>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4">
+                        <span class="ja-content">ボーカル・レコーディング</span>
+                        <span class="en-content">Voice Recording</span>
+                    </h3>
+                    <p class="font-light leading-relaxed opacity-80 text-sm md:text-base flex-grow">
+                        <span class="ja-content">声楽やオーディション用の高品質なボーカル録音。録音データの公開サポートも行います。</span>
+                        <span class="en-content">High-quality vocal recording for auditions and applications, with optional publishing support.</span>
+                    </p>
+                </div>
+
+                <div class="rounded-2xl p-8 md:p-10 bg-white bg-opacity-5 border border-white border-opacity-10 flex flex-col">
+                    <span class="inline-block w-max text-[10px] font-bold uppercase tracking-widest border border-[#C5A059] text-[#C5A059] px-3 py-1 rounded-full mb-5">
+                        <span class="ja-content">準備中</span>
+                        <span class="en-content">Coming Soon</span>
+                    </span>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4">
+                        <span class="ja-content">ピアノ・レコーディング</span>
+                        <span class="en-content">Piano Recording</span>
+                    </h3>
+                    <p class="font-light leading-relaxed opacity-80 text-sm md:text-base flex-grow">
+                        <span class="ja-content">グランドピアノの豊かな響きを捉える本格的なピアノ録音を準備中です。</span>
+                        <span class="en-content">Full-scale grand piano recording, capturing the instrument&rsquo;s rich resonance &mdash; currently in preparation.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="mb-14 max-w-5xl">
+                <h3 class="text-xl md:text-2xl font-bold uppercase tracking-tight mb-4 text-center md:text-left">
+                    <span class="ja-content">合格実績</span>
+                    <span class="en-content">Admissions Track Record</span>
+                </h3>
+                <p class="font-light text-sm md:text-base opacity-80 mb-6 text-center md:text-left">
+                    <span class="ja-content">これまでにサポートした学生たちは、次のような音楽関連プログラムに合格しています。</span>
+                    <span class="en-content">Students we have supported have earned admission to music programs including:</span>
+                </p>
+                <div class="flex flex-wrap gap-3 justify-center md:justify-start">
+                    <span class="border border-[#C5A059] border-opacity-40 rounded-full px-4 py-2 text-xs md:text-sm font-bold uppercase tracking-widest"><span class="ja-content">ジュリアード音楽院</span><span class="en-content">Juilliard</span></span>
+                    <span class="border border-[#C5A059] border-opacity-40 rounded-full px-4 py-2 text-xs md:text-sm font-bold uppercase tracking-widest"><span class="ja-content">ニューイングランド音楽院</span><span class="en-content">New England Conservatory</span></span>
+                    <span class="border border-[#C5A059] border-opacity-40 rounded-full px-4 py-2 text-xs md:text-sm font-bold uppercase tracking-widest"><span class="ja-content">ノースウェスタン大学</span><span class="en-content">Northwestern</span></span>
+                    <span class="border border-[#C5A059] border-opacity-40 rounded-full px-4 py-2 text-xs md:text-sm font-bold uppercase tracking-widest"><span class="ja-content">コロンビア大学</span><span class="en-content">Columbia</span></span>
+                    <span class="border border-[#C5A059] border-opacity-40 rounded-full px-4 py-2 text-xs md:text-sm font-bold uppercase tracking-widest"><span class="ja-content">イェール大学</span><span class="en-content">Yale</span></span>
+                    <span class="border border-[#C5A059] border-opacity-40 rounded-full px-4 py-2 text-xs md:text-sm font-bold uppercase tracking-widest"><span class="ja-content">オーバリン大学</span><span class="en-content">Oberlin College</span></span>
+                    <span class="border border-[#C5A059] border-opacity-40 rounded-full px-4 py-2 text-xs md:text-sm font-bold uppercase tracking-widest"><span class="ja-content">フィリップス・アカデミー・アンドーバー</span><span class="en-content">Phillips Academy Andover</span></span>
+                    <span class="border border-[#C5A059] border-opacity-40 rounded-full px-4 py-2 text-xs md:text-sm font-bold uppercase tracking-widest"><span class="ja-content">レイクサイド・スクール</span><span class="en-content">Lakeside School</span></span>
+                    <span class="border border-[#C5A059] border-opacity-40 rounded-full px-4 py-2 text-xs md:text-sm font-bold uppercase tracking-widest"><span class="ja-content">サンフランシスコ音楽院</span><span class="en-content">San Francisco Conservatory</span></span>
+                    <span class="border border-[#C5A059] border-opacity-40 rounded-full px-4 py-2 text-xs md:text-sm font-bold uppercase tracking-widest">USC</span>
+                    <span class="border border-[#C5A059] border-opacity-40 rounded-full px-4 py-2 text-xs md:text-sm font-bold uppercase tracking-widest"><span class="ja-content">UTオースティン</span><span class="en-content">UT Austin</span></span>
+                </div>
+            </div>
+
+            <div class="text-center md:text-left">
+                <a href="index.html#contact" class="inline-block bg-[#C5A059] text-black px-8 py-4 font-bold uppercase tracking-widest hover:bg-[#f5f4f0] transition-colors w-full md:w-auto">
+                    <span class="ja-content">録音の相談をする</span>
+                    <span class="en-content">Book a Recording Session</span>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="bg-black pt-12 pb-[max(2.5rem,env(safe-area-inset-bottom))] px-4 text-center text-[#f5f4f0]">
+        <div class="mb-8">
+            <a href="https://tnksnd-quick-store.printful.me/" target="_blank" rel="noopener noreferrer" class="text-xs font-bold uppercase tracking-widest hover:underline text-gray-400 hover:text-white transition-colors">
+                <span class="ja-content">公式マーチャンダイズ（Tシャツ等）</span>
+                <span class="en-content">Official Merchandise</span>
+            </a>
+        </div>
+        <p class="text-xs font-bold uppercase tracking-widest opacity-60">
+            &copy; 2026 TNKSND.
+            <span class="ja-content">無断複写・転載を禁じます。</span>
+            <span class="en-content">All rights reserved.</span>
+        </p>
+    </footer>
+
+    <script>
+        // Mobile Menu Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const links = document.querySelectorAll('.mobile-link');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Language Toggle Logic
+        const langToggleBtn = document.getElementById('lang-toggle');
+        const htmlTag = document.documentElement;
+
+        langToggleBtn.addEventListener('click', () => {
+            htmlTag.classList.toggle('show-en');
+            if (htmlTag.classList.contains('show-en')) {
+                htmlTag.setAttribute('lang', 'en');
+            } else {
+                htmlTag.setAttribute('lang', 'ja');
+            }
+        });
+    </script>
+
+<!-- Cloudflare Web Analytics (self visits excluded via ?notrack=1) -->
+<script>
+(function(){
+  try {
+    if (/\bnotrack=1\b/.test(window.location.search)) localStorage.setItem('tnksnd-notrack','1');
+    if (localStorage.getItem('tnksnd-notrack') === '1') return;
+  } catch (e) {}
+  var s = document.createElement('script');
+  s.type = 'module';
+  s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+  s.setAttribute('data-cf-beacon', '{"token": "b22f33f4161a478484a6eca33fcb8688"}');
+  document.head.appendChild(s);
+})();
+</script>
+<!-- End Cloudflare Web Analytics -->
+</body>
+</html>

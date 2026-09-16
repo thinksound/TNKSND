@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>地域での活動 | TNKSND</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Noto+Sans+JP:wght@300;400;700;900&display=swap');
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #f5f4f0;
+            color: #000000;
+        }
+
+        /* Language Toggle Logic */
+        .ja-content { display: block; }
+        .en-content { display: none; }
+        span.ja-content { display: inline; }
+        span.en-content { display: none; }
+
+        .show-en .ja-content { display: none; }
+        .show-en .en-content { display: block; }
+        .show-en span.ja-content { display: none; }
+        .show-en span.en-content { display: inline; }
+
+        details summary::-webkit-details-marker { display: none; }
+        details summary { list-style: none; }
+        details[open] .chev { transform: rotate(45deg); }
+        .chev { transition: transform .2s ease; }
+    </style>
+</head>
+<body class="antialiased selection:bg-black selection:text-[#f5f4f0]">
+
+    <nav class="bg-[#f5f4f0] border-b border-black fixed w-full z-50 top-0 pt-[env(safe-area-inset-top)]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="font-black text-3xl tracking-tighter uppercase">TNKSND</a>
+                </div>
+
+                <div class="hidden xl:flex space-x-5">
+                    <a href="index.html#vision" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">ヴィジョン</span>
+                        <span class="en-content">Vision</span>
+                    </a>
+                    <a href="index.html#about" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">私たちについて</span>
+                        <span class="en-content">About Us</span>
+                    </a>
+                    <a href="index.html#services" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">サービス</span>
+                        <span class="en-content">Services</span>
+                    </a>
+                    <a href="index.html#caretech" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">ケアテック</span>
+                        <span class="en-content">Care Tech</span>
+                    </a>
+                    <a href="index.html#recording" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">レコーディング</span>
+                        <span class="en-content">Recording</span>
+                    </a>
+                    <a href="index.html#outreach" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">アウトリーチ</span>
+                        <span class="en-content">Outreach</span>
+                    </a>
+                    <!-- 追加: The Lab -->
+                    <a href="acoustics-101.html" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap text-[#C5A059]">
+                        <span class="ja-content">ラボ</span>
+                        <span class="en-content">The Lab</span>
+                    </a>
+                    <a href="index.html#contact" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">お問い合わせ</span>
+                        <span class="en-content">Contact</span>
+                    </a>
+                </div>
+
+                <div class="flex items-center">
+                    <button id="lang-toggle" class="text-[10px] md:text-xs font-bold uppercase tracking-widest border border-black px-3 py-1.5 hover:bg-black hover:text-[#f5f4f0] transition-colors ml-4 mr-2 md:mr-0">
+                        <span class="ja-content">Switch to ENGLISH</span>
+                        <span class="en-content">Switch to JAPANESE</span>
+                    </button>
+
+                    <div class="xl:hidden flex items-center ml-2">
+                        <button id="mobile-menu-btn" class="text-black focus:outline-none p-2" aria-label="Toggle Menu">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden xl:hidden bg-[#f5f4f0] border-t border-black absolute w-full left-0 shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-1 text-center">
+                <a href="index.html#vision" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10">
+                    <span class="ja-content">ヴィジョン</span>
+                    <span class="en-content">Vision</span>
+                </a>
+                <a href="index.html#about" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10">
+                    <span class="ja-content">私たちについて</span>
+                    <span class="en-content">About Us</span>
+                </a>
+                <a href="index.html#services" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10">
+                    <span class="ja-content">サービス</span>
+                    <span class="en-content">Services</span>
+                </a>
+                <a href="index.html#caretech" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10">
+                    <span class="ja-content">ケアテック</span>
+                    <span class="en-content">Care Tech</span>
+                </a>
+                <a href="index.html#recording" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10">
+                    <span class="ja-content">レコーディング</span>
+                    <span class="en-content">Recording</span>
+                </a>
+                <a href="index.html#outreach" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10">
+                    <span class="ja-content">アウトリーチ</span>
+                    <span class="en-content">Outreach</span>
+                </a>
+                <!-- 追加: The Lab -->
+                <a href="acoustics-101.html" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10 text-[#C5A059]">
+                    <span class="ja-content">ラボ</span>
+                    <span class="en-content">The Lab</span>
+                </a>
+                <a href="index.html#contact" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4">
+                    <span class="ja-content">お問い合わせ</span>
+                    <span class="en-content">Contact</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <!-- HERO -->
+    <section class="bg-[#f8f2e7] pt-40 pb-20 md:pb-28 border-b border-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-xs font-bold uppercase tracking-[0.25em] text-[#C5A059] mb-6">
+                <span class="ja-content">TNKSND アウトリーチ</span>
+                <span class="en-content">TNKSND OUTREACH</span>
+            </p>
+            <h1 class="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter leading-tight md:leading-none mb-8">
+                <span class="ja-content">地域での活動</span>
+                <span class="en-content">Community Outreach</span>
+            </h1>
+            <p class="text-base md:text-xl font-light leading-relaxed max-w-3xl opacity-80">
+                <span class="ja-content">音響の魅力を、地域の皆さんと分かち合う活動。</span>
+                <span class="en-content">Sharing the wonder of sound with our local community.</span>
+            </p>
+            <a href="index.html#outreach" class="inline-block mt-10 text-sm font-bold uppercase tracking-widest underline underline-offset-4 decoration-2 hover:text-[#C5A059] transition-colors">
+                <span class="ja-content">&larr; アウトリーチに戻る</span>
+                <span class="en-content">&larr; Back to Outreach</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- CONTENT -->
+    <section class="py-20 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="font-light text-base md:text-lg leading-relaxed max-w-3xl mb-12 opacity-90">
+                <span class="ja-content">2025年11月、ワシントン州ベルビューでクイズ形式の講演「Immersed in Sound: Dedication to Excellence in Acoustics &amp; Audio」を開催し、音響学とオーディオの面白さを地域の皆さんと共有しました。TNKSNDでは、こうした地域に根ざした活動も大切にしています。</span>
+                <span class="en-content">In November 2025, we held &ldquo;Immersed in Sound: Dedication to Excellence in Acoustics &amp; Audio,&rdquo; a quiz-style talk in Bellevue, Washington exploring the world of acoustics and audio with our neighbors. At TNKSND, grassroots community activities like this are close to our hearts.</span>
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 max-w-5xl">
+                <figure class="rounded-2xl overflow-hidden border border-black border-opacity-10">
+                    <img src="images/outreach-talk-1.jpg" alt="Audience at the community talk" class="w-full aspect-[4/3] object-cover" loading="lazy">
+                    <figcaption class="px-5 py-3 text-sm font-bold uppercase tracking-widest border-t border-black border-opacity-10">
+                        <span class="ja-content">会場の皆さんと</span>
+                        <span class="en-content">With the audience</span>
+                    </figcaption>
+                </figure>
+                <figure class="rounded-2xl overflow-hidden border border-black border-opacity-10">
+                    <img src="images/outreach-talk-2.jpg" alt="Community talk: Immersed in Sound" class="w-full aspect-[4/3] object-cover" loading="lazy">
+                    <figcaption class="px-5 py-3 text-sm font-bold uppercase tracking-widest border-t border-black border-opacity-10">
+                        <span class="ja-content">講演の様子</span>
+                        <span class="en-content">At the talk</span>
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="mt-10 md:mt-12 max-w-5xl">
+                <a href="index.html#contact" class="inline-block border-2 border-black bg-black text-[#f5f4f0] px-8 py-4 font-bold uppercase tracking-widest hover:bg-transparent hover:text-black transition-colors w-full md:w-auto text-center">
+                    <span class="ja-content">講演を依頼する</span>
+                    <span class="en-content">Request a Talk</span>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="bg-black pt-12 pb-[max(2.5rem,env(safe-area-inset-bottom))] px-4 text-center text-[#f5f4f0]">
+        <div class="mb-8">
+            <a href="https://tnksnd-quick-store.printful.me/" target="_blank" rel="noopener noreferrer" class="text-xs font-bold uppercase tracking-widest hover:underline text-gray-400 hover:text-white transition-colors">
+                <span class="ja-content">公式マーチャンダイズ（Tシャツ等）</span>
+                <span class="en-content">Official Merchandise</span>
+            </a>
+        </div>
+        <p class="text-xs font-bold uppercase tracking-widest opacity-60">
+            &copy; 2026 TNKSND.
+            <span class="ja-content">無断複写・転載を禁じます。</span>
+            <span class="en-content">All rights reserved.</span>
+        </p>
+    </footer>
+
+    <script>
+        // Mobile Menu Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const links = document.querySelectorAll('.mobile-link');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Language Toggle Logic
+        const langToggleBtn = document.getElementById('lang-toggle');
+        const htmlTag = document.documentElement;
+
+        langToggleBtn.addEventListener('click', () => {
+            htmlTag.classList.toggle('show-en');
+            if (htmlTag.classList.contains('show-en')) {
+                htmlTag.setAttribute('lang', 'en');
+            } else {
+                htmlTag.setAttribute('lang', 'ja');
+            }
+        });
+    </script>
+
+<!-- Cloudflare Web Analytics (self visits excluded via ?notrack=1) -->
+<script>
+(function(){
+  try {
+    if (/\bnotrack=1\b/.test(window.location.search)) localStorage.setItem('tnksnd-notrack','1');
+    if (localStorage.getItem('tnksnd-notrack') === '1') return;
+  } catch (e) {}
+  var s = document.createElement('script');
+  s.type = 'module';
+  s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+  s.setAttribute('data-cf-beacon', '{"token": "b22f33f4161a478484a6eca33fcb8688"}');
+  document.head.appendChild(s);
+})();
+</script>
+<!-- End Cloudflare Web Analytics -->
+</body>
+</html>
