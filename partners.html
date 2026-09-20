@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>パートナー・投資家の皆さまへ | TNKSND</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Noto+Sans+JP:wght@300;400;700;900&display=swap');
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #f5f4f0;
+            color: #000000;
+        }
+
+        /* Language Toggle Logic */
+        .ja-content { display: block; }
+        .en-content { display: none; }
+        span.ja-content { display: inline; }
+        span.en-content { display: none; }
+
+        .show-en .ja-content { display: none; }
+        .show-en .en-content { display: block; }
+        .show-en span.ja-content { display: none; }
+        .show-en span.en-content { display: inline; }
+
+        details summary::-webkit-details-marker { display: none; }
+        details summary { list-style: none; }
+        details[open] .chev { transform: rotate(45deg); }
+        .chev { transition: transform .2s ease; }
+    </style>
+</head>
+<body class="antialiased selection:bg-black selection:text-[#f5f4f0]">
+
+    <nav class="bg-[#f5f4f0] border-b border-black fixed w-full z-50 top-0 pt-[env(safe-area-inset-top)]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="font-black text-3xl tracking-tighter uppercase">TNKSND</a>
+                </div>
+
+                <div class="hidden xl:flex space-x-5">
+                    <a href="index.html#vision" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">ヴィジョン</span>
+                        <span class="en-content">Vision</span>
+                    </a>
+                    <a href="index.html#about" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">私たちについて</span>
+                        <span class="en-content">About Us</span>
+                    </a>
+                    <a href="index.html#services" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">サービス</span>
+                        <span class="en-content">Services</span>
+                    </a>
+                    <a href="index.html#caretech" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">ケアテック</span>
+                        <span class="en-content">Care Tech</span>
+                    </a>
+                    <a href="index.html#recording" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">レコーディング</span>
+                        <span class="en-content">Recording</span>
+                    </a>
+                    <a href="index.html#outreach" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">アウトリーチ</span>
+                        <span class="en-content">Outreach</span>
+                    </a>
+                    <!-- 追加: The Lab -->
+                    <a href="acoustics-101.html" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap text-[#C5A059]">
+                        <span class="ja-content">ラボ</span>
+                        <span class="en-content">The Lab</span>
+                    </a>
+                    <a href="index.html#contact" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">お問い合わせ</span>
+                        <span class="en-content">Contact</span>
+                    </a>
+                </div>
+
+                <div class="flex items-center">
+                    <button id="lang-toggle" class="text-[10px] md:text-xs font-bold uppercase tracking-widest rounded-full border border-black px-4 py-1.5 hover:bg-black hover:text-[#f5f4f0] transition-colors ml-4 mr-2 md:mr-0">
+                        <span class="ja-content">Switch to ENGLISH</span>
+                        <span class="en-content">Switch to JAPANESE</span>
+                    </button>
+
+                    <div class="xl:hidden flex items-center ml-2">
+                        <button id="mobile-menu-btn" class="text-black focus:outline-none p-2" aria-label="Toggle Menu">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden xl:hidden bg-[#f5f4f0] border-t border-black absolute w-full left-0 shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-1 text-center">
+                <a href="index.html#vision" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10">
+                    <span class="ja-content">ヴィジョン</span>
+                    <span class="en-content">Vision</span>
+                </a>
+                <a href="index.html#about" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10">
+                    <span class="ja-content">私たちについて</span>
+                    <span class="en-content">About Us</span>
+                </a>
+                <a href="index.html#services" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10">
+                    <span class="ja-content">サービス</span>
+                    <span class="en-content">Services</span>
+                </a>
+                <a href="index.html#caretech" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10">
+                    <span class="ja-content">ケアテック</span>
+                    <span class="en-content">Care Tech</span>
+                </a>
+                <a href="index.html#recording" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10">
+                    <span class="ja-content">レコーディング</span>
+                    <span class="en-content">Recording</span>
+                </a>
+                <a href="index.html#outreach" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10">
+                    <span class="ja-content">アウトリーチ</span>
+                    <span class="en-content">Outreach</span>
+                </a>
+                <!-- 追加: The Lab -->
+                <a href="acoustics-101.html" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10 text-[#C5A059]">
+                    <span class="ja-content">ラボ</span>
+                    <span class="en-content">The Lab</span>
+                </a>
+                <a href="index.html#contact" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4">
+                    <span class="ja-content">お問い合わせ</span>
+                    <span class="en-content">Contact</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="bg-[#f8f2e7] pt-40 pb-20 md:pb-28">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-xs font-bold uppercase tracking-[0.25em] text-[#C5A059] mb-6">
+                <span class="ja-content">TNKSND — パートナー・投資家の皆さまへ</span>
+                <span class="en-content">TNKSND — Partners &amp; Investors</span>
+            </p>
+            <h1 class="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter leading-tight md:leading-none mb-8">
+                <span class="ja-content">誰もが、<br>聞いてもらえるべきだ。</span>
+                <span class="en-content">Everyone deserves<br>to be heard.</span>
+            </h1>
+            <p class="text-base md:text-xl font-light leading-relaxed max-w-3xl opacity-80">
+                <span class="ja-content">技術を最も必要とする人々に、最も技術が届いていない。音から、それを変えます。</span>
+                <span class="en-content">The people who need technology most get the least of it. We&rsquo;re changing that, starting with sound.</span>
+            </p>
+            <a href="index.html#caretech" class="inline-block mt-10 text-sm font-bold uppercase tracking-widest underline underline-offset-4 decoration-2 hover:text-[#C5A059] transition-colors">
+                <span class="ja-content">&larr; ケアテックに戻る</span>
+                <span class="en-content">&larr; Back to Care Tech</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="py-20 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12 md:mb-16">
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tighter">
+                    <span class="ja-content">課題</span>
+                    <span class="en-content">The problem</span>
+                </h2>
+                <p class="mt-4 text-base md:text-lg max-w-3xl font-medium opacity-80">
+                    <span class="ja-content">介護は危機にあります。高齢化が進み、担い手は不足し、家族は困難な選択を迫られています。</span>
+                    <span class="en-content">Care is in crisis. Populations are aging, caregivers are scarce, and families face impossible choices.</span>
+                </p>
+            </div>
+
+            <p class="font-light text-base md:text-lg leading-relaxed max-w-3xl">
+                <span class="ja-content">一方で支援技術は、1台10万円近い業務用タブレットか、何もないかの二択。技術を最も必要とする人々に、最も技術が届いていません。</span>
+                <span class="en-content">Meanwhile assistive technology is either enterprise hardware costing nearly &yen;100,000 per tablet &mdash; or nothing at all. The people who need technology most get the least of it.</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- STATEMENT: SOUND -->
+    <section class="bg-black text-[#f5f4f0] py-20 md:py-28">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-2xl md:text-4xl font-black leading-snug md:leading-snug tracking-tight max-w-4xl">
+                <span class="ja-content">声は、私たちの主要なインターフェースです。人と人の間だけでなく、今やAIやロボットとの間でも。</span>
+                <span class="en-content">Voice is our primary interface &mdash; to each other, and now to AI and robots.</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- SOUND IS THE INTERFACE -->
+    <section class="py-20 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12 md:mb-16">
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tighter">
+                    <span class="ja-content">音こそインターフェース</span>
+                    <span class="en-content">Sound is the interface</span>
+                </h2>
+            </div>
+
+            <div class="max-w-3xl space-y-8 font-light text-base md:text-lg leading-relaxed">
+                <p>
+                    <span class="ja-content">あらゆるアシスタント、あらゆるケアロボットは声で動きます。声をクリアに捉える技術はすでに確立されています。周囲のノイズを抑えるマイクロホンアレイは、何十億台ものスマートフォンやヘッドホンに搭載されています。皮肉なことに、それはケアの現場には届いていません。最も声に依存し、しばしば最も騒がしい環境であるにもかかわらず。</span>
+                    <span class="en-content">Every assistant, every care robot, runs on voice. The technology to capture it cleanly already exists: microphone arrays that suppress ambient noise ship in billions of phones and headphones. Ironically, it never reached the care field &mdash; the most voice-dependent environment of all, and often the noisiest.</span>
+                </p>
+                <p>
+                    <span class="ja-content">そしてオーディオが運ぶのは言葉だけではありません。音は心を落ち着かせ、音楽は人を奮い立たせる。適切な瞬間の適切な音が、気持ちを上げ、不安を和らげ、尊厳を取り戻す。</span>
+                    <span class="en-content">And audio carries more than words. Sound soothes. Music motivates. The right sound at the right moment can lift a mood, calm anxiety, restore dignity.</span>
+                </p>
+                <p>
+                    <span class="ja-content">だから問いかけます。障害のある方々や介護者が、優れたオーディオ ― クリアな音声収音、美しい音 ― を手軽に、安価に享受できない理由があるでしょうか。彼らの生活を良くする機会は無数にあります。ここに、私たちの最も深い専門性と、最も大きな使命が出会います。</span>
+                    <span class="en-content">So we ask: why shouldn&rsquo;t people with disabilities and caregivers get great audio &mdash; clean voice capture, beautiful sound &mdash; delivered conveniently and affordably? The opportunities to make their lives better are everywhere. This is where our deepest expertise meets our biggest mission.</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- VISION -->
+    <section class="py-20 md:py-24 bg-[#f8f2e7]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12 md:mb-16">
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tighter">
+                    <span class="ja-content">ビジョン</span>
+                    <span class="en-content">The vision</span>
+                </h2>
+                <p class="mt-4 text-base md:text-lg max-w-3xl font-medium opacity-80">
+                    <span class="ja-content">ケアテック・エコシステム。文庫本より安いデバイスから始め、ケア技術がコンシューマーテクノロジーと同じ速度で進化する未来へ。</span>
+                    <span class="en-content">A care-tech ecosystem: starting with devices cheaper than a paperback, toward a future where care technology advances as fast as consumer technology.</span>
+                </p>
+            </div>
+
+            <p class="font-light text-base md:text-lg leading-relaxed max-w-3xl">
+                <span class="ja-content">圧倒的に安価で、ケアのために設計された専用デバイス群。最初のスケッチからケアのために設計し、大規模に製造し、患者・家族・介護者をつなぐ一つのプラットフォームへ。才能が集まれば、実現します。</span>
+                <span class="en-content">An open platform of radically affordable, purpose-built devices &mdash; designed for care from the first sketch, manufactured at scale, connected into one platform for patients, families, and caregivers. When the talent gathers, it becomes real.</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- WHY NOW / WHY US -->
+    <section class="py-20 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12 md:mb-16">
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tighter">
+                    <span class="ja-content">なぜ今、なぜ私たちか</span>
+                    <span class="en-content">Why now &mdash; and why us</span>
+                </h2>
+                <p class="mt-4 text-base md:text-lg max-w-3xl font-medium opacity-80">
+                    <span class="ja-content">これはスライドだけのビジョンではありません。研究はすでに始まっています。</span>
+                    <span class="en-content">This isn&rsquo;t a slide-deck vision. The research is already underway.</span>
+                </p>
+            </div>
+
+            <div class="max-w-3xl space-y-8 font-light text-base md:text-lg leading-relaxed">
+                <p>
+                    <span class="ja-content">カメラ式ヘッドトラッキングのコミュニケーションボード「リーチ」、KindleやFireタブレットをハックして動かすベッドサイドダッシュボード「ボード」。いずれも研究段階の試作ですが、圧倒的に安価なケアデバイスが実現可能であることを証明しています。</span>
+                    <span class="en-content"><strong class="font-bold">Reach</strong>, a camera-based head-tracking communication board; <strong class="font-bold">Board</strong>, bedside dashboards running on hacked Kindle and Fire tablets at a fraction of conventional cost. Working prototypes in the research stage &mdash; proving that radically affordable care devices are possible.</span>
+                </p>
+                <p>
+                    <span class="ja-content">背景には、Meta・Sonos・Boseでの30年以上のオーディオ/ハードウェア開発、31件の特許・出願、そして「リーチ・ボード・ルック・サーブ・アーム」という専用ツールのファミリーがあります。</span>
+                    <span class="en-content">Behind it: 30+ years shipping audio and hardware at Meta, Sonos, and Bose, 31 patents and applications, and a growing family of focused tools &mdash; Reach, Board, Look, Serve, and Arm.</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATEMENT: INVITATION -->
+    <section class="bg-black text-[#f5f4f0] py-20 md:py-28">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-2xl md:text-4xl font-black leading-snug md:leading-snug tracking-tight max-w-4xl">
+                <span class="ja-content">最も難しく、最も意味のある問題は、快適な人々をもう少し夢中にさせることではありません。声を失った人に声を取り戻すことです。</span>
+                <span class="en-content">The hardest, most meaningful problems are not in making comfortable people slightly more engaged. They&rsquo;re in giving a voice back to someone who has lost theirs.</span>
+            </p>
+            <p class="mt-8 text-base md:text-xl font-light leading-relaxed max-w-3xl opacity-80">
+                <span class="ja-content">技術をつくることを生業とするあなたへ。あなたの才能の一部を、ここに使ってみませんか。</span>
+                <span class="en-content">If you build technology for a living: spend some of your talent here.</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- CLOSING / ASK -->
+    <section class="py-20 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-[#f8f2e7] rounded-3xl p-8 md:p-14">
+                <h2 class="text-3xl md:text-5xl font-black tracking-tighter leading-tight mb-6">
+                    <span class="ja-content">求めていること</span>
+                    <span class="en-content">The ask</span>
+                </h2>
+                <p class="text-base md:text-lg font-light leading-relaxed max-w-3xl opacity-80">
+                    <span class="ja-content">このビジョンを共有するパートナーと投資家を探しています。資金、製造・流通、医療・介護の現場、そして仕事に意味を求めるエンジニア。ぜひお話ししましょう。</span>
+                    <span class="en-content">We&rsquo;re looking for partners and investors who share this vision &mdash; capital, manufacturing and distribution, clinical and care partners, and engineers who want their work to matter. If that&rsquo;s you, let&rsquo;s talk.</span>
+                </p>
+                <a href="index.html#contact" class="mt-10 inline-block rounded-full bg-black text-[#f5f4f0] px-8 py-4 font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-black transition-colors">
+                    <span class="ja-content">お問い合わせ</span>
+                    <span class="en-content">Contact</span>
+                </a>
+                <p class="mt-10 text-xs opacity-60 font-light">
+                    <span class="ja-content">※本ページは研究開発の紹介であり、医療機器としての効能・効果を謳うものではありません。また、投資の勧誘を行うものではありません。</span>
+                    <span class="en-content">Note: this page describes research and development efforts; it makes no claims regarding medical device efficacy, and it is not an offer or solicitation to invest.</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black pt-12 pb-[max(2.5rem,env(safe-area-inset-bottom))] px-4 text-center text-[#f5f4f0]">
+        <div class="mb-8">
+            <a href="https://tnksnd-quick-store.printful.me/" target="_blank" rel="noopener noreferrer" class="text-xs font-bold uppercase tracking-widest hover:underline text-gray-400 hover:text-white transition-colors">
+                <span class="ja-content">公式マーチャンダイズ（Tシャツ等）</span>
+                <span class="en-content">Official Merchandise</span>
+            </a>
+        </div>
+        <p class="text-xs font-bold uppercase tracking-widest opacity-60">
+            &copy; 2026 TNKSND.
+            <span class="ja-content">無断複写・転載を禁じます。</span>
+            <span class="en-content">All rights reserved.</span>
+        </p>
+    </footer>
+
+    <script>
+        // Mobile Menu Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const links = document.querySelectorAll('.mobile-link');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Language Toggle Logic
+        const langToggleBtn = document.getElementById('lang-toggle');
+        const htmlTag = document.documentElement;
+
+        langToggleBtn.addEventListener('click', () => {
+            htmlTag.classList.toggle('show-en');
+            if (htmlTag.classList.contains('show-en')) {
+                htmlTag.setAttribute('lang', 'en');
+            } else {
+                htmlTag.setAttribute('lang', 'ja');
+            }
+        });
+    </script>
+
+<!-- Cloudflare Web Analytics (self visits excluded via ?notrack=1) -->
+<script>
+(function(){
+  try {
+    if (/\bnotrack=1\b/.test(window.location.search)) localStorage.setItem('tnksnd-notrack','1');
+    if (localStorage.getItem('tnksnd-notrack') === '1') return;
+  } catch (e) {}
+  var s = document.createElement('script');
+  s.type = 'module';
+  s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+  s.setAttribute('data-cf-beacon', '{"token": "b22f33f4161a478484a6eca33fcb8688"}');
+  document.head.appendChild(s);
+})();
+</script>
+<!-- End Cloudflare Web Analytics -->
+</body>
+</html>
