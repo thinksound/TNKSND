@@ -495,7 +495,7 @@ waveRead();
   }
   window.setLang = setLang;
   var saved = 'en';
-  try{ saved = localStorage.getItem('docs-lang') || ((navigator.language||'').toLowerCase().indexOf('ja')===0?'ja':'en'); }catch(e){}
+  try{ saved = localStorage.getItem('docs-lang') || 'en'; }catch(e){}
   setLang(saved);
 
   var langToggleBtn = document.getElementById('lang-toggle');
