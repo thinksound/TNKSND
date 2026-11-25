@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>リーチ</title>
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<video id="video" playsinline muted></video>
+
+<div id="chrome">
+  <button id="btn-settings" type="button">設定</button>
+  <button id="btn-lang" type="button">EN</button>
+  <button id="btn-debug" type="button">Debug</button>
+</div>
+
+<section class="screen" id="screen-start">
+  <div class="centered">
+    <h1>リーチ</h1>
+    <p id="start-note"></p>
+    <p id="start-tips-title" class="tips-title"></p>
+    <ul id="start-tips" class="tips"></ul>
+    <button id="btn-start" class="big-button" type="button">はじめる</button>
+  </div>
+</section>
+
+<section class="screen" id="screen-board">
+  <div id="board" class="board"></div>
+  <div id="cal-banner" hidden></div>
+</section>
+
+<section class="screen" id="screen-confirm">
+  <div class="confirm-wrap">
+    <p id="confirm-text"></p>
+    <div class="board board-2">
+      <div class="zone confirm-yes" data-action="yes" data-speak="はい">
+        <span class="icon">✔</span><span class="label">はい</span>
+      </div>
+      <div class="zone confirm-no" data-action="no" data-speak="いいえ">
+        <span class="icon">✖</span><span class="label">いいえ</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="screen-message">
+  <div class="message-wrap">
+    <p id="message-text"></p>
+    <p id="notify-status"></p>
+    <div class="board board-1">
+      <div class="zone" data-action="stop" data-speak="とめる">
+        <span class="icon">⏹</span><span class="label">とめる</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="screen-settings">
+  <div class="settings-wrap">
+    <h2>設定</h2>
+    <div id="settings-fields"></div>
+    <div class="settings-actions">
+      <button id="btn-calibrate" type="button">キャリブレーション</button>
+      <button id="btn-clear-cal" type="button">キャリブレーションを消す</button>
+      <button id="btn-reset" type="button">初期設定にもどす</button>
+      <button id="btn-close-settings" type="button">閉じる</button>
+    </div>
+    <p class="hint">
+      カメラを使うには <code>http://localhost</code> で開く必要があります
+      （<code>file://</code> ではブラウザがカメラをブロックします)。
+      このフォルダで <code>python3 -m http.server</code> を実行してください。
+      <kbd>Esc</kbd> でいつでもボードにもどれます。
+    </p>
+  </div>
+</section>
+
+<div id="debug" hidden></div>
+
+<script src="js/i18n.js"></script>
+<script src="js/config.js"></script>
+<script src="js/actions.js"></script>
+<script src="js/calibrate.js"></script>
+<script src="js/selection.js"></script>
+<script src="js/input-pointer.js"></script>
+<script src="js/input-webcam.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

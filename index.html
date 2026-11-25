@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth show-en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>TNKSND Recording Studio | Tetsuro Oishi, Ph.D.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Noto+Sans+JP:wght@300;400;700;900&display=swap');
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #f5f4f0;
+            color: #000000;
+        }
+
+        .concentric-circles {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            pointer-events: none;
+        }
+
+        /* Language Toggle Logic */
+        .ja-content { display: block; }
+        .en-content { display: none; }
+        span.ja-content { display: inline; }
+        span.en-content { display: none; }
+
+        .show-en .ja-content { display: none; }
+        .show-en .en-content { display: block; }
+        .show-en span.ja-content { display: none; }
+        .show-en span.en-content { display: inline; }
+    </style>
+</head>
+<body class="antialiased selection:bg-black selection:text-[#f5f4f0]">
+
+    <nav class="bg-[#f5f4f0] border-b border-black fixed w-full z-50 top-0 pt-[env(safe-area-inset-top)]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="font-black text-3xl tracking-tighter uppercase">TNKSND</a>
+                </div>
+
+                <div class="hidden xl:flex space-x-5">
+                    <a href="recording.html" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">レコーディング・スタジオ</span>
+                        <span class="en-content">Recording Studio</span>
+                    </a>
+                    <a href="outreach.html" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">アウトリーチ</span>
+                        <span class="en-content">Outreach</span>
+                    </a>
+                    <a href="index.html#vision" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">ヴィジョン</span>
+                        <span class="en-content">Vision</span>
+                    </a>
+                    <a href="index.html#about" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">私たちについて</span>
+                        <span class="en-content">About Us</span>
+                    </a>
+                    <a href="acoustics-101.html" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap text-[#C5A059]">
+                        <span class="ja-content">ラボ</span>
+                        <span class="en-content">The Lab</span>
+                    </a>
+                    <a href="index.html#contact" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 whitespace-nowrap">
+                        <span class="ja-content">お問い合わせ</span>
+                        <span class="en-content">Contact</span>
+                    </a>
+                </div>
+
+                <div class="flex items-center">
+                    <button id="lang-toggle" class="text-[10px] md:text-xs font-bold uppercase tracking-widest rounded-full border border-black px-4 py-1.5 hover:bg-black hover:text-[#f5f4f0] transition-colors ml-4 mr-2 md:mr-0">
+                        <span class="ja-content">Switch to ENGLISH</span>
+                        <span class="en-content">Switch to JAPANESE</span>
+                    </button>
+
+                    <div class="xl:hidden flex items-center ml-2">
+                        <button id="mobile-menu-btn" class="text-black focus:outline-none p-2" aria-label="Toggle Menu">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden xl:hidden bg-[#f5f4f0] border-t border-black absolute w-full left-0 shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-1 text-center">
+                <a href="recording.html" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10">
+                    <span class="ja-content">レコーディング・スタジオ</span>
+                    <span class="en-content">Recording Studio</span>
+                </a>
+                <a href="outreach.html" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10">
+                    <span class="ja-content">アウトリーチ</span>
+                    <span class="en-content">Outreach</span>
+                </a>
+                <a href="index.html#vision" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10">
+                    <span class="ja-content">ヴィジョン</span>
+                    <span class="en-content">Vision</span>
+                </a>
+                <a href="index.html#about" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10">
+                    <span class="ja-content">私たちについて</span>
+                    <span class="en-content">About Us</span>
+                </a>
+                <a href="acoustics-101.html" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4 border-b border-black border-opacity-10 text-[#C5A059]">
+                    <span class="ja-content">ラボ</span>
+                    <span class="en-content">The Lab</span>
+                </a>
+                <a href="index.html#contact" class="mobile-link block text-lg font-bold uppercase tracking-widest py-4">
+                    <span class="ja-content">お問い合わせ</span>
+                    <span class="en-content">Contact</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-40 pb-32 overflow-hidden flex items-center min-h-[80dvh]">
+        <div class="absolute inset-0 z-0 flex items-center justify-center overflow-hidden">
+            <div class="concentric-circles w-[300px] h-[300px] md:w-[500px] md:h-[500px]"></div>
+            <div class="concentric-circles w-[500px] h-[500px] md:w-[800px] md:h-[800px]"></div>
+            <div class="concentric-circles w-[700px] h-[700px] md:w-[1100px] md:h-[1100px]"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <p class="text-xs font-bold uppercase tracking-[0.3em] text-[#C5A059] mb-5">
+                <span class="ja-content">TNKSND レコーディング・スタジオ</span>
+                <span class="en-content">TNKSND Recording Studio</span>
+            </p>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tighter leading-tight md:leading-none mb-6">
+                <span class="ja-content">準備してきた演奏を、<br />最高の音で残す。</span>
+                <span class="en-content">Record the performance<br />you’ve been preparing for.</span>
+            </h1>
+            <p class="text-sm md:text-base font-light tracking-wide opacity-70">Think Sound. Lead with Confidence.</p>
+            <p class="mt-8 text-base sm:text-lg md:text-xl max-w-2xl mx-auto font-medium px-2 md:px-4">
+                <span class="ja-content">シアトル地域の学生・先生・ご家族のための、ボーカル／ピアノのオーディション、リサイタル、コンクール録音スタジオです。ボーカル録音もピアノ録音も受付中です。30年の音響エンジニアリング経験をもとに、一人ひとりの演奏を丁寧に録ります。</span>
+                <span class="en-content">A Seattle-area recording studio for voice and piano auditions, recitals, and competitions — for students, teachers, and families. Both voice and piano recording are now booking. Every session is guided by 30 years of professional audio engineering.</span>
+            </p>
+            <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 px-2">
+                <a href="#contact" class="inline-block w-full sm:w-auto rounded-full bg-black text-[#f5f4f0] px-8 py-3.5 text-sm font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-black transition-colors">
+                    <span class="ja-content">録音の相談をする</span>
+                    <span class="en-content">Book a Recording Session</span>
+                </a>
+                <a href="recording.html" class="inline-block w-full sm:w-auto rounded-full border-2 border-black text-black px-8 py-3.5 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-[#f5f4f0] transition-colors">
+                    <span class="ja-content">スタジオを見る</span>
+                    <span class="en-content">Explore the Studio</span>
+                </a>
+                <a href="outreach.html" class="text-sm font-bold uppercase tracking-widest underline underline-offset-4 decoration-2 hover:text-[#C5A059] transition-colors">
+                    <span class="ja-content">先生・音楽団体の方へ</span>
+                    <span class="en-content">For Teachers &amp; Music Groups</span>
+                    <span aria-hidden="true">&rarr;</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- RECORDING STUDIO SECTION -->
+    <section id="recording" class="py-20 md:py-24 bg-[#161616] text-[#f5f4f0]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-10 md:mb-14 text-center md:text-left">
+                <p class="text-xs font-bold uppercase tracking-[0.25em] text-[#C5A059] mb-4">
+                    <span class="ja-content">メインサービス</span>
+                    <span class="en-content">Main Service</span>
+                </p>
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tighter">
+                    <span class="ja-content">レコーディング・スタジオ</span>
+                    <span class="en-content">Recording Studio</span>
+                </h2>
+                <p class="mt-4 text-base md:text-lg max-w-3xl font-medium opacity-80">
+                    <span class="ja-content">オーディション、リサイタル、コンクールのためのボーカル／ピアノ録音。ボーカルもピアノも受付中です。</span>
+                    <span class="en-content">Voice and piano recording for auditions, recitals, and competitions. Both voice and piano sessions are now booking.</span>
+                </p>
+            </div>
+
+            <div class="max-w-xl">
+                <div class="rounded-3xl p-8 md:p-10 bg-white bg-opacity-5 flex flex-col">
+                    <h3 class="text-xl md:text-2xl font-bold mb-4">
+                        <span class="ja-content">レコーディング・スタジオ</span>
+                        <span class="en-content">Recording Studio</span>
+                    </h3>
+                    <p class="font-light leading-relaxed opacity-80 text-sm md:text-base flex-grow mb-6">
+                        <span class="ja-content">録音からベストテイクの選定、最終仕上げまでを丁寧に伴走します。最終版はダウンロードリンク、またはご希望に応じて限定公開のYouTubeリンクでお渡しします。</span>
+                        <span class="en-content">From the session to best-take selection and final delivery, we work with you closely. Finals are shared by download link, or by unlisted YouTube link if you prefer.</span>
+                    </p>
+                    <p class="text-xs font-bold uppercase tracking-widest text-[#C5A059] mb-6 leading-relaxed">
+                        <span class="ja-content">サポートした学生の進学先：ジュリアード音楽院、ニューイングランド音楽院、ノースウェスタン大学、コロンビア大学、イェール大学 など</span>
+                        <span class="en-content">Students supported have advanced to Juilliard, New England Conservatory, Northwestern, Columbia, Yale, and more.</span>
+                    </p>
+                    <blockquote class="border-l-2 border-[#C5A059] pl-4 mb-6 font-light italic leading-relaxed opacity-90 text-sm md:text-base">
+                        <span class="ja-content">「とても丁寧で、録音のプロセスがスムーズで簡単でした。」 — S.A.（ボーカル受講生）</span>
+                        <span class="en-content">&ldquo;Tetsuro was polite and made the recording process quick and easy.&rdquo; — S.A., voice student</span>
+                    </blockquote>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="recording.html" class="inline-block w-max rounded-full bg-[#C5A059] text-black px-8 py-3 text-sm font-bold uppercase tracking-widest hover:bg-[#f5f4f0] transition-colors">
+                            <span class="ja-content">詳しく見る</span>
+                            <span class="en-content">Learn more</span>
+                        </a>
+                        <a href="#contact" class="inline-block w-max rounded-full border border-[#C5A059] text-[#C5A059] px-8 py-3 text-sm font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-black transition-colors">
+                            <span class="ja-content">録音の相談をする</span>
+                            <span class="en-content">Book a Recording Session</span>
+                        </a>
+                        <a href="outreach.html" class="inline-block w-max rounded-full border border-white border-opacity-30 text-[#f5f4f0] px-8 py-3 text-sm font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
+                            <span class="ja-content">先生の方へ</span>
+                            <span class="en-content">For Teachers</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+
+    <!-- OUTREACH SECTION -->
+    <section id="outreach" class="py-20 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-10 md:mb-14 text-center md:text-left">
+                <p class="text-xs font-bold uppercase tracking-[0.25em] text-[#C5A059] mb-4">
+                    <span class="ja-content">アウトリーチ</span>
+                    <span class="en-content">Outreach</span>
+                </p>
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tighter">
+                    <span class="ja-content">地域での活動</span>
+                    <span class="en-content">Community Outreach</span>
+                </h2>
+                <p class="mt-4 text-base md:text-lg max-w-3xl font-medium opacity-80">
+                    <span class="ja-content">講演、デモセッション、オーディション録音クリニックを通じて、スタジオと先生・生徒・地域の音楽コミュニティをつなぎます。</span>
+                    <span class="en-content">Talks, demo sessions, and audition-recording clinics connecting the studio with teachers, students, and local music communities.</span>
+                </p>
+            </div>
+
+            <div class="max-w-xl">
+                <div class="bg-[#f5f4f0] rounded-3xl p-8 md:p-10 flex flex-col">
+                    <h3 class="text-xl font-bold mb-3">
+                        <span class="ja-content">Immersed in Sound</span>
+                        <span class="en-content">Immersed in Sound</span>
+                    </h3>
+                    <p class="font-light text-sm leading-relaxed opacity-80 flex-grow mb-6">
+                        <span class="ja-content">2025年11月、ワシントン州ベルビューでクイズ形式の講演「Immersed in Sound: Dedication to Excellence in Acoustics &amp; Audio」を開催。</span>
+                        <span class="en-content">In November 2025, we held &ldquo;Immersed in Sound: Dedication to Excellence in Acoustics &amp; Audio,&rdquo; a quiz-style talk in Bellevue, Washington.</span>
+                    </p>
+                    <p class="font-light text-sm leading-relaxed opacity-80 flex-grow mb-6">
+                        <span class="ja-content">学校や音楽団体向けに、良いオーディション録音とは何かを伝える短いクリニックも行っています。</span>
+                        <span class="en-content">For schools and music societies, we also offer short clinics on what makes a strong audition recording.</span>
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="outreach.html" class="inline-block w-max rounded-full bg-black text-[#f5f4f0] px-8 py-3 text-sm font-bold uppercase tracking-widest hover:bg-[#f5f4f0] transition-colors">
+                            <span class="ja-content">詳しく見る</span>
+                            <span class="en-content">Learn more</span>
+                        </a>
+                        <a href="#contact" class="inline-block w-max rounded-full border-2 border-black text-black px-8 py-3 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-[#f5f4f0] transition-colors">
+                            <span class="ja-content">講演を依頼する</span>
+                            <span class="en-content">Request a Talk</span>
+                        </a>
+                        <a href="recording.html" class="inline-block w-max rounded-full bg-black text-[#f5f4f0] px-8 py-3 text-sm font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-black transition-colors">
+                            <span class="ja-content">スタジオを見る</span>
+                            <span class="en-content">Explore the Studio</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+
+    <!-- VISION SECTION (The Master Plan & Philanthropy) -->
+    <section id="vision" class="py-24 md:py-32 bg-black text-[#f5f4f0]">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
+            <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tighter mb-8 text-[#C5A059]">
+                <span class="ja-content">VISION: BEYOND THE STUDIO</span>
+                <span class="en-content">VISION: BEYOND THE STUDIO</span>
+            </h2>
+            <div class="w-12 h-1 bg-[#C5A059] mx-auto md:mx-0 mb-8"></div>
+            
+            <p class="font-light text-base md:text-lg leading-relaxed mb-6">
+                <span class="ja-content">TNKSNDの中心は、いまレコーディング・スタジオです。コンサルティングとケアテックは、その周りで育てていく長期ビジョンとして位置づけます。</span>
+                <span class="en-content">The recording studio is TNKSND&rsquo;s center today. Consulting and care tech continue around it as longer-term parts of the vision &mdash; important, but not louder than the main service.</span>
+            </p>
+            <p class="font-light text-base md:text-lg leading-relaxed mb-10">
+                <span class="ja-content">音の専門性を、若い音楽家の未来と人の尊厳のために活かすこと。それがTNKSNDの軸です。</span>
+                <span class="en-content">One belief connects them: deep sound expertise should serve young musicians and human dignity.</span>
+            </p>
+            <div class="space-y-8 mb-12">
+                <div class="relative pl-6 border-l-2 border-[#C5A059]">
+                    <h4 class="text-lg md:text-xl font-bold mb-2">
+                        <span class="ja-content">レコーディング・スタジオ</span>
+                        <span class="en-content">Recording Studio</span>
+                    </h4>
+                    <p class="font-light leading-relaxed opacity-90 text-sm md:text-base">
+                        <span class="ja-content">学生とプロフェッショナル音楽家のための録音が、TNKSNDの主サービスです。先生・ご家族との信頼関係を大切にしています。</span>
+                        <span class="en-content">Recording for students and professional musicians is TNKSND&rsquo;s main service, built on close relationships with teachers and families.</span>
+                    </p>
+                </div>
+                <span id="caretech" class="block relative -top-28"></span>
+                <div class="relative pl-6 border-l-2 border-[#C5A059]">
+                    <h4 class="text-lg md:text-xl font-bold mb-2">
+                        <span class="ja-content">ケアテック応用研究</span>
+                        <span class="en-content">Care Tech R&amp;D</span>
+                    </h4>
+                    <p class="font-light leading-relaxed opacity-90 text-sm md:text-base">
+                        <span class="ja-content">培ってきた音響・ロボティクス技術を、人間の尊厳を支えるケア・介護の現場へ応用する、長期的な取り組みです。</span>
+                        <span class="en-content">A longer-term effort applying acoustics and robotics to care settings &mdash; technology in service of human dignity.</span>
+                    </p>
+                </div>
+                <span id="services" class="block relative -top-28"></span>
+                <div class="relative pl-6 border-l-2 border-[#C5A059]">
+                    <h4 class="text-lg md:text-xl font-bold mb-2">
+                        <span class="ja-content">技術コンサルティング（選択的に対応）</span>
+                        <span class="en-content">Selective Technology Consulting</span>
+                    </h4>
+                    <p class="font-light leading-relaxed opacity-90 text-sm md:text-base">
+                        <span class="ja-content">音響・ハードウェア開発のご相談は、内容に応じて選択的にお受けします。スタジオのエンジニアリング基盤でもあります。</span>
+                        <span class="en-content">Acoustic and hardware consulting is available selectively. It is also the engineering foundation behind the studio.</span>
+                    </p>
+                </div>
+            </div>
+            <p class="font-light text-base md:text-lg leading-relaxed">
+                <span class="ja-content">長期的には、スタジオと関連活動を通じて、次世代の音楽家・留学生を支える小さな支援プログラムと、ケアの現場で役立つ音の技術を育てていきたいと考えています。</span>
+                <span class="en-content">Over time, TNKSND hopes to grow a small support program for young musicians and international students, and to keep developing sound technology that serves care settings.</span>
+            </p>
+
+        </div>
+    </section>
+
+
+
+    <!-- ABOUT US SECTION -->
+    <section id="about" class="py-20 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12 md:mb-16">
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tighter text-center md:text-left">
+                    <span class="ja-content">私たちについて</span>
+                    <span class="en-content">About Us</span>
+                </h2>
+            </div>
+
+            <!-- Bio -->
+            <div class="flex flex-col md:flex-row gap-10 md:gap-16 mb-20">
+                <div class="w-full md:w-1/3 text-center md:text-left">
+                    <h3 class="text-2xl md:text-3xl font-black uppercase tracking-tighter mb-4 md:mb-6">
+                        <span class="ja-content">大石 哲郎 (Ph.D.)</span>
+                        <span class="en-content">Tetsuro Oishi, Ph.D.</span>
+                    </h3>
+                    <p class="font-bold uppercase tracking-widest text-sm mb-4">
+                        <span class="ja-content">レコーディング・エンジニア／創設者</span>
+                        <span class="en-content">Recording Engineer &amp; Founder</span>
+                    </p>
+                    <div class="w-12 h-1 bg-black mx-auto md:mx-0"></div>
+                </div>
+                <div class="w-full md:w-2/3">
+                    <p class="font-light text-base md:text-lg mb-6 md:mb-8 leading-relaxed">
+                        <span class="ja-content">マサチューセッツ大学で電気工学（電気音響工学）の博士号を取得。Meta、Sonos、Bose、Skullcandy等で30年にわたりプロフェッショナル・オーディオの研究開発に携わり、その経験をTNKSNDレコーディング・スタジオの録音に注いでいます。</span>
+                        <span class="en-content">I hold a Ph.D. in Electrical Engineering (Electroacoustics) from the University of Massachusetts. After 30 years in professional audio R&amp;D at Meta, Sonos, Bose, Skullcandy, and beyond, I now bring that experience to every TNKSND recording session.</span>
+                    </p>
+
+                </div>
+            </div>
+
+            <!-- MY STORY -->
+            <div class="pt-16 border-t border-black border-opacity-20 mb-24">
+                <h3 class="text-2xl md:text-3xl font-black uppercase tracking-tighter mb-12 text-center md:text-left">
+                    <span class="ja-content">私のストーリー</span>
+                    <span class="en-content">My Story</span>
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12">
+                    <div class="relative pl-6 border-l-2 border-[#C5A059]">
+                        <h4 class="text-lg md:text-xl font-bold mb-4">
+                            <span class="ja-content">1) 言い訳しない。信頼を築く。</span>
+                            <span class="en-content">1. No Excuses. Build Trust.</span>
+                        </h4>
+                        <p class="font-light leading-relaxed opacity-90 text-sm md:text-base">
+                            <span class="ja-content">まだ30歳前半だった2007年、当時、米国本社と東京支社を行き来する中で、互いの意思が十分に伝わらない一方、東京支社のメンバーは本社との連絡係のような役割に留まり、本来の専門性を発揮する機会を失っている現場を目の当たりにしました。優秀な日本の人材の才能が活かされていない現実に、強いもどかしさを覚えました。以来、日本の強みをいかに米国企業に届けるかを常に考え続けてきました。文化の壁を口実にすることなく、誠実に信頼関係を築けるか。この「修行の時期」に学んだ教訓が、現在の私の戦略的視座の土台となっています。</span>
+                            <span class="en-content">In 2007, in my early thirties, I traveled between a U.S. headquarters and its Tokyo branch, and witnessed the two sides failing to fully communicate &mdash; while the Tokyo team stayed confined to a liaison-like role, never given the chance to exercise its true expertise. I felt a deep frustration that the talent of excellent Japanese professionals was going to waste. Ever since, I have kept asking how Japan&rsquo;s strengths can best reach American companies. Rather than using cultural barriers as an excuse, can we build relationships of trust with sincerity? The lessons learned during this formative &ldquo;training period&rdquo; form the foundation of my strategic perspective today.</span>
+                        </p>
+                    </div>
+                    <div class="relative pl-6 border-l-2 border-[#C5A059]">
+                        <h4 class="text-lg md:text-xl font-bold mb-4">
+                            <span class="ja-content">2) 失敗を責めない。挑戦を支える。</span>
+                            <span class="en-content">2. No Blame. Back the Challenge.</span>
+                        </h4>
+                        <p class="font-light leading-relaxed opacity-90 text-sm md:text-base">
+                            <span class="ja-content">スタートアップに入社した2011年、世界一のヘッドフォンブランドに成長するために必要なことを真剣に考えました。その時の答えは、新製品の開発を通じて、映画を見て涙を流すような「感動の連鎖」を生み出せるかどうかにあるということでした。<br><br>「大きな志を持ち、小さな失敗にこだわらない」をモットーに、ゼロから音響研究開発チームを立ち上げ、まだ経験の浅かった工場の技術者たちの育成にあたりました。人を育て、情熱を絶やさず、適切な目標を常に与えること。技術の背後にある人の感情を動かしてこそ、真のイノベーションが生まれると信じています。</span>
+                            <span class="en-content">In 2011, I joined a startup and thought hard about what it would take to grow it into the world&rsquo;s number-one headphone brand. The answer I arrived at: whether, through developing new products, we could spark a &ldquo;chain of inspiration&rdquo; &mdash; the kind that moves people to tears the way a great film does.<br><br>With &ldquo;Hold a grand vision; don&rsquo;t get hung up on small failures&rdquo; as my motto, I built an acoustic R&amp;D team from scratch and took on developing engineers at still-inexperienced factories. Develop people, keep their passion alive, and always give them the right goals. I believe true innovation is born only when we move the human emotions behind the technology.</span>
+                        </p>
+                    </div>
+                    <div class="relative pl-6 border-l-2 border-[#C5A059]">
+                        <h4 class="text-lg md:text-xl font-bold mb-4">
+                            <span class="ja-content">3) 自我を持ち込まない。技術に向き合う。</span>
+                            <span class="en-content">3. No Ego. Face the Technology.</span>
+                        </h4>
+                        <p class="font-light leading-relaxed opacity-90 text-sm md:text-base">
+                            <span class="ja-content">40代には、メタ社でスマートグラスという新しい製品カテゴリのパイオニアの一人となり、優秀なエンジニアたちを世界中から集めて、最先端の技術開発を進めてきました。本当に良い製品は一朝一夕には生まれません。5年、10年先を見据えた長期的視野で技術開発に取り組んでこそ生まれるのだと実感しました。そして、そうした現場には必ずと言っていいほど、「技術に対する誠実な想い」をもつリーダーが存在し、自我を捨てて部下に安定した環境を提供してくれました。新分野を開拓し、グローバル競争の最前線で学んだのは、こうしたリーダーが組織の成否を分けるということでした。上司から多くのことを学び、まだまだ未熟者であると痛感しました。</span>
+                            <span class="en-content">In my forties, I became one of the pioneers of an entirely new product category at Meta &mdash; smart glasses &mdash; gathering talented engineers from around the world to push the frontiers of technology. Truly great products are not born overnight; I came to realize they emerge only from R&amp;D pursued with a 5- to 10-year horizon. And behind such work, almost without exception, stands a leader with a sincere devotion to technology, who sets aside ego to give the team a stable environment. Pioneering a new field, what I learned at the front lines of global competition is that it is such leaders who separate organizations that thrive from those that don&rsquo;t. I learned a great deal from my managers, and keenly felt how much I still have to grow.</span>
+                        </p>
+                    </div>
+                    <div class="relative pl-6 border-l-2 border-[#C5A059]">
+                        <h4 class="text-lg md:text-xl font-bold mb-4">
+                            <span class="ja-content">4) 自由を奪わない。隣を歩く。</span>
+                            <span class="en-content">4. Freedom Intact. Walk Together.</span>
+                        </h4>
+                        <p class="font-light leading-relaxed opacity-90 text-sm md:text-base">
+                            <span class="ja-content">現在は、音響工学の深い知見を次世代に繋ぎつつ、ケアテック領域のビジョンを融合させたいと考えています。<br><br>かつて私自身が現場で「自由とスピードを奪われること」に最も苦しんだからこそ、クライアントのチームが自律的に、かつ情熱を持って動ける組織文化を共に作り上げるお手伝いをしたいと思っています。逆境においても恐れず、大胆に一歩を踏み出す。貴社の技術と人が持つ潜在能力を最大限に引き出し、世界に新たな「感動の連鎖」を生み出すパートナーでありたいと考えています。</span>
+                            <span class="en-content">Today, I want to pass on my deep knowledge of acoustic engineering to the next generation while weaving in my vision for the care-tech field.<br><br>Because I myself once suffered most from having &ldquo;freedom and speed taken away&rdquo; in the field, I want to help co-create, together with clients, an organizational culture where their teams can move with autonomy and passion. Fearless even in adversity, taking that bold first step. I want to be the partner who draws out the full potential of your technology and your people, and sparks a new &ldquo;chain of inspiration&rdquo; in the world.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PATENTS SECTION (list moved to patents.html) -->
+            <div class="pt-16 border-t-2 border-black">
+                <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between">
+                    <div>
+                        <h3 class="text-2xl md:text-3xl font-black uppercase tracking-tighter">
+                            <span class="ja-content">知的財産とイノベーション</span>
+                            <span class="en-content">Intellectual Property</span>
+                        </h3>
+                        <p class="mt-2 text-sm font-light opacity-80 max-w-2xl">
+                            <span class="ja-content">Meta、Sonos、Bose、Skullcandyなどの世界トッププラットフォームにおける研究開発の軌跡。音響設計、ビームフォーミング、ノイズ制御に関する31の特許および出願。</span>
+                            <span class="en-content">The trajectory of R&D across top global platforms including Meta, Sonos, Bose, and Skullcandy. 31 patents and filings spanning acoustic design, beamforming, and noise control.</span>
+                        </p>
+                    </div>
+                    <div class="text-3xl md:text-5xl font-black text-[#C5A059] mt-4 md:mt-0">
+                        31
+                    </div>
+                </div>
+
+                <!-- Full patent list lives on patents.html -->
+                <a href="patents.html" class="flex items-center justify-between gap-4 bg-[#f5f4f0] rounded-2xl px-6 py-5 hover:bg-black hover:text-[#f5f4f0] transition-colors">
+                    <span class="font-bold text-sm uppercase tracking-widest">
+                        <span class="ja-content">31件の特許・出願の一覧を見る</span>
+                        <span class="en-content">See all 31 patents and filings</span>
+                    </span>
+                    <span class="text-2xl leading-none" aria-hidden="true">&rarr;</span>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-24 md:py-32 bg-[#e0ded8]">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tighter mb-6 md:mb-8">
+                <span class="ja-content">対話を始めましょう</span>
+                <span class="en-content">Start the Conversation.</span>
+            </h2>
+            <p class="font-light text-lg md:text-xl mb-10 md:mb-12">
+                <span class="ja-content">レコーディングのご相談、先生・学校・音楽団体との連携、講演のご依頼をお待ちしています。ケアテックの共創や技術コンサルティングについても、内容に応じてご相談ください。</span>
+                <span class="en-content">For recording sessions, teacher and school partnerships, talks, care-tech collaboration, or selective technology consulting &mdash; reach out and let&rsquo;s talk.</span>
+            </p>
+
+            <a href="mailto:thinksound@gmail.com" class="inline-block rounded-full bg-black text-[#f5f4f0] px-8 md:px-12 py-4 md:py-5 font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-black transition-colors text-sm sm:text-base md:text-lg w-full sm:w-auto">
+                EMAIL US
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER WITH MERCHANDISE LINK -->
+    <footer class="bg-black pt-12 pb-[max(2.5rem,env(safe-area-inset-bottom))] px-4 text-center text-[#f5f4f0]">
+        <div class="mb-8">
+            <a href="https://tnksnd-quick-store.printful.me/" target="_blank" rel="noopener noreferrer" class="text-xs font-bold uppercase tracking-widest hover:underline text-gray-400 hover:text-white transition-colors">
+                <span class="ja-content">公式マーチャンダイズ（Tシャツ等）</span>
+                <span class="en-content">Official Merchandise</span>
+            </a>
+        </div>
+        <p class="text-xs font-bold uppercase tracking-widest opacity-60">
+            &copy; 2026 TNKSND.
+            <span class="ja-content">無断複写・転載を禁じます。</span>
+            <span class="en-content">All rights reserved.</span>
+        </p>
+    </footer>
+
+    <script>
+        // Mobile Menu Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const links = document.querySelectorAll('.mobile-link');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Language Toggle Logic
+        const langToggleBtn = document.getElementById('lang-toggle');
+        const htmlTag = document.documentElement;
+
+        langToggleBtn.addEventListener('click', () => {
+            htmlTag.classList.toggle('show-en');
+            if (htmlTag.classList.contains('show-en')) {
+                htmlTag.setAttribute('lang', 'en');
+            } else {
+                htmlTag.setAttribute('lang', 'ja');
+            }
+        });
+    </script>
+
+<!-- Cloudflare Web Analytics (self visits excluded via ?notrack=1) -->
+<script>
+(function(){
+  try {
+    if (/\bnotrack=1\b/.test(window.location.search)) localStorage.setItem('tnksnd-notrack','1');
+    if (localStorage.getItem('tnksnd-notrack') === '1') return;
+  } catch (e) {}
+  var s = document.createElement('script');
+  s.type = 'module';
+  s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+  s.setAttribute('data-cf-beacon', '{"token": "b22f33f4161a478484a6eca33fcb8688"}');
+  document.head.appendChild(s);
+})();
+</script>
+<!-- End Cloudflare Web Analytics -->
+</body>
+</html>

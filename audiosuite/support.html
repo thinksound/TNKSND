@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support — TNKSND Audio Suite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Noto+Sans+JP:wght@300;400;700;900&display=swap');
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #f5f4f0; color: #000000; }
+    </style>
+</head>
+<body>
+    <header class="max-w-3xl mx-auto px-6 pt-10 pb-4">
+        <a href="https://tnksnd.com/" class="text-sm font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4">TNKSND</a>
+    </header>
+    <main class="max-w-3xl mx-auto px-6 pb-20">
+        <h1 class="text-4xl font-black uppercase tracking-tighter mb-2">Support</h1>
+        <p class="text-lg font-light mb-8">TNKSND Audio Suite &middot; Version 1.0 &middot; iPhone, iOS 17 or later</p>
+
+        <p class="font-light leading-relaxed mb-6">Four measurement tools in one app, with one calibration: an Nth-octave real-time analyzer (1 to 1/12 octave), a high-resolution FFT analyzer, an SPL meter with logging, and a WAV file analyzer.</p>
+
+        <h2 class="text-xl font-bold uppercase tracking-wide mt-10 mb-3">Contact</h2>
+        <p class="font-light leading-relaxed mb-6">For help, bug reports, or feature requests, email <a href="mailto:support@tnksnd.com" class="font-bold hover:underline decoration-2 underline-offset-4">support@tnksnd.com</a>. Please include your iPhone model, iOS version, the app version (shown on the About screen under More), and what you were measuring.</p>
+
+        <h2 class="text-xl font-bold uppercase tracking-wide mt-10 mb-3">Calibration</h2>
+        <p class="font-light leading-relaxed mb-6">SPL is calculated as dB SPL = dBFS + calibration offset. The default offset is +113.81 dB. Calibrate with an acoustic calibrator before relying on absolute levels. With the built-in microphone, levels are approximate and are labelled as such. This app is a measurement aid, not a certified sound level meter.</p>
+
+        <h2 class="text-xl font-bold uppercase tracking-wide mt-10 mb-3">Common issues</h2>
+        <ul class="font-light leading-relaxed mb-6 list-disc ml-6 space-y-2">
+            <li><strong>No microphone input:</strong> the app asks for microphone permission the first time you open RTA, FFT, or SPL. If you declined, enable it in iOS Settings &gt; TNKSND Audio Suite &gt; Microphone.</li>
+            <li><strong>Values labelled uncalibrated:</strong> the app shows live values as uncalibrated until you run the calibrator flow (More &gt; Calibrator). This is expected.</li>
+            <li><strong>WAV analyzer cannot open a file:</strong> it reads only files you select through the file picker. Files from other apps must be shared or saved where the picker can reach them.</li>
+        </ul>
+
+        <h2 class="text-xl font-bold uppercase tracking-wide mt-10 mb-3">Privacy</h2>
+        <p class="font-light leading-relaxed mb-6">The app collects no data. Read the full policy: <a href="privacy.html" class="font-bold hover:underline decoration-2 underline-offset-4">Privacy Policy</a>.</p>
+
+        <p class="text-sm text-neutral-500 mt-12">&copy; 2026 Tetsuro Oishi / TNKSND.</p>
+    </main>
+</body>
+</html>
